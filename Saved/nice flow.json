@@ -1,0 +1,13 @@
+{
+  "moveSpeed": 1,
+  "xNoise2": 0,
+  "HeightLine2": 22,
+  "HeightLine1": 883.3333129882812,
+  "intersection": true,
+  "yNoise2": 3.3333334922790527,
+  "yNoise1": 1,
+  "NbLines": 100,
+  "Height": 0.5,
+  "xNoise1": 0.20666667819023132,
+  "XSteps": 500
+}
