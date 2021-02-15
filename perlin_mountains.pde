@@ -18,8 +18,6 @@ void setup()
   data = new DrawingData();
   dataGui = new DataGUI();
 
-  drawer.center =  new PVector(800, 400);
-
   setupControls();
 
   surface.setResizable(true);
@@ -42,10 +40,8 @@ void setupControls()
   cp5.getTab("Controls").bringToFront();
 }
 
-
 void draw()
 {
-
   background(0);
 
   if (record) 
@@ -63,8 +59,6 @@ void draw()
     stroke(0);
   } else
     stroke(255);
-
-  drawer.center =  new PVector(width/2, height/2);
 
     drawer.data = data;
     drawer.draw();

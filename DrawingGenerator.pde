@@ -47,7 +47,7 @@ class DrawingGenerator
 {
   DrawingData data;
 
-  PVector center = new PVector(400, 400);
+
   ArrayList<Line> lines;
 
   int lastUpdate  = 0;
