@@ -9,7 +9,8 @@ class DrawingData
 
   int XSteps = 300;
   float Height = 0.5;
-
+  
+  LayerData Noise1 = new LayerData();
 
   float xNoise1 = 0.2;
   float xNoise2 = 0;
@@ -46,11 +47,15 @@ class DrawingData
   
     intersection = json.getBoolean("intersection", intersection);
     moveSpeed = json.getFloat("yNoise", moveSpeed);
+    
+    Noise1.LoadJson(json.getJSONObject("Noise1"));
   }
 
   void SaveJson(String path)
   {
     JSONObject json = new JSONObject();
+   
+    json.setJSONObject("Noise1", Noise1.SaveJson());
 
     json.setInt("NbLines", NbLines);
     json.setFloat("Height", Height);

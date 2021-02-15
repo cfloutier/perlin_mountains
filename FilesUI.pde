@@ -59,10 +59,9 @@ void loadSelected(File selection)
   } else 
   {
     data.LoadJson(selection.getAbsolutePath());
-    dataGui.setGUIValues(data);
+    dataGui.setGUIValues();
   }
 }
-
 
 void SaveJson()
 {

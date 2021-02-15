@@ -19,6 +19,10 @@ void setup()
   dataGui = new DataGUI();
 
   setupControls();
+  
+  
+  data.LoadJson("./Saved/test.json");
+  dataGui.setGUIValues();
 
   surface.setResizable(true);
 
@@ -33,7 +37,7 @@ void setupControls()
   cp5.getTab("default").setLabel("Hide GUI");
 
   dataGui.setupControls( cp5 );     
-  dataGui.setGUIValues(new DrawingData());
+  dataGui.setGUIValues();
 
   addFileTab();
   
