@@ -13,8 +13,9 @@ class Line
 
     for (int i = 0; i < data.XSteps; i++)
     {
-      float h1 = data.HeightLine1 * (noise(        data.pos.x + x*data.xNoise1/100, data.pos.y + y*data.yNoise1/100)-0.5);
-      float h2 = data.HeightLine2 * (noise(5000  + data.pos.x + x*data.xNoise2/100, 5000 +  data.pos.y + y*data.yNoise2/100)-0.5);
+      float h1 = data.Noise1.HeightLine * (noise(data.pos.x + x*data.Noise1.xNoise /100, data.pos.y + y*data.Noise1.yNoise/100)-0.5);
+      float h2 = data.Noise2.HeightLine * (noise(5000  + data.pos.x + x*data.Noise2.xNoise/100, 5000 +  data.pos.y + y*data.Noise2.yNoise/100)-0.5);
+      
       points.add(new PVector(x, y + h1 + h2));
       x = x + deltaX;
     }
@@ -82,8 +83,6 @@ class DrawingGenerator
     }
   }
 
-
-
   void draw()
   {
     boolean needUpdate = false;
@@ -98,11 +97,11 @@ class DrawingGenerator
     if (data.move.x != 0 || data.move.y != 0)
     {
 
-      if (data.xNoise1 != 0)
-        data.pos.x += 0.001*data.move.x * delta * data.moveSpeed * data.xNoise1;
+      if (data.Noise1.xNoise != 0)
+        data.pos.x += 0.001*data.move.x * delta * data.moveSpeed * data.Noise1.xNoise;
 
-      if (data.yNoise1 != 0)
-        data.pos.y += 0.001*data.move.y * delta  * data.moveSpeed * data.yNoise1;
+      if (data.Noise1.yNoise!= 0)
+        data.pos.y += 0.001*data.move.y * delta  * data.moveSpeed * data.Noise1.yNoise;
 
       needUpdate = true;
     }
