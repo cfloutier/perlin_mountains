@@ -24,16 +24,11 @@ class DataGUI extends UI_Panel
     XSteps = addSlider("XSteps", data, 20, 2000, false);  
     Height = addSlider("Height", data, 0, 1, false);
 
-    yPos+=10;
-    
-    Noise1 = new LayerGui(data.Noise1);
+    Noise1 = new LayerGui(data.Noise1, "Layer 1");
     Noise1.setupControls(this);
     
-    Noise2 = new LayerGui(data.Noise2);
+    Noise2 = new LayerGui(data.Noise2, "Layer 2");
     Noise2.setupControls(this);
-
-    xPos = 0;
-    yPos+=10;
 
     moveSpeed = addSlider("moveSpeed", data, 0, 10, false);
 

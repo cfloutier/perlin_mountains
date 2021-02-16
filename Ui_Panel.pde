@@ -12,6 +12,9 @@ class UI_Panel implements ControlListener
   int heightCtrl = 20;
 
 
+  int indexLabel = 0;
+
+
   void Init(String pageName, ControlP5 cp5)
   {
     this.pageName = pageName;
@@ -56,13 +59,15 @@ class UI_Panel implements ControlListener
 
   Textlabel addLabel(String content)
   {
-    Textlabel l = cp5.addTextlabel("aa")
+    Textlabel l = cp5.addTextlabel("Label" + indexLabel)
       .setText(content)
       .setPosition(xPos, yPos)
       .setSize(100, heightCtrl)  
       .moveTo(pageName);
-      
-     yPos+=heightCtrl+2;
+
+    yPos += 15;
+
+    indexLabel++;
 
     return l;
   }

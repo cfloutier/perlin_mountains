@@ -1,8 +1,9 @@
 class LayerGui 
 {
-  LayerGui(LayerData layerdata)
+  LayerGui(LayerData layerdata, String name)
   {
     this.layerdata = layerdata;
+    this.name = name;
   }
 
   LayerData layerdata;
@@ -11,6 +12,8 @@ class LayerGui
   Slider yNoise;
   Slider HeightLine;
 
+  String name;
+  
   void setGUIValues()
   {
     xNoise.setValue(layerdata.xNoise);
@@ -20,7 +23,10 @@ class LayerGui
 
   void setupControls(UI_Panel panel)
   {
-    panel.addLabel("Noise Layer 1");
+    
+    panel.yPos += 5;
+    
+    panel.addLabel(name);
 
     xNoise = panel.addSlider("xNoise", layerdata, 0, 10, true);
     yNoise = panel.addSlider("yNoise", layerdata, 0, 30, true);
