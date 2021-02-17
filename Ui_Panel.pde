@@ -25,37 +25,9 @@ class UI_Panel implements ControlListener
     yPos = 20;
   }
 
-
   public void controlEvent(ControlEvent theEvent) {
     data.changed = true;
   }
-
-
-  Slider addSlider(String name, Object data_Class, float min, float max, boolean horizontal)
-  {
-    Slider s = cp5.addSlider(data_Class, name)   
-      .setPosition(xPos, yPos)
-      .setSize(widthCtrl, heightCtrl)
-      .setRange(min, max)
-      .moveTo(pageName);
-
-    if (horizontal)
-    {
-      xPos += xspace + widthCtrl;
-    } else
-    {
-      yPos+=heightCtrl+2;
-      xPos = 0;
-    }
-
-
-    controlP5.Label l = s.getCaptionLabel();
-    l.getStyle().marginTop = 0; //move upwards (relative to button size)
-    l.getStyle().marginLeft = -55; //move to the right
-
-    return s;
-  }
-
 
   Textlabel addLabel(String content)
   {
@@ -72,6 +44,30 @@ class UI_Panel implements ControlListener
     return l;
   }
 
+  Slider addSlider(String field, String label, Object data_Class, float min, float max, boolean horizontal)
+  {
+    Slider s = cp5.addSlider(data_Class, field)  
+      .setLabel(label)
+      .setPosition(xPos, yPos)
+      .setSize(widthCtrl, heightCtrl)
+      .setRange(min, max)
+      .moveTo(pageName);
+
+    if (horizontal)
+    {
+      xPos += xspace + widthCtrl;
+    } else
+    {
+      yPos+=heightCtrl+2;
+      xPos = 0;
+    }
+
+    controlP5.Label l = s.getCaptionLabel();
+    l.getStyle().marginTop = 0; //move upwards (relative to button size)
+    l.getStyle().marginLeft = -65; //move to the right
+
+    return s;
+  }
 
   Toggle addToggle(String name, Object data_Class)
   {
@@ -81,6 +77,12 @@ class UI_Panel implements ControlListener
       .setSize(100, heightCtrl)  
       .setMode(ControlP5.SWITCH)
       .moveTo(pageName);
+      
+    CColor controlerColor = t.getColor();
+    int tmp = controlerColor.getActive();
+    controlerColor.setActive( controlerColor.getBackground());
+    controlerColor.setBackground(tmp);
+   
 
     yPos+=heightCtrl+2;
 

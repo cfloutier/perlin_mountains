@@ -6,11 +6,12 @@
 class LayerData
 {
   float xNoise = 0.4;
+  float xNoise_Mul = 1;
   float yNoise = 0.4;
-
+  float yNoise_Mul = 1;
 
   float HeightLine = 5;
-
+  float Height_Mul = 1;
 
   void LoadJson(JSONObject src)
   {

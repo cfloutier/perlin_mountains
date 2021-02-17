@@ -20,9 +20,9 @@ class DataGUI extends UI_Panel
   { 
     super.Init("Controls", cp5);
 
-    NbLines = addSlider("NbLines", data, 1, 1000, true);
-    XSteps = addSlider("XSteps", data, 20, 2000, false);  
-    Height = addSlider("Height", data, 0, 1, false);
+    NbLines = addSlider("NbLines", "Nb of Lines", data, 1, 1000, true);
+    XSteps = addSlider("XSteps", "X Steps", data, 20, 2000, false);  
+    Height = addSlider("Height", "Drawing Height", data, 0, 1, false);
 
     Noise1 = new LayerGui(data.Noise1, "Layer 1");
     Noise1.setupControls(this);
@@ -30,7 +30,7 @@ class DataGUI extends UI_Panel
     Noise2 = new LayerGui(data.Noise2, "Layer 2");
     Noise2.setupControls(this);
 
-    moveSpeed = addSlider("moveSpeed", data, 0, 10, false);
+    moveSpeed = addSlider("moveSpeed", "Move Speed", data, 0, 10, false);
 
     intersection = addToggle( "intersection", data);
 
