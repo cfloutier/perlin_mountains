@@ -14,7 +14,6 @@ class UI_Panel implements ControlListener
 
   int indexLabel = 0;
 
-
   void Init(String pageName, ControlP5 cp5)
   {
     this.pageName = pageName;
@@ -24,9 +23,14 @@ class UI_Panel implements ControlListener
 
     yPos = 20;
   }
-
-  public void controlEvent(ControlEvent theEvent) {
+  
+  public void onUIChanged()
+  {
     data.changed = true;
+  }
+
+   public void controlEvent(ControlEvent theEvent) {
+    onUIChanged();
   }
 
   Textlabel addLabel(String content)
@@ -43,7 +47,20 @@ class UI_Panel implements ControlListener
 
     return l;
   }
+  
+  
+  Slider addIntSlider(String field, String label, Object data_Class, float min, float max, boolean horizontal)
+  {
+      Slider s = addSlider( field,  label,  data_Class,  min,  max,  horizontal);
+      int nbTicks = (int) (max - min + 1);
+      s.setNumberOfTickMarks(nbTicks);
+      s.showTickMarks(false);
+      s.snapToTickMarks(true);
+      
+      return s;
+  }
 
+  
   Slider addSlider(String field, String label, Object data_Class, float min, float max, boolean horizontal)
   {
     Slider s = cp5.addSlider(data_Class, field)  
@@ -69,10 +86,11 @@ class UI_Panel implements ControlListener
     return s;
   }
 
-  Toggle addToggle(String name, Object data_Class)
+  Toggle addToggle(String name, String label, Object data_Class)
   {
 
     Toggle t = cp5.addToggle(data_Class, name)
+       .setLabel(label)
       .setPosition(xPos, yPos)
       .setSize(100, heightCtrl)  
       .setMode(ControlP5.SWITCH)

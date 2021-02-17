@@ -31,12 +31,13 @@ void addFileTab()
 
   xPos += widthButton;
 
-  cp5.addButton("ExportDXF")
+/*  cp5.addButton("ExportDXF")
     .setPosition(xPos, yPos)
     .setSize(widthButton, heightButton)
     .moveTo("Files");      
 
   xPos += widthButton;
+*/
 
   cp5.addButton("ExportSVG")
     .setPosition(xPos, yPos)

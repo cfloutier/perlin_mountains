@@ -9,12 +9,13 @@ class DrawingData
 
   int XSteps = 300;
   float Height = 0.5;
+  
+  int seed; 
+  boolean intersection = true;
 
   LayerData Noise1 = new LayerData();
   LayerData Noise2 = new LayerData();
 
-
-  boolean intersection = true;
 
   float moveSpeed = 1;
   PVector move = new PVector(0, 0);
@@ -22,13 +23,16 @@ class DrawingData
   void LoadJson(String path)
   {
     JSONObject json = loadJSONObject(path);
+    
     NbLines = json.getInt("NbLines", NbLines);
     Height = json.getFloat("Height", Height);
     XSteps = json.getInt("XSteps", XSteps);
-
+    
+    seed = json.getInt("seed", seed);
+    
 
     intersection = json.getBoolean("intersection", intersection);
-    moveSpeed = json.getFloat("yNoise", moveSpeed);
+    moveSpeed = json.getFloat("moveSpeed", moveSpeed);
 
     Noise1.LoadJson(json.getJSONObject("Noise1"));
     Noise2.LoadJson(json.getJSONObject("Noise2"));
@@ -44,6 +48,8 @@ class DrawingData
     json.setInt("NbLines", NbLines);
     json.setFloat("Height", Height);
     json.setInt("XSteps", XSteps);
+    
+    json.setInt("seed", seed);
 
     json.setBoolean("intersection", intersection);
 

@@ -19,7 +19,7 @@ void setup()
   dataGui = new DataGUI();
 
   setupControls();
-  
+
   data.LoadJson("./Saved/nice flow.json");
   dataGui.setGUIValues();
 
@@ -39,13 +39,18 @@ void setupControls()
   dataGui.setGUIValues();
 
   addFileTab();
-  
+
   cp5.getTab("Controls").bringToFront();
 }
 
 void draw()
 {
   background(0);
+
+  if (data.changed)
+  {
+    dataGui.updateUI();
+  }
 
   if (record) 
   {
@@ -63,9 +68,9 @@ void draw()
   } else
     stroke(255);
 
-    drawer.data = data;
-    drawer.draw();
-  
+  drawer.data = data;
+  drawer.draw();
+
   if (record) 
   {
     endRecord();

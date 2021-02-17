@@ -3,22 +3,19 @@
 class Line
 {
   ArrayList<PVector> points = new ArrayList<PVector>();
+  
+  float y_line = 0;
 
   void build(DrawingData data, float y)
   {
-    points = new ArrayList<PVector>();
-
-    float deltaX = ((float)width) /  (data.XSteps-1);
-    float x =  0;
-
-    for (int i = 0; i < data.XSteps; i++)
-    {
-      float h1 = data.Noise1.HeightLine * (noise(data.pos.x + x*data.Noise1.xNoise /100, data.pos.y + y*data.Noise1.yNoise/100)-0.5);
-      float h2 = data.Noise2.HeightLine * (noise(5000  + data.pos.x + x*data.Noise2.xNoise/100, 5000 +  data.pos.y + y*data.Noise2.yNoise/100)-0.5);
-      
-      points.add(new PVector(x, y + h1 + h2));
-      x = x + deltaX;
-    }
+    points = null;
+    
+    y_line = y;
+    
+    points = data.Noise1.compute_Line(points, y);
+  
+    //print(", " + y);
+    points = data.Noise2.compute_Line(points, y);
   }
 
   void draw()
@@ -29,7 +26,7 @@ class Line
     {
       PVector pA = points.get(i);
 
-      vertex(pA.x, pA.y);
+      vertex(pA.x, pA.y + y_line);
     }
     endShape();
   }
@@ -38,8 +35,11 @@ class Line
   {
     for (int i = 0; i < data.XSteps; i++)
     {
-      if (points.get(i).y > prevLine.points.get(i).y)
-        points.get(i).y = prevLine.points.get(i).y;
+      float y = points.get(i).y + y_line;
+      float prev_y =  prevLine.points.get(i).y + prevLine.y_line;
+      
+      if (y > prev_y)
+        points.get(i).y = prev_y - y_line;
     }
   }
 }
@@ -47,8 +47,7 @@ class Line
 class DrawingGenerator
 {
   DrawingData data;
-
-
+  
   ArrayList<Line> lines;
 
   int lastUpdate  = 0;
@@ -86,6 +85,7 @@ class DrawingGenerator
   void draw()
   {
     boolean needUpdate = false;
+    noiseSeed(data.seed);
     if (data.changed)
     {
       needUpdate = true;
