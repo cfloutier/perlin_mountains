@@ -9,22 +9,22 @@
     "yNoise": 1.5,
     "yNoise_Mul": 0
   },
-  "pos_y": -127.90008544921875,
+  "pos_y": -130.5769500732422,
   "moveSpeed": 5.233333587646484,
-  "pos_x": 120.8841552734375,
-  "seed": 613333376,
+  "pos_x": 127.71992492675781,
+  "seed": 526666688,
   "intersection": true,
-  "NbLines": 74,
+  "NbLines": 94,
   "Height": 1,
   "XSteps": 660,
   "Noise2": {
     "add": false,
-    "Height_Noise": 0,
-    "Added_Height": -6.66668701171875,
-    "xNoise": 0.9333333373069763,
-    "xNoise_Mul": 0,
+    "Height_Noise": 400,
+    "Added_Height": 26.6666259765625,
+    "xNoise": 2.366666793823242,
+    "xNoise_Mul": -1,
     "Height_Mul": -1,
-    "yNoise": 8,
+    "yNoise": 1.8000000715255737,
     "yNoise_Mul": 0
   }
 }

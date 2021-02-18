@@ -1,23 +1,30 @@
 {
   "Noise1": {
-    "xNoise": 0.9333333373069763,
+    "add": true,
+    "Height_Noise": 133.33334350585938,
+    "Added_Height": -60,
+    "xNoise": 0.699999988079071,
     "xNoise_Mul": 0,
     "Height_Mul": 0,
-    "yNoise": 4.299999713897705,
-    "Height": 266.66668701171875,
+    "yNoise": 3.9000003337860107,
     "yNoise_Mul": 0
   },
-  "moveSpeed": 3.566666841506958,
+  "pos_y": -5.653572082519531,
+  "moveSpeed": 5.233333587646484,
+  "pos_x": 63.14500427246094,
+  "seed": 613333376,
   "intersection": true,
-  "NbLines": 100,
-  "Height": 0.40666666626930237,
-  "XSteps": 1254,
+  "NbLines": 34,
+  "Height": 0.4833333492279053,
+  "XSteps": 660,
   "Noise2": {
-    "xNoise": 2.366666793823242,
-    "xNoise_Mul": 1,
-    "Height_Mul": -2,
-    "yNoise": 20,
-    "Height": 1066.666748046875,
+    "add": true,
+    "Height_Noise": 93.33333587646484,
+    "Added_Height": -26.6666259765625,
+    "xNoise": 2.4000000953674316,
+    "xNoise_Mul": 0,
+    "Height_Mul": 0,
+    "yNoise": 8,
     "yNoise_Mul": 0
   }
 }

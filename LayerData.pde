@@ -74,6 +74,8 @@ class LayerData
     xNoise_Mul = src.getInt("xNoise_Mul", xNoise_Mul);
     yNoise_Mul = src.getInt("yNoise_Mul", yNoise_Mul);
     Height_Mul = src.getInt("Height_Mul", Height_Mul);
+    
+    add = src.getBoolean("add", add);
   }
 
 
@@ -89,6 +91,8 @@ class LayerData
     dest.setInt("xNoise_Mul", xNoise_Mul);
     dest.setInt("yNoise_Mul", yNoise_Mul);
     dest.setInt("Height_Mul", Height_Mul);
+    
+    dest.setBoolean("add", add);
 
     return dest;
   }

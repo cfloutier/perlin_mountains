@@ -1,6 +1,8 @@
  //<>//
 class DrawingData
 {
+  String name = "";
+  
   boolean changed = true;
 
   PVector pos = new PVector(0, 0);
@@ -28,6 +30,11 @@ class DrawingData
     Height = json.getFloat("Height", Height);
     XSteps = json.getInt("XSteps", XSteps);
     
+    pos = new PVector(
+      json.getFloat("pos_x", pos.x),
+      json.getFloat("pos_y", pos.y)
+    );
+    
     seed = json.getInt("seed", seed);
     
 
@@ -48,6 +55,10 @@ class DrawingData
     json.setInt("NbLines", NbLines);
     json.setFloat("Height", Height);
     json.setInt("XSteps", XSteps);
+    
+    
+    json.setFloat("pos_x", pos.x);
+    json.setFloat("pos_y", pos.y);
     
     json.setInt("seed", seed);
 

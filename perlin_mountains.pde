@@ -21,6 +21,7 @@ void setup()
   setupControls();
 
   data.LoadJson("./Saved/nice flow.json");
+  
   dataGui.setGUIValues();
 
   surface.setResizable(true);
@@ -55,8 +56,12 @@ void draw()
   if (record) 
   {
     // Note that #### will be replaced with the frame number. Fancy!
-
-    fileName = "Export/Mountain_" + year() + "-" + month() + "-" + day() + "_" + hour() + "-" + minute() + "-" + second(); 
+    
+    String name = data.name;
+    if (name == "")
+      name = "Perlin_Mountain";
+    
+    fileName = "Export/"+ name + "_" + year() + "-" + month() + "-" + day() + "_" + hour() + "-" + minute() + "-" + second(); 
     if (mode == 0)
       beginRecord(PDF, fileName + ".pdf"); 
     else if (mode == 1)

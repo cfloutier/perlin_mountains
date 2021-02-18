@@ -60,6 +60,9 @@ void loadSelected(File selection)
   } else 
   {
     data.LoadJson(selection.getAbsolutePath());
+    data.name = selection.getName();
+    data.name = data.name.substring(0, data.name.length() - 5);
+    print (data.name);
     dataGui.setGUIValues();
   }
 }
@@ -68,7 +71,6 @@ void SaveJson()
 {
   selectInput("Save data file ", "saveSelected");
 }
-
 
 void saveSelected(File selection) 
 {
@@ -81,6 +83,10 @@ void saveSelected(File selection)
       path = path + ".json";
 
     data.SaveJson(path);
+    
+    data.name = selection.getName();
+    data.name = data.name.substring(0, data.name.length() - 5);
+    print (data.name);
   }
 }
 
