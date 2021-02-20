@@ -1,9 +1,9 @@
 {
   "Noise1": {
     "add": true,
-    "Height_Noise": 280,
+    "Height_Noise": 400,
     "Added_Height": -20,
-    "xNoise": 0.36666667461395264,
+    "xNoise": 0.5333333611488342,
     "xNoise_Mul": -3,
     "Height_Mul": 0,
     "yNoise": 0.5999999642372131,
@@ -15,14 +15,14 @@
     "lineWidth": 0.550000011920929
   },
   "Main": {
-    "pos_y": 0,
-    "moveSpeed": 5.800000190734863,
-    "pos_x": 6.269411087036133,
-    "seed": 753333312,
+    "pos_y": -95.42567443847656,
+    "moveSpeed": 3.433333396911621,
+    "pos_x": -61.982295989990234,
+    "seed": 558967,
     "intersection": true,
-    "NbLines": 250,
+    "NbLines": 1,
     "Height": 0.25,
-    "XSteps": 241
+    "XSteps": 628
   },
   "Noise2": {
     "add": true,

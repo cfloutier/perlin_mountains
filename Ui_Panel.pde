@@ -1,7 +1,16 @@
+
+int indexLabel = 0;
+
+
+static final int StartX = 20;
+static final int StartY = 20;
+
+
 class UI_Panel implements ControlListener
 {
   String pageName;  
   ControlP5 cp5;
+
 
   float xPos = 0;
   float yPos = 0;
@@ -11,9 +20,6 @@ class UI_Panel implements ControlListener
   int widthCtrl = 300;
   int heightCtrl = 20;
 
-
-  int indexLabel = 0;
-
   void Init(String pageName, ControlP5 cp5)
   {
     this.pageName = pageName;
@@ -21,7 +27,8 @@ class UI_Panel implements ControlListener
 
     cp5.addListener(this);  
 
-    yPos = 20;
+    yPos = StartY;
+    xPos = StartX;
   }
 
   public void onUIChanged()
@@ -35,6 +42,8 @@ class UI_Panel implements ControlListener
 
   Textlabel addLabel(String content)
   {
+    yPos += 10;
+
     Textlabel l = cp5.addTextlabel("Label" + indexLabel)
       .setText(content)
       .setPosition(xPos, yPos)
@@ -76,7 +85,7 @@ class UI_Panel implements ControlListener
     } else
     {
       yPos+=heightCtrl+2;
-      xPos = 0;
+      xPos = StartX;
     }
 
     controlP5.Label l = s.getCaptionLabel();
@@ -112,24 +121,34 @@ class UI_Panel implements ControlListener
     return t;
   }
 
-
   ColorPicker addColor(String name, String label, Object data_Class)
   {
     print ("add color");
-    
+
 
     addLabel(label);
 
-    
     ColorPicker cp = cp5.addColorPicker(data_Class, name)
 
       .setPosition(xPos, yPos)
-      .setSize(100, heightCtrl*5)
+      .setSize(100, heightCtrl*3)
       .moveTo(pageName);
-       
-       
-     yPos+=heightCtrl*3;
-     
-     return cp;
+
+    yPos+=heightCtrl*3;
+
+    return cp;
+  }
+
+  Button addButton(String name)
+  {
+    Button bt = cp5.addButton(name)
+      .setPosition(xPos, yPos)
+      .setSize(100, heightCtrl)
+      .moveTo(pageName);
+   
+
+    yPos+=heightCtrl;
+    
+     return bt;
   }
 }

@@ -117,3 +117,77 @@ class LayerData
     return dest;
   }
 }
+
+class LayerGui extends UI_Panel
+{
+  LayerGui(LayerData layerdata, String name)
+  {
+    this.layerdata = layerdata;
+    this.name = name;
+  }
+
+  LayerData layerdata;
+
+  Slider xNoise;
+  Slider Height_Noise;  
+  Slider Added_Height;
+  Slider yNoise;
+
+  Slider xNoise_Mul;
+  Slider yNoise_Mul;
+  Slider Height_Mul;
+
+  Toggle add;
+
+  String name;
+
+  void setGUIValues()
+  {
+    xNoise.setValue(layerdata.xNoise);
+    yNoise.setValue(layerdata.yNoise);
+    
+    Height_Noise.setValue(layerdata.Height_Noise);
+    Added_Height.setValue(layerdata.Added_Height);
+
+    xNoise_Mul.setValue(layerdata.xNoise_Mul);
+    yNoise_Mul.setValue(layerdata.yNoise_Mul);
+    Height_Mul.setValue(layerdata.Height_Mul);
+    add.setValue(layerdata.add);
+
+    update();
+  }
+
+  void setupControls(String name, ControlP5 cp5)
+  {
+    super.Init(name, cp5);
+    
+
+
+    addLabel(name);
+
+    xNoise = addSlider("xNoise", "X Noise", layerdata, 0, 10, true);
+    yNoise = addSlider("yNoise", "Y Noise", layerdata, 0, 30, true);
+    Height_Noise = addSlider("Height_Noise", "Height_Noise", layerdata, 0, 2000, false);
+    
+    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", layerdata, -3, 3, true);
+    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", layerdata, -3, 3, true);
+    Height_Mul = addIntSlider("Height_Mul", "Height Mult", layerdata, -3, 3, false);
+    
+    Added_Height = addSlider("Added_Height", "Added_Height", layerdata, -1000, 1000, false);
+    add = addToggle("add", "add values", layerdata);
+    
+
+  }
+
+  void update()
+  {
+    xNoise_Mul.setValueLabel("x " + computePow(layerdata.xNoise_Mul));
+    yNoise_Mul.setValueLabel("x " + computePow(layerdata.yNoise_Mul));
+    Height_Mul.setValueLabel("x " + computePow(layerdata.Height_Mul));
+
+    if (layerdata.add)
+      add.setLabel("Add Values");
+    else
+      add.setLabel("Max Value");
+    }
+  }
