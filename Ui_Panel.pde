@@ -1,5 +1,5 @@
 
-int indexLabel = 0;
+int indexControler = 0;
 
 
 static final int StartX = 20;
@@ -44,7 +44,7 @@ class UI_Panel implements ControlListener
   {
     yPos += 10;
 
-    Textlabel l = cp5.addTextlabel("Label" + indexLabel)
+    Textlabel l = cp5.addTextlabel("Label" + indexControler)
       .setText(content)
       .setPosition(xPos, yPos)
       .setSize(100, heightCtrl)  
@@ -52,13 +52,13 @@ class UI_Panel implements ControlListener
 
     yPos += 15;
 
-    indexLabel++;
+    indexControler++;
 
     return l;
   }
 
 
-  Slider addIntSlider(String field, String label, Object data_Class, float min, float max, boolean horizontal)
+    Slider addIntSlider(String field, String label, Object data_Class, int min, int max, boolean horizontal)
   {
     Slider s = addSlider( field, label, data_Class, min, max, horizontal);
     int nbTicks = (int) (max - min + 1);
@@ -109,8 +109,7 @@ class UI_Panel implements ControlListener
     int tmp = controlerColor.getActive();
     controlerColor.setActive( controlerColor.getBackground());
     controlerColor.setBackground(tmp);
-
-
+    
     yPos+=heightCtrl+2;
 
     //t.setLabel("The Toggle Name");
@@ -141,13 +140,13 @@ class UI_Panel implements ControlListener
 
   Button addButton(String name)
   {
-    Button bt = cp5.addButton(name)
+    Button bt = cp5.addButton(name + indexControler)
       .setPosition(xPos, yPos)
       .setSize(100, heightCtrl)
       .moveTo(pageName);
    
 
-    yPos+=heightCtrl;
+    yPos+=heightCtrl+5;
     
      return bt;
   }

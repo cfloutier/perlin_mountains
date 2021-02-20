@@ -54,11 +54,8 @@ void draw()
 {
   background(data.style.backgroundColor);
   strokeWeight(data.style.lineWidth);
-
-  if (data.changed)
-  {
-    dataGui.updateUI();
-  }
+  
+  
 
   if (record) 
   {
@@ -75,10 +72,23 @@ void draw()
       beginRecord(DXF, fileName + ".dxf"); 
     else if (mode ==2)
       beginRecord(SVG, fileName + ".svg"); 
+      
+     data.setSize(width, height); 
 
     stroke(0);
   } else
+  {
+    
     stroke(data.style.lineColor);
+    
+    data.setSize(width, height); 
+  } 
+  
+
+  if (data.changed)
+  {
+    dataGui.updateUI();
+  }
 
   drawer.data = data;
   drawer.draw();

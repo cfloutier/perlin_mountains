@@ -11,6 +11,24 @@ class DrawingData
   LayerData Noise1 = new LayerData();
   LayerData Noise2 = new LayerData();
 
+  float width = 800;
+  float height = 600;
+
+  void setSize(float width, float height)
+  {
+    if (this.width != width)
+    {
+      changed = true;
+      this.width = width;
+    }
+    
+    if (this.height != height)
+    {
+      changed = true;
+      this.height = height;
+    }   
+  }
+
   void LoadJson(String path)
   {
     JSONObject json = loadJSONObject(path);

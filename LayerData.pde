@@ -37,11 +37,11 @@ class LayerData
 
   boolean add = true;
 
-
   float pow_X;
   float pow_Y;
   float pow_H;
-
+  
+  
   void computePowS()
   {
     pow_X = computePow(xNoise_Mul)*xNoise;
@@ -51,30 +51,30 @@ class LayerData
  
   ArrayList<PVector> compute_Line(ArrayList<PVector> points, float y)
   {
-    float deltaX = ((float)width) /  (data.main.XSteps-1);
-    float x =  0;
-
+    float noise_X = data.main.pos.x;
+    float delta_noiseX =  pow_X / (data.main.XSteps-1);
     for (int i = 0; i < data.main.XSteps; i++)
     {   
-      float xpos_Noise = data.main.pos.x + x * pow_X;
+
       float ypos_Noise = data.main.pos.y + y * pow_Y;
-      float noise = 2*noise(xpos_Noise, ypos_Noise)-1;
+      float noise = 2*noise(noise_X, ypos_Noise)-1;
 
-      float h = pow_H * noise - Added_Height;
-
+      float h = pow_H * noise - Added_Height * data.width;
+      
       PVector prevPoint = points.get(i);
 
       PVector newPoint = null;
       if (add)
-        newPoint = new PVector(x, h + prevPoint.y );   
+        newPoint = new PVector(prevPoint.x, h + prevPoint.y);   
       else
       {
         float min = min(prevPoint.y, h);
-        newPoint = new PVector(x, min);
+        newPoint = new PVector(prevPoint.x, min);
       }
 
       points.set(i, newPoint);
-      x = x + deltaX;
+      
+      noise_X += delta_noiseX;
     }
 
     return points;
@@ -131,6 +131,7 @@ class LayerGui extends UI_Panel
   Slider xNoise;
   Slider Height_Noise;  
   Slider Added_Height;
+  Button Reset_Added_Height;
   Slider yNoise;
 
   Slider xNoise_Mul;
@@ -152,6 +153,7 @@ class LayerGui extends UI_Panel
     xNoise_Mul.setValue(layerdata.xNoise_Mul);
     yNoise_Mul.setValue(layerdata.yNoise_Mul);
     Height_Mul.setValue(layerdata.Height_Mul);
+    
     add.setValue(layerdata.add);
 
     update();
@@ -160,24 +162,31 @@ class LayerGui extends UI_Panel
   void setupControls(String name, ControlP5 cp5)
   {
     super.Init(name, cp5);
-    
-
 
     addLabel(name);
 
     xNoise = addSlider("xNoise", "X Noise", layerdata, 0, 10, true);
     yNoise = addSlider("yNoise", "Y Noise", layerdata, 0, 30, true);
-    Height_Noise = addSlider("Height_Noise", "Height_Noise", layerdata, 0, 2000, false);
+    Height_Noise = addSlider("Height_Noise", "Height_Noise", layerdata, 0, 10, false);
     
     xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", layerdata, -3, 3, true);
     yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", layerdata, -3, 3, true);
     Height_Mul = addIntSlider("Height_Mul", "Height Mult", layerdata, -3, 3, false);
     
-    Added_Height = addSlider("Added_Height", "Added_Height", layerdata, -1000, 1000, false);
-    add = addToggle("add", "add values", layerdata);
+    Added_Height = addSlider("Added_Height", "Added_Height", layerdata, -1, 1, false);
     
-
+    Reset_Added_Height = addButton("recenter");
+    Reset_Added_Height.plugTo(this,"rescenterH");
+    
+    add = addToggle("add", "add values", layerdata);
   }
+
+  void rescenterH()
+  {
+    layerdata.Added_Height = 0;
+    setGUIValues();
+  }
+
 
   void update()
   {

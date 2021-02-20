@@ -1,40 +1,49 @@
- //<>// //<>//
+//<>// //<>//
 
 class Line
 {
   ArrayList<PVector> points = new ArrayList<PVector>();
-  
+
   float y_line = 0;
 
-  void build(DrawingData data, float y)
+  void build(DrawingData data, float yNoise, float yLine)
   {
+    
     points = null;
+
+    this.y_line = yLine;
     
-    y_line = y;
-    
+    float xPos = 0;
+    float deltaX = data.width / (data.main.XSteps - 1);
     points = new ArrayList<PVector>();
     for (int i = 0; i < data.main.XSteps; i++)
     {
-      points.add(new PVector(0, 0));
+      points.add(new PVector(xPos, 0));
+      xPos += deltaX;
     }
+
+    points = data.Noise1.compute_Line(points, yNoise);
     
-    points = data.Noise1.compute_Line(points, y);
-  
+
     //print(", " + y);
-    points = data.Noise2.compute_Line(points, y);
+    //  points = data.Noise2.compute_Line(points, y);
   }
 
   void draw()
   {
+    
     noFill();
     beginShape();
-   
-   
+
     for (int i = 0; i < points.size(); i++)
     {
       PVector pA = points.get(i);
+   //   println ("pA.x " + pA.x + " pA.y + y_line " + y_line);
 
       vertex(pA.x, pA.y + y_line);
+      
+      
+  
     }
     endShape();
   }
@@ -45,7 +54,7 @@ class Line
     {
       float y = points.get(i).y + y_line;
       float prev_y =  prevLine.points.get(i).y + prevLine.y_line;
-      
+
       if (y > prev_y)
         points.get(i).y = prev_y - y_line;
     }
@@ -55,31 +64,45 @@ class Line
 class DrawingGenerator
 {
   DrawingData data;
-  
+
   ArrayList<Line> lines;
 
   int lastUpdate  = 0;
 
   void update()
   {
-    randomSeed(10);
+    noiseDetail(data.main.NoiseLod, data .main.NoiseFalloff);
+    
+    
     lines = new ArrayList<Line>();
 
-    if (data.main.XSteps < 10) 
-      data.main.XSteps = 10;
-      
     data.Noise1.computePowS();
     data.Noise2.computePowS();
-    
-    float total_h = height * data.main.Height;
-    float yPos = height/2 + total_h/2;
-    float YDeltaPos = total_h / data.main.NbLines;
 
+
+    float y_Noise = -data.main.Height /2;
+    float y_Line = data.height/2 - y_Noise * data.width;
+
+    float delta_y_Noise = 1;
+    float delta_y = 1;
+    if (data.main.NbLines != 0)
+    {
+      delta_y_Noise = -data.main.Height / (data.main.NbLines - 1);
+      delta_y = delta_y_Noise * data.width;
+    }
+    
+    if (data.main.NbLines == 1)
+    {
+      y_Line = data.height/2;
+      y_Noise = 0;
+    }
+   
     Line prevLine = null;
     for (int lineIndex = 0; lineIndex < data.main.NbLines; lineIndex++)
     {
       Line line = new Line();
-      line.build(data, yPos);
+
+      line.build(data, y_Noise, y_Line);
 
       if (data.main.intersection)
         if (prevLine != null)
@@ -88,13 +111,14 @@ class DrawingGenerator
       prevLine = line;
 
       lines.add(line);
-
-      yPos -= YDeltaPos;
+      y_Noise += delta_y_Noise;
+      y_Line += delta_y;
     }
   }
 
   void draw()
   {
+    
     boolean needUpdate = false;
     noiseSeed(data.main.seed);
     if (data.changed)
@@ -117,9 +141,9 @@ class DrawingGenerator
       needUpdate = true;
     }
 
-
     if (needUpdate)
       drawer.update();
+
 
     for (int lineIndex = 0; lineIndex < lines.size(); lineIndex++)
     {
