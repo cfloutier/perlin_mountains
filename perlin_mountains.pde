@@ -5,7 +5,12 @@ import processing.svg.*;
 
 
 DrawingData data;
+
+
 DataGUI dataGui;
+
+
+
 DrawingGenerator drawer;
 
 ControlP5 cp5;
@@ -20,10 +25,11 @@ void setup()
 
   setupControls();
 
-  data.LoadJson("./Saved/nice flow.json");
+  data.LoadJson("./Saved/default.json");
   
   dataGui.setGUIValues();
-
+  
+ 
   surface.setResizable(true);
 
   //noLoop();  // Run once and stop
@@ -32,21 +38,22 @@ void setup()
 void setupControls()
 { 
   cp5 = new ControlP5(this);
-
-  cp5.addTab("Controls");
+  
+ 
   cp5.getTab("default").setLabel("Hide GUI");
 
-  dataGui.setupControls( cp5 );     
-  dataGui.setGUIValues();
-
+  dataGui.setupControls( cp5 );    
+   
+ 
   addFileTab();
 
-  cp5.getTab("Controls").bringToFront();
+  
 }
 
 void draw()
 {
-  background(0);
+  background(data.style.backgroundColor);
+  strokeWeight(data.style.lineWidth);
 
   if (data.changed)
   {
@@ -71,7 +78,7 @@ void draw()
 
     stroke(0);
   } else
-    stroke(255);
+    stroke(data.style.lineColor);
 
   drawer.data = data;
   drawer.draw();

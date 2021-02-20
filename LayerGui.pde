@@ -54,15 +54,14 @@ class LayerGui
     Added_Height = panel.addSlider("Added_Height", "Added_Height", layerdata, -1000, 1000, false);
     add = panel.addToggle("add", "add values", layerdata);
 
-
     panel.yPos += 5;
   }
 
   void update()
   {
-    xNoise_Mul.setValueLabel("x " + pow(10.0, layerdata.xNoise_Mul));
-    yNoise_Mul.setValueLabel("x " + pow(10.0, layerdata.yNoise_Mul));
-    Height_Mul.setValueLabel("x " + pow(10.0, layerdata.Height_Mul));
+    xNoise_Mul.setValueLabel("x " + computePow(layerdata.xNoise_Mul));
+    yNoise_Mul.setValueLabel("x " + computePow(layerdata.yNoise_Mul));
+    Height_Mul.setValueLabel("x " + computePow(layerdata.Height_Mul));
 
     if (layerdata.add)
       add.setLabel("Add Values");

@@ -1,0 +1,37 @@
+{
+  "Noise1": {
+    "add": true,
+    "Height_Noise": 280,
+    "Added_Height": -20,
+    "xNoise": 0.36666667461395264,
+    "xNoise_Mul": -3,
+    "Height_Mul": 0,
+    "yNoise": 0.5999999642372131,
+    "yNoise_Mul": 0
+  },
+  "Style": {
+    "backgroundColor": -16777216,
+    "lineColor": -1,
+    "lineWidth": 0.550000011920929
+  },
+  "Main": {
+    "pos_y": 0,
+    "moveSpeed": 5.800000190734863,
+    "pos_x": 6.269411087036133,
+    "seed": 753333312,
+    "intersection": true,
+    "NbLines": 250,
+    "Height": 0.25,
+    "XSteps": 241
+  },
+  "Noise2": {
+    "add": true,
+    "Height_Noise": 0,
+    "Added_Height": -26.6666259765625,
+    "xNoise": 0,
+    "xNoise_Mul": -3,
+    "Height_Mul": -1,
+    "yNoise": 15.90000057220459,
+    "yNoise_Mul": -1
+  }
+}

@@ -23,13 +23,13 @@ class UI_Panel implements ControlListener
 
     yPos = 20;
   }
-  
+
   public void onUIChanged()
   {
     data.changed = true;
   }
 
-   public void controlEvent(ControlEvent theEvent) {
+  public void controlEvent(ControlEvent theEvent) {
     onUIChanged();
   }
 
@@ -47,20 +47,20 @@ class UI_Panel implements ControlListener
 
     return l;
   }
-  
-  
+
+
   Slider addIntSlider(String field, String label, Object data_Class, float min, float max, boolean horizontal)
   {
-      Slider s = addSlider( field,  label,  data_Class,  min,  max,  horizontal);
-      int nbTicks = (int) (max - min + 1);
-      s.setNumberOfTickMarks(nbTicks);
-      s.showTickMarks(false);
-      s.snapToTickMarks(true);
-      
-      return s;
+    Slider s = addSlider( field, label, data_Class, min, max, horizontal);
+    int nbTicks = (int) (max - min + 1);
+    s.setNumberOfTickMarks(nbTicks);
+    s.showTickMarks(false);
+    s.snapToTickMarks(true);
+
+    return s;
   }
 
-  
+
   Slider addSlider(String field, String label, Object data_Class, float min, float max, boolean horizontal)
   {
     Slider s = cp5.addSlider(data_Class, field)  
@@ -90,17 +90,17 @@ class UI_Panel implements ControlListener
   {
 
     Toggle t = cp5.addToggle(data_Class, name)
-       .setLabel(label)
+      .setLabel(label)
       .setPosition(xPos, yPos)
       .setSize(100, heightCtrl)  
       .setMode(ControlP5.SWITCH)
       .moveTo(pageName);
-      
+
     CColor controlerColor = t.getColor();
     int tmp = controlerColor.getActive();
     controlerColor.setActive( controlerColor.getBackground());
     controlerColor.setBackground(tmp);
-   
+
 
     yPos+=heightCtrl+2;
 
@@ -110,5 +110,26 @@ class UI_Panel implements ControlListener
     l.getStyle().marginLeft = 10; //move to the right
 
     return t;
+  }
+
+
+  ColorPicker addColor(String name, String label, Object data_Class)
+  {
+    print ("add color");
+    
+
+    addLabel(label);
+
+    
+    ColorPicker cp = cp5.addColorPicker(data_Class, name)
+
+      .setPosition(xPos, yPos)
+      .setSize(100, heightCtrl*5)
+      .moveTo(pageName);
+       
+       
+     yPos+=heightCtrl*3;
+     
+     return cp;
   }
 }

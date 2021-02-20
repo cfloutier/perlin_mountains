@@ -12,6 +12,12 @@ class Line
     
     y_line = y;
     
+    points = new ArrayList<PVector>();
+    for (int i = 0; i < data.main.XSteps; i++)
+    {
+      points.add(new PVector(0, 0));
+    }
+    
     points = data.Noise1.compute_Line(points, y);
   
     //print(", " + y);
@@ -22,6 +28,8 @@ class Line
   {
     noFill();
     beginShape();
+   
+   
     for (int i = 0; i < points.size(); i++)
     {
       PVector pA = points.get(i);
@@ -33,7 +41,7 @@ class Line
 
   void mergeWith(Line prevLine)
   {
-    for (int i = 0; i < data.XSteps; i++)
+    for (int i = 0; i < data.main.XSteps; i++)
     {
       float y = points.get(i).y + y_line;
       float prev_y =  prevLine.points.get(i).y + prevLine.y_line;
@@ -57,20 +65,23 @@ class DrawingGenerator
     randomSeed(10);
     lines = new ArrayList<Line>();
 
-    if (data.XSteps < 10) 
-      data.XSteps = 10;
-
-    float total_h = height * data.Height;
+    if (data.main.XSteps < 10) 
+      data.main.XSteps = 10;
+      
+    data.Noise1.computePowS();
+    data.Noise2.computePowS();
+    
+    float total_h = height * data.main.Height;
     float yPos = height/2 + total_h/2;
-    float YDeltaPos = total_h / data.NbLines;
+    float YDeltaPos = total_h / data.main.NbLines;
 
     Line prevLine = null;
-    for (int lineIndex = 0; lineIndex < data.NbLines; lineIndex++)
+    for (int lineIndex = 0; lineIndex < data.main.NbLines; lineIndex++)
     {
       Line line = new Line();
       line.build(data, yPos);
 
-      if (data.intersection)
+      if (data.main.intersection)
         if (prevLine != null)
           line.mergeWith(prevLine);
 
@@ -85,7 +96,7 @@ class DrawingGenerator
   void draw()
   {
     boolean needUpdate = false;
-    noiseSeed(data.seed);
+    noiseSeed(data.main.seed);
     if (data.changed)
     {
       needUpdate = true;
@@ -94,14 +105,14 @@ class DrawingGenerator
 
     int delta =  millis() - lastUpdate;
     lastUpdate =  millis();
-    if (data.move.x != 0 || data.move.y != 0)
+    if (data.main.move.x != 0 || data.main.move.y != 0)
     {
 
       if (data.Noise1.xNoise != 0)
-        data.pos.x += 0.001*data.move.x * delta * data.moveSpeed * data.Noise1.xNoise;
+        data.main.pos.x += 0.001*data.main.move.x * delta * data.main.moveSpeed * data.Noise1.xNoise;
 
       if (data.Noise1.yNoise!= 0)
-        data.pos.y += 0.001*data.move.y * delta  * data.moveSpeed * data.Noise1.yNoise;
+        data.main.pos.y += 0.001*data.main.move.y * delta  * data.main.moveSpeed * data.Noise1.yNoise;
 
       needUpdate = true;
     }
