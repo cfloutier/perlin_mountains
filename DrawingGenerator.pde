@@ -8,11 +8,11 @@ class Line
 
   void build(DrawingData data, float yNoise, float yLine)
   {
-    
+
     points = null;
 
     this.y_line = yLine;
-    
+
     float xPos = 0;
     float deltaX = data.width / (data.main.XSteps - 1);
     points = new ArrayList<PVector>();
@@ -23,28 +23,21 @@ class Line
     }
 
     points = data.Noise1.compute_Line(points, yNoise);
-    
 
-    //print(", " + y);
-    //  points = data.Noise2.compute_Line(points, y);
   }
 
   void draw()
   {
-    
+
     noFill();
     beginShape();
 
     for (int i = 0; i < points.size(); i++)
     {
       PVector pA = points.get(i);
-   //   println ("pA.x " + pA.x + " pA.y + y_line " + y_line);
-
       vertex(pA.x, pA.y + y_line);
-      
-      
-  
     }
+
     endShape();
   }
 
@@ -72,16 +65,14 @@ class DrawingGenerator
   void update()
   {
     noiseDetail(data.main.NoiseLod, data .main.NoiseFalloff);
-    
-    
+
     lines = new ArrayList<Line>();
 
     data.Noise1.computePowS();
     data.Noise2.computePowS();
 
-
-    float y_Noise = -data.main.Height /2;
-    float y_Line = data.height/2 - y_Noise * data.width;
+    float y_Noise = data.main.Height /2;
+    float y_Line = data.height/2 + y_Noise * data.width;
 
     float delta_y_Noise = 1;
     float delta_y = 1;
@@ -90,18 +81,17 @@ class DrawingGenerator
       delta_y_Noise = -data.main.Height / (data.main.NbLines - 1);
       delta_y = delta_y_Noise * data.width;
     }
-    
+
     if (data.main.NbLines == 1)
     {
       y_Line = data.height/2;
       y_Noise = 0;
     }
-   
+
     Line prevLine = null;
     for (int lineIndex = 0; lineIndex < data.main.NbLines; lineIndex++)
     {
       Line line = new Line();
-
       line.build(data, y_Noise, y_Line);
 
       if (data.main.intersection)
@@ -118,7 +108,6 @@ class DrawingGenerator
 
   void draw()
   {
-    
     boolean needUpdate = false;
     noiseSeed(data.main.seed);
     if (data.changed)
@@ -127,16 +116,13 @@ class DrawingGenerator
       data.changed = false;
     }
 
-    int delta =  millis() - lastUpdate;
+    int delta_ms =  millis() - lastUpdate;
     lastUpdate =  millis();
+
     if (data.main.move.x != 0 || data.main.move.y != 0)
     {
-
-      if (data.Noise1.xNoise != 0)
-        data.main.pos.x += 0.001*data.main.move.x * delta * data.main.moveSpeed * data.Noise1.xNoise;
-
-      if (data.Noise1.yNoise!= 0)
-        data.main.pos.y += 0.001*data.main.move.y * delta  * data.main.moveSpeed * data.Noise1.yNoise;
+      data.main.pos.x += 0.001*data.main.move.x * delta_ms * data.main.moveSpeed * data.Noise1.pow_X;
+      data.main.pos.y += 0.001*data.main.move.y * delta_ms  * data.main.moveSpeed * data.Noise1.pow_Y;
 
       needUpdate = true;
     }

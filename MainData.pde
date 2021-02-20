@@ -38,7 +38,6 @@ class MainData
 
     seed = src.getInt("seed", seed);
 
-
     intersection = src.getBoolean("intersection", intersection);
     moveSpeed = src.getFloat("moveSpeed", moveSpeed);
     

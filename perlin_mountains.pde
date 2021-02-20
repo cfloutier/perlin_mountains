@@ -26,10 +26,10 @@ void setup()
   setupControls();
 
   data.LoadJson("./Saved/default.json");
-  
+
   dataGui.setGUIValues();
-  
- 
+
+
   surface.setResizable(true);
 
   //noLoop();  // Run once and stop
@@ -38,15 +38,9 @@ void setup()
 void setupControls()
 { 
   cp5 = new ControlP5(this);
-  
- 
   cp5.getTab("default").setLabel("Hide GUI");
-
   dataGui.setupControls( cp5 );    
-   
- 
   addFileTab();
-
   
 }
 
@@ -54,17 +48,15 @@ void draw()
 {
   background(data.style.backgroundColor);
   strokeWeight(data.style.lineWidth);
-  
-  
 
   if (record) 
   {
     // Note that #### will be replaced with the frame number. Fancy!
-    
+
     String name = data.name;
     if (name == "")
       name = "Perlin_Mountain";
-    
+
     fileName = "Export/"+ name + "_" + year() + "-" + month() + "-" + day() + "_" + hour() + "-" + minute() + "-" + second(); 
     if (mode == 0)
       beginRecord(PDF, fileName + ".pdf"); 
@@ -72,18 +64,17 @@ void draw()
       beginRecord(DXF, fileName + ".dxf"); 
     else if (mode ==2)
       beginRecord(SVG, fileName + ".svg"); 
-      
-     data.setSize(width, height); 
+
+    data.setSize(width, height); 
 
     stroke(0);
-  } else
-  {
-    
+  } else {
+
     stroke(data.style.lineColor);
-    
-    data.setSize(width, height); 
+
+    data.setSize(width, height);
   } 
-  
+
 
   if (data.changed)
   {

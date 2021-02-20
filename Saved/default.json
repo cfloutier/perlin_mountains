@@ -1,13 +1,13 @@
 {
   "Noise1": {
     "add": true,
-    "Height_Noise": 5.699999809265137,
-    "Added_Height": -0.3333333134651184,
+    "Height_Noise": 4.699999809265137,
+    "Added_Height": -0.08666664361953735,
     "xNoise": 9.666666984558105,
     "xNoise_Mul": 0,
-    "Height_Mul": 2,
-    "yNoise": 5.5,
-    "yNoise_Mul": -2
+    "Height_Mul": -1,
+    "yNoise": 23.30000114440918,
+    "yNoise_Mul": 0
   },
   "Style": {
     "backgroundColor": -16777216,
@@ -15,16 +15,16 @@
     "lineWidth": 0.550000011920929
   },
   "Main": {
-    "pos_y": -220.37664794921875,
-    "moveSpeed": 3.433333396911621,
+    "pos_y": -343.0117492675781,
+    "moveSpeed": 0.4333333373069763,
     "pos_x": 145.3485870361328,
     "seed": 558967,
     "NoiseFalloff": 0.2433333396911621,
     "intersection": true,
-    "NoiseLod": 5,
-    "NbLines": 17,
-    "Height": 0.33000001311302185,
-    "XSteps": 77
+    "NoiseLod": 4,
+    "NbLines": 14,
+    "Height": 0.3466666638851166,
+    "XSteps": 469
   },
   "Noise2": {
     "add": true,

@@ -41,7 +41,6 @@ class LayerData
   float pow_Y;
   float pow_H;
   
-  
   void computePowS()
   {
     pow_X = computePow(xNoise_Mul)*xNoise;
@@ -51,18 +50,17 @@ class LayerData
  
   ArrayList<PVector> compute_Line(ArrayList<PVector> points, float y)
   {
-    float noise_X = data.main.pos.x;
+    float noise_X = data.main.pos.x - pow_X/2;
     float delta_noiseX =  pow_X / (data.main.XSteps-1);
+   
+    float ypos_Noise = data.main.pos.y + y * pow_Y;
+   
     for (int i = 0; i < data.main.XSteps; i++)
-    {   
-
-      float ypos_Noise = data.main.pos.y + y * pow_Y;
-      float noise = 2*noise(noise_X, ypos_Noise)-1;
-
-      float h = pow_H * noise - Added_Height * data.width;
+    {  
+      float noise = noise(noise_X, ypos_Noise) - 0.5;
       
+      float h = (pow_H * noise - Added_Height) * data.width;     
       PVector prevPoint = points.get(i);
-
       PVector newPoint = null;
       if (add)
         newPoint = new PVector(prevPoint.x, h + prevPoint.y);   
@@ -72,8 +70,7 @@ class LayerData
         newPoint = new PVector(prevPoint.x, min);
       }
 
-      points.set(i, newPoint);
-      
+      points.set(i, newPoint); 
       noise_X += delta_noiseX;
     }
 

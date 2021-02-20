@@ -122,9 +122,6 @@ class UI_Panel implements ControlListener
 
   ColorPicker addColor(String name, String label, Object data_Class)
   {
-    print ("add color");
-
-
     addLabel(label);
 
     ColorPicker cp = cp5.addColorPicker(data_Class, name)
