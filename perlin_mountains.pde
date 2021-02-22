@@ -9,10 +9,8 @@ DrawingData data;
 
 DataGUI dataGui;
 
-
-
+PGraphics current_graphics;
 DrawingGenerator drawer;
-
 ControlP5 cp5;
 
 void setup() 
@@ -46,31 +44,54 @@ void setupControls()
 
 void draw()
 {
-  background(data.style.backgroundColor);
-  strokeWeight(data.style.lineWidth);
 
+  
   if (record) 
   {
-    // Note that #### will be replaced with the frame number. Fancy!
 
     String name = data.name;
     if (name == "")
       name = "Perlin_Mountain";
+      
+    float sizeMultiplier = 1000;
+      
+      sizeMultiplier = (float)width  / 28;
+      
+      
+    float newWidth = width * sizeMultiplier;
+    float newheight = height * sizeMultiplier;
+    
+    
+      
+      
+      
+      
 
     fileName = "Export/"+ name + "_" + year() + "-" + month() + "-" + day() + "_" + hour() + "-" + minute() + "-" + second(); 
     if (mode == 0)
-      beginRecord(PDF, fileName + ".pdf"); 
+       current_graphics = createGraphics((int)newWidth, (int)newheight, PDF, fileName+ ".pdf");       
     else if (mode == 1)
-      beginRecord(DXF, fileName + ".dxf"); 
+      current_graphics = createGraphics((int)newWidth, (int)newheight, DXF, fileName+ ".dxf");       
     else if (mode ==2)
-      beginRecord(SVG, fileName + ".svg"); 
-
-    data.setSize(width, height); 
-
-    stroke(0);
+      current_graphics = createGraphics((int)newWidth, (int)newheight, SVG, fileName+ ".svg");       
+    
+    data.setSize(newWidth, newheight); 
+    
+    current_graphics.beginDraw();
+    current_graphics.strokeWeight(data.style.lineWidth*sizeMultiplier);
+    
   } else {
+    
+    current_graphics = g;
 
+    background(data.style.backgroundColor);
+    strokeWeight(data.style.lineWidth);
+    
+    
+    
     stroke(data.style.lineColor);
+    
+    current_graphics = g;
 
     data.setSize(width, height);
   } 
@@ -86,7 +107,8 @@ void draw()
 
   if (record) 
   {
-    endRecord();
+    current_graphics.dispose();
+    current_graphics.endDraw();
     record = false;
   }
 }

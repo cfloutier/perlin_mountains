@@ -23,22 +23,23 @@ class Line
     }
 
     points = data.Noise1.compute_Line(points, yNoise);
+    points = data.Noise2.compute_Line(points, yNoise);
 
   }
 
   void draw()
   {
 
-    noFill();
-    beginShape();
+    current_graphics.noFill();
+    current_graphics.beginShape();
 
     for (int i = 0; i < points.size(); i++)
     {
       PVector pA = points.get(i);
-      vertex(pA.x, pA.y + y_line);
+      current_graphics.vertex(pA.x, pA.y + y_line);
     }
 
-    endShape();
+    current_graphics.endShape();
   }
 
   void mergeWith(Line prevLine)
@@ -64,7 +65,11 @@ class DrawingGenerator
 
   void update()
   {
+    noiseSeed(data.main.seed);
     noiseDetail(data.main.NoiseLod, data .main.NoiseFalloff);
+    
+    my_noiseSeed(data.main.seed);
+    my_noiseDetail(data.main.NoiseLod, data .main.NoiseFalloff);
 
     lines = new ArrayList<Line>();
 
@@ -109,7 +114,7 @@ class DrawingGenerator
   void draw()
   {
     boolean needUpdate = false;
-    noiseSeed(data.main.seed);
+   
     if (data.changed)
     {
       needUpdate = true;

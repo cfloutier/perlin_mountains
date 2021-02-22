@@ -2,13 +2,13 @@
   "Noise1": {
     "mode": 1,
     "add": true,
-    "Height_Noise": 4.099999904632568,
-    "Added_Height": -0.08666664361953735,
-    "xNoise": 6.1666669845581055,
-    "xNoise_Mul": 0,
+    "Height_Noise": 4.133333683013916,
+    "Added_Height": -0.053333282470703125,
+    "xNoise": 0.5,
+    "xNoise_Mul": 1,
     "Height_Mul": -1,
-    "yNoise": 12.700000762939453,
-    "yNoise_Mul": 1,
+    "yNoise": 25.000001907348633,
+    "yNoise_Mul": 2,
     "on": true
   },
   "Style": {
@@ -24,20 +24,20 @@
     "NoiseFalloff": 0.4833333492279053,
     "intersection": true,
     "NoiseLod": 4,
-    "NbLines": 1,
-    "Height": 0.3466666638851166,
+    "NbLines": 114,
+    "Height": 0.5733333230018616,
     "XSteps": 1980
   },
   "Noise2": {
     "mode": 0,
-    "add": true,
-    "Height_Noise": 4.300000190734863,
-    "Added_Height": -1,
-    "xNoise": 8.033333778381348,
-    "xNoise_Mul": -3,
+    "add": false,
+    "Height_Noise": 0,
+    "Added_Height": 0,
+    "xNoise": 2.4000000953674316,
+    "xNoise_Mul": 0,
     "Height_Mul": 0,
-    "yNoise": 15.90000057220459,
-    "yNoise_Mul": -1,
-    "on": false
+    "yNoise": 8,
+    "yNoise_Mul": 0,
+    "on": true
   }
 }

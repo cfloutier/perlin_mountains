@@ -3,28 +3,17 @@
 
 static float computePow(int mul)
 {
-  switch(mul)
-  {
-  case 3:
-    return 1000;
-  case 2:
-    return 100;
-  case 1:
-    return 10;
-  default:
-  case 0:
-    return 1;
-  case -1:
-    return 0.1;
-  case -2:
-    return 0.01;
-  case -3:
-    return 0.001;
-  }
+  return pow(10, mul);
 }
 
 class LayerData
 {
+   boolean on = false;
+   
+   
+   int mode = 0;
+  
+  
   float xNoise = 0.4;
   float yNoise = 0.4;
   float Height_Noise = 5;
@@ -47,9 +36,28 @@ class LayerData
     pow_Y = computePow(yNoise_Mul)*yNoise;
     pow_H = computePow(Height_Mul)*Height_Noise;
   }
+  
+  
+  float computeNoise(float noise_X, float noise_Y)
+  {
+    switch(mode)
+    {
+      default:
+      case 0:
+        return noise(noise_X, noise_Y) - 0.5;
+      case 1:
+        return my_noise(noise_X, noise_Y) - 0.5;
+       case 2:
+         return sin(noise_X+noise_Y) *0.5f;
+    }
+    
+  }
  
   ArrayList<PVector> compute_Line(ArrayList<PVector> points, float y)
   {
+    if (!on)
+      return points;
+    
     float noise_X = data.main.pos.x - pow_X/2;
     float delta_noiseX =  pow_X / (data.main.XSteps-1);
    
@@ -57,7 +65,14 @@ class LayerData
    
     for (int i = 0; i < data.main.XSteps; i++)
     {  
-      float noise = noise(noise_X, ypos_Noise) - 0.5;
+      
+     // float noise = noise_d(noise_X, ypos_Noise) - 0.5;
+      //float noise = noise(noise_X, ypos_Noise) - 0.5;
+      
+     // noise = sin(noise_X + ypos_Noise)/2;
+        float noise = computeNoise(noise_X, ypos_Noise);
+
+       
       
       float h = (pow_H * noise - Added_Height) * data.width;     
       PVector prevPoint = points.get(i);
@@ -91,8 +106,11 @@ class LayerData
     xNoise_Mul = src.getInt("xNoise_Mul", xNoise_Mul);
     yNoise_Mul = src.getInt("yNoise_Mul", yNoise_Mul);
     Height_Mul = src.getInt("Height_Mul", Height_Mul);
+    
+    mode = src.getInt("mode", mode);
 
     add = src.getBoolean("add", add);
+    on = src.getBoolean("on", add);
   }
 
 
@@ -108,8 +126,12 @@ class LayerData
     dest.setInt("xNoise_Mul", xNoise_Mul);
     dest.setInt("yNoise_Mul", yNoise_Mul);
     dest.setInt("Height_Mul", Height_Mul);
+    
+     dest.setInt("mode", mode);
+    
 
     dest.setBoolean("add", add);
+    dest.setBoolean("on", on);
 
     return dest;
   }
@@ -135,7 +157,10 @@ class LayerGui extends UI_Panel
   Slider yNoise_Mul;
   Slider Height_Mul;
 
+
+  Slider mode;
   Toggle add;
+  Toggle on;
 
   String name;
 
@@ -151,7 +176,10 @@ class LayerGui extends UI_Panel
     yNoise_Mul.setValue(layerdata.yNoise_Mul);
     Height_Mul.setValue(layerdata.Height_Mul);
     
+    mode.setValue(layerdata.mode);
+    
     add.setValue(layerdata.add);
+    on.setValue(layerdata.on);
 
     update();
   }
@@ -161,14 +189,16 @@ class LayerGui extends UI_Panel
     super.Init(name, cp5);
 
     addLabel(name);
+    
+    on = addToggle("on", "on/off", layerdata);
 
     xNoise = addSlider("xNoise", "X Noise", layerdata, 0, 10, true);
     yNoise = addSlider("yNoise", "Y Noise", layerdata, 0, 30, true);
     Height_Noise = addSlider("Height_Noise", "Height_Noise", layerdata, 0, 10, false);
     
-    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", layerdata, -3, 3, true);
-    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", layerdata, -3, 3, true);
-    Height_Mul = addIntSlider("Height_Mul", "Height Mult", layerdata, -3, 3, false);
+    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", layerdata, -1, 2, true);
+    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", layerdata, -1, 3, true);
+    Height_Mul = addIntSlider("Height_Mul", "Height Mult", layerdata, -3, 1, false);
     
     Added_Height = addSlider("Added_Height", "Added_Height", layerdata, -1, 1, false);
     
@@ -176,6 +206,8 @@ class LayerGui extends UI_Panel
     Reset_Added_Height.plugTo(this,"rescenterH");
     
     add = addToggle("add", "add values", layerdata);
+    
+    mode = addIntSlider("mode", "mode", layerdata, 0, 2, false);
   }
 
   void rescenterH()
@@ -183,7 +215,6 @@ class LayerGui extends UI_Panel
     layerdata.Added_Height = 0;
     setGUIValues();
   }
-
 
   void update()
   {
@@ -195,5 +226,22 @@ class LayerGui extends UI_Panel
       add.setLabel("Add Values");
     else
       add.setLabel("Max Value");
+    
+    
+    switch(layerdata.mode)
+    {
+      default:
+      case 0:
+        mode.setValueLabel("Standard perlin Noise");
+        break;
+      case 1:
+        mode.setValueLabel("My perlin Noise"); 
+        break;
+       case 2:
+         mode.setValueLabel("Sinus");
+         break;
     }
+  }
+    
+    
   }

@@ -62,7 +62,7 @@ void loadSelected(File selection)
     data.LoadJson(selection.getAbsolutePath());
     data.name = selection.getName();
     data.name = data.name.substring(0, data.name.length() - 5);
-    print (data.name);
+   
     dataGui.setGUIValues();
   }
 }
@@ -86,7 +86,7 @@ void saveSelected(File selection)
     
     data.name = selection.getName();
     data.name = data.name.substring(0, data.name.length() - 5);
-    print (data.name);
+  
   }
 }
 

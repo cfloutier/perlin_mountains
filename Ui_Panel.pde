@@ -139,6 +139,7 @@ class UI_Panel implements ControlListener
   {
     Button bt = cp5.addButton(name + indexControler)
       .setPosition(xPos, yPos)
+      .setLabel(name)
       .setSize(100, heightCtrl)
       .moveTo(pageName);
    
