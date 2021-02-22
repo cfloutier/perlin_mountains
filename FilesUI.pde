@@ -111,3 +111,68 @@ void ExportSVG()
   record = true;
   mode = 2;
 }
+
+void start_draw()
+{
+  if (record) 
+  {
+
+    String name = data.name;
+    if (name == "")
+      name = "Perlin_Mountain";
+      
+    float sizeMultiplier = 1;
+      
+   // sizeMultiplier = (float) width  / 28;
+      
+      
+    float newWidth = width * sizeMultiplier;
+    float newheight = height * sizeMultiplier;
+      
+    fileName = "Export/"+ name + "_" + year() + "-" + month() + "-" + day() + "_" + hour() + "-" + minute() + "-" + second(); 
+    
+    if (mode == 0)
+       current_graphics = createGraphics((int)newWidth, (int)newheight, PDF, fileName+ ".pdf");       
+    else if (mode == 1)
+      current_graphics = createGraphics((int)newWidth, (int)newheight, DXF, fileName+ ".dxf");       
+    else if (mode ==2)
+      current_graphics = createGraphics((int)newWidth, (int)newheight, SVG, fileName+ ".svg");       
+    
+    data.setSize(newWidth, newheight); 
+    
+    current_graphics.beginDraw();
+    current_graphics.strokeWeight(data.style.lineWidth*sizeMultiplier);
+    
+    current_graphics.rotate(-PI/2);
+   
+     current_graphics.translate(-newWidth,newheight);
+    
+    
+  } else {
+    
+    current_graphics = g;
+
+    background(data.style.backgroundColor);
+    strokeWeight(data.style.lineWidth);
+    
+    
+    
+    stroke(data.style.lineColor);
+    
+    current_graphics = g;
+
+    data.setSize(width, height);
+  } 
+}
+
+
+
+void end_draw()
+{
+  if (record) 
+  {
+    current_graphics.dispose();
+    current_graphics.endDraw();
+    record = false;
+  }
+}
