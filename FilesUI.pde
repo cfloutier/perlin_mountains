@@ -145,7 +145,7 @@ void start_draw()
     
     current_graphics.rotate(-PI/2);
    
-     current_graphics.translate(-newWidth,newheight);
+     current_graphics.translate(-newWidth,newheight/2);
     
     
   } else {
