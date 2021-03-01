@@ -24,7 +24,7 @@ class Line
 
     points = data.Noise1.compute_Line(points, yNoise);
     points = data.Noise2.compute_Line(points, yNoise);
-
+    points = data.Noise3.compute_Line(points, yNoise);
   }
 
   void draw()
@@ -75,6 +75,7 @@ class DrawingGenerator
 
     data.Noise1.computePowS();
     data.Noise2.computePowS();
+    data.Noise3.computePowS();
 
     float y_Noise = data.main.Height /2;
     float y_Line = data.height/2 + y_Noise * data.width;

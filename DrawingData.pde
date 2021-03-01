@@ -10,7 +10,8 @@ class DrawingData
   MainData main = new MainData();
   LayerData Noise1 = new LayerData();
   LayerData Noise2 = new LayerData();
-
+  LayerData Noise3 = new LayerData();
+  
   float width = 800;
   float height = 600;
 
@@ -38,6 +39,8 @@ class DrawingData
 
     Noise1.LoadJson(json.getJSONObject("Noise1"));
     Noise2.LoadJson(json.getJSONObject("Noise2"));
+    Noise3.LoadJson(json.getJSONObject("Noise3"));
+    
     style.LoadJson(json.getJSONObject("Style"));
   }
 
@@ -47,6 +50,7 @@ class DrawingData
 
     json.setJSONObject("Noise1", Noise1.SaveJson());
     json.setJSONObject("Noise2", Noise2.SaveJson());
+    json.setJSONObject("Noise3", Noise3.SaveJson());
     json.setJSONObject("Style", style.SaveJson());
     json.setJSONObject("Main", main.SaveJson());
 

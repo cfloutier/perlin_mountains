@@ -23,7 +23,8 @@ void setup()
 
   setupControls();
 
-  data.LoadJson("./Saved/default.json");
+  data.LoadJson("./Saved/few islands.json");
+  data.name = "few islands";
 
   dataGui.setGUIValues();
 
