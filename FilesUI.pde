@@ -122,6 +122,8 @@ void start_draw()
       name = "Perlin_Mountain";
       
     float sizeMultiplier = 1;
+    
+    println(name);
       
    // sizeMultiplier = (float) width  / 28;
       

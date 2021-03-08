@@ -1,12 +1,13 @@
  //<>//
 class DrawingData
 {
-  Style style = new Style();
+ 
 
   String name = "";
 
   boolean changed = true;
 
+  Style style = new Style();
   MainData main = new MainData();
   LayerData Noise1 = new LayerData();
   LayerData Noise2 = new LayerData();

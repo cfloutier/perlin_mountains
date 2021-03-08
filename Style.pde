@@ -1,4 +1,4 @@
- 
+
 class Style
 {
   color backgroundColor = color(0, 0, 0);
@@ -53,7 +53,8 @@ class StyleGUI extends UI_Panel
 
   void update()
   {
-    style.backgroundColor = backgroundColor.getColorValue();
-    style.lineColor = lineColor.getColorValue();
+    backgroundColor.setColorValue(style.backgroundColor);
+    lineColor.setColorValue(style.lineColor);
+    lineWidth.setValue(style.lineWidth);
   }
 }
