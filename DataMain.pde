@@ -1,5 +1,5 @@
 
-class MainData
+class DataMain
 {
   int NbLines = 100;
 
@@ -9,14 +9,12 @@ class MainData
   int seed; 
   boolean intersection = true;
 
-  PVector pos = new PVector(0, 0);
+  float moveSpeed_X = 1;
+  float moveSpeed_Y = 1;
 
-  float moveSpeed = 1;
-  PVector move = new PVector(0, 0);
-  
   int NoiseLod = 4;
   float NoiseFalloff = 0.5;
-  
+
   void setSeed()
   {
     seed = (int) random(0, 100000000);
@@ -31,16 +29,12 @@ class MainData
     Height = src.getFloat("Height", Height);
     XSteps = src.getInt("XSteps", XSteps);
 
-    pos = new PVector(
-      src.getFloat("pos_x", pos.x), 
-      src.getFloat("pos_y", pos.y)
-      );
-
     seed = src.getInt("seed", seed);
 
     intersection = src.getBoolean("intersection", intersection);
-    moveSpeed = src.getFloat("moveSpeed", moveSpeed);
-    
+    moveSpeed_X = src.getFloat("moveSpeed_X", moveSpeed_X);
+    moveSpeed_Y = src.getFloat("moveSpeed_Y", moveSpeed_Y);
+
     NoiseLod = src.getInt("NoiseLod", NoiseLod);
     NoiseFalloff = src.getFloat("NoiseFalloff", NoiseFalloff);
   }
@@ -53,17 +47,17 @@ class MainData
     dest.setFloat("Height", Height);
     dest.setInt("XSteps", XSteps);
 
-    dest.setFloat("pos_x", pos.x);
-    dest.setFloat("pos_y", pos.y);
+
 
     dest.setInt("seed", seed);
 
     dest.setBoolean("intersection", intersection);
 
-    dest.setFloat("moveSpeed", moveSpeed);
-    
-     dest.setInt("NoiseLod", NoiseLod);
-     dest.setFloat("NoiseFalloff", NoiseFalloff);
+    dest.setFloat("moveSpeed_X", moveSpeed_X);
+    dest.setFloat("moveSpeed_Y", moveSpeed_Y);
+
+    dest.setInt("NoiseLod", NoiseLod);
+    dest.setFloat("NoiseFalloff", NoiseFalloff);
 
     return dest;
   }
@@ -72,21 +66,22 @@ class MainData
 
 class MainGUI extends UI_Panel
 {
-  MainData main;
+  DataMain main;
 
   Slider NbLines;
   Slider XSteps;
   Slider Height;
   Toggle intersection;
- 
-  Slider moveSpeed;
-  
+
+  Slider moveSpeed_X;
+  Slider moveSpeed_Y;
+
   Button seedBt;
   Textlabel seedLabel;
 
   Slider NoiseLod;
   Slider NoiseFalloff;
-  
+
   void setGUIValues()
   {
     NbLines.setValue(main.NbLines);
@@ -94,9 +89,12 @@ class MainGUI extends UI_Panel
     Height.setValue(main.Height);
 
     intersection.setValue(main.intersection);
-    moveSpeed.setValue(main.moveSpeed);
-    seedLabel.setText("seed : " + main.seed);
     
+    moveSpeed_X.setValue(main.moveSpeed_X);
+    moveSpeed_Y.setValue(main.moveSpeed_Y);
+    
+    seedLabel.setText("seed : " + main.seed);
+
     NoiseLod.setValue(main.NoiseLod);
     NoiseFalloff.setValue(main.NoiseFalloff);
   }
@@ -117,23 +115,25 @@ class MainGUI extends UI_Panel
 
     intersection = addToggle( "intersection", "intersection", main);
 
-    addLabel("Interaction");
+    addLabel("Move");
 
-    moveSpeed = addSlider("moveSpeed", "Move Speed", main, 0, 10, false);
+    moveSpeed_X = addSlider("moveSpeed_X", "Move Speed X", main, 0, 2, true);
+    moveSpeed_Y = addSlider("moveSpeed_Y", "Move Speed Y", main, 0, 2, false);
+    
+    addLabel("Random");
 
     seedLabel = addLabel("Random");
- 
+
     seedBt = addButton("Random seed");
     seedBt.plugTo(main, "setSeed"); 
-    
+
     NoiseLod = addIntSlider("NoiseLod", "Noise Harmonics", main, 1, 8, false);
     NoiseFalloff = addSlider("NoiseFalloff", "NoiseFalloff", main, 0, 1, false);
   }
-  
-  
+
+
   void update()
   {
     seedLabel.setText("seed : " + main.seed);
-    
   }
 }

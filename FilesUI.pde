@@ -154,12 +154,9 @@ void start_draw()
     
     current_graphics = g;
 
-    background(data.style.backgroundColor);
-    strokeWeight(data.style.lineWidth);
-    
-    
-    
-    stroke(data.style.lineColor);
+    background(data.style.backgroundColor.col);
+    strokeWeight(data.style.lineWidth);   
+    stroke(data.style.lineColor.col);
     
     current_graphics = g;
 

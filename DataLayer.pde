@@ -6,13 +6,11 @@ static float computePow(int mul)
   return pow(10, mul);
 }
 
-class LayerData
+class DataLayer
 {
   boolean on = false;
 
-
   int mode = 0;
-
 
   float xNoise = 0.4;
   float yNoise = 0.4;
@@ -29,6 +27,8 @@ class LayerData
   float pow_X;
   float pow_Y;
   float pow_H;
+
+  PVector pos = new PVector(0, 0);
 
   void computePowS()
   {
@@ -57,14 +57,13 @@ class LayerData
     if (!on)
       return points;
 
-    float noise_X = data.main.pos.x - pow_X/2;
+    float noise_X = pos.x - pow_X/2;
     float delta_noiseX =  pow_X / (data.main.XSteps-1);
 
-    float ypos_Noise = data.main.pos.y + y * pow_Y;
+    float ypos_Noise = pos.y + y * pow_Y;
 
     for (int i = 0; i < data.main.XSteps; i++)
     {  
-
       // float noise = noise_d(noise_X, ypos_Noise) - 0.5;
       //float noise = noise(noise_X, ypos_Noise) - 0.5;
 
@@ -99,6 +98,17 @@ class LayerData
     Height_Noise = src.getFloat("Height_Noise", Height_Noise);
     Added_Height = src.getFloat("Added_Height", Added_Height);
 
+    pos = new PVector(
+      src.getFloat("pos_x", pos.x), 
+      src.getFloat("pos_y", pos.y));
+
+
+    //String[] properties = (String[]) src.keys().toArray(new String[src.size()]);
+
+    // println(properties);
+
+    //println("pos " + src.getFloat("pos_x"));
+    //println("xNoise " + src.getFloat("xNoise"));
 
     xNoise_Mul = src.getInt("xNoise_Mul", xNoise_Mul);
     yNoise_Mul = src.getInt("yNoise_Mul", yNoise_Mul);
@@ -109,7 +119,6 @@ class LayerData
     add = src.getBoolean("add", add);
     on = src.getBoolean("on", add);
   }
-
 
   JSONObject SaveJson()
   {
@@ -126,6 +135,8 @@ class LayerData
 
     dest.setInt("mode", mode);
 
+    dest.setFloat("pos_x", pos.x);
+    dest.setFloat("pos_y", pos.y);
 
     dest.setBoolean("add", add);
     dest.setBoolean("on", on);
@@ -136,13 +147,13 @@ class LayerData
 
 class LayerGui extends UI_Panel
 {
-  LayerGui(LayerData layerdata, String name)
+  LayerGui(DataLayer data_layer, String name)
   {
-    this.layerdata = layerdata;
+    this.data_layer = data_layer;
     this.name = name;
   }
 
-  LayerData layerdata;
+  DataLayer data_layer;
 
   Slider xNoise;
   Slider Height_Noise;  
@@ -163,20 +174,20 @@ class LayerGui extends UI_Panel
 
   void setGUIValues()
   {
-    xNoise.setValue(layerdata.xNoise);
-    yNoise.setValue(layerdata.yNoise);
+    xNoise.setValue(data_layer.xNoise);
+    yNoise.setValue(data_layer.yNoise);
 
-    Height_Noise.setValue(layerdata.Height_Noise);
-    Added_Height.setValue(layerdata.Added_Height);
+    Height_Noise.setValue(data_layer.Height_Noise);
+    Added_Height.setValue(data_layer.Added_Height);
 
-    xNoise_Mul.setValue(layerdata.xNoise_Mul);
-    yNoise_Mul.setValue(layerdata.yNoise_Mul);
-    Height_Mul.setValue(layerdata.Height_Mul);
+    xNoise_Mul.setValue(data_layer.xNoise_Mul);
+    yNoise_Mul.setValue(data_layer.yNoise_Mul);
+    Height_Mul.setValue(data_layer.Height_Mul);
 
-    mode.setValue(layerdata.mode);
+    mode.setValue(data_layer.mode);
 
-    add.setValue(layerdata.add);
-    on.setValue(layerdata.on);
+    add.setValue(data_layer.add);
+    on.setValue(data_layer.on);
 
     update();
   }
@@ -187,45 +198,45 @@ class LayerGui extends UI_Panel
 
     addLabel(name);
 
-    on = addToggle("on", "on/off", layerdata);
+    on = addToggle("on", "on/off", data_layer);
 
-    xNoise = addSlider("xNoise", "X Noise", layerdata, 0, 10, true);
-    yNoise = addSlider("yNoise", "Y Noise", layerdata, 0, 30, true);
-    Height_Noise = addSlider("Height_Noise", "Height_Noise", layerdata, 0, 10, false);
+    xNoise = addSlider("xNoise", "X Noise", data_layer, 0, 10, true);
+    yNoise = addSlider("yNoise", "Y Noise", data_layer, 0, 30, true);
+    Height_Noise = addSlider("Height_Noise", "Height_Noise", data_layer, 0, 10, false);
 
-    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", layerdata, -1, 2, true);
-    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", layerdata, -1, 3, true);
-    Height_Mul = addIntSlider("Height_Mul", "Height Mult", layerdata, -3, 1, false);
+    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", data_layer, -1, 2, true);
+    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", data_layer, -1, 3, true);
+    Height_Mul = addIntSlider("Height_Mul", "Height Mult", data_layer, -3, 1, false);
 
-    Added_Height = addSlider("Added_Height", "Added_Height", layerdata, -1, 1, false);
+    Added_Height = addSlider("Added_Height", "Added_Height", data_layer, -1, 1, false);
 
     Reset_Added_Height = addButton("recenter");
     Reset_Added_Height.plugTo(this, "rescenterH");
 
-    add = addToggle("add", "add values", layerdata);
+    add = addToggle("add", "add values", data_layer);
 
-    mode = addIntSlider("mode", "mode", layerdata, 0, 2, false);
+    mode = addIntSlider("mode", "mode", data_layer, 0, 2, false);
   }
 
   void rescenterH()
   {
-    layerdata.Added_Height = 0;
+    data_layer.Added_Height = 0;
     setGUIValues();
   }
 
   void update()
   {
-    xNoise_Mul.setValueLabel("x " + computePow(layerdata.xNoise_Mul));
-    yNoise_Mul.setValueLabel("x " + computePow(layerdata.yNoise_Mul));
-    Height_Mul.setValueLabel("x " + computePow(layerdata.Height_Mul));
+    xNoise_Mul.setValueLabel("x " + computePow(data_layer.xNoise_Mul));
+    yNoise_Mul.setValueLabel("x " + computePow(data_layer.yNoise_Mul));
+    Height_Mul.setValueLabel("x " + computePow(data_layer.Height_Mul));
 
-    if (layerdata.add)
+    if (data_layer.add)
       add.setLabel("Add Values");
     else
       add.setLabel("Max Value");
 
 
-    switch(layerdata.mode)
+    switch(data_layer.mode)
     {
     default:
     case 0:

@@ -4,9 +4,7 @@ import processing.dxf.*;
 import processing.svg.*;
 
 
-DrawingData data;
-
-
+Data data;
 DataGUI dataGui;
 
 PGraphics current_graphics;
@@ -18,7 +16,7 @@ void setup()
   size(1200, 800);
 
   drawer =  new DrawingGenerator();
-  data = new DrawingData();
+  data = new Data();
   dataGui = new DataGUI();
 
   setupControls();
@@ -27,7 +25,6 @@ void setup()
   data.name = "few islands";
 
   dataGui.setGUIValues();
-
 
   surface.setResizable(true);
 

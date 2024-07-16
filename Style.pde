@@ -1,25 +1,31 @@
 
+
+
 class Style
 {
-  color backgroundColor = color(0, 0, 0);
-  color lineColor = color(255, 255, 255);
+  ColorRef lineColor = new ColorRef(color(255, 255, 255), "lineColor");
+  ColorRef backgroundColor = new ColorRef(color(0, 0, 0), "backgroundColor");
   float lineWidth = 1;
+
 
   void LoadJson(JSONObject src)
   {
     if (src == null)
       return;
 
-    backgroundColor = src.getInt("backgroundColor", backgroundColor);
-    lineColor = src.getInt("lineColor", lineColor);
+    backgroundColor.LoadJson(src);
+    lineColor.LoadJson(src);
+
     lineWidth = src.getFloat("lineWidth", lineWidth);
   }
 
   JSONObject SaveJson()
   {
     JSONObject dest = new JSONObject();
-    dest.setInt("backgroundColor", backgroundColor);
-    dest.setInt("lineColor", lineColor);
+
+    backgroundColor.SaveJson(dest);
+    lineColor.SaveJson(dest);
+
     dest.setFloat("lineWidth", lineWidth);
 
     return dest;
@@ -27,19 +33,16 @@ class Style
 }
 
 
-
-
 class StyleGUI extends UI_Panel
 {
   Slider lineWidth;
   Style style;
-  ColorPicker backgroundColor;
-  ColorPicker lineColor;
+  ColorGroup backgroundColor;
+  ColorGroup lineColor;
 
   void setGUIValues()
   {
     lineWidth.setValue(style.lineWidth);
-    backgroundColor.setColorValue(style.backgroundColor);
   }
 
   void setupControls(ControlP5 cp5)
@@ -47,14 +50,12 @@ class StyleGUI extends UI_Panel
     style = data.style;
     super.Init("Style", cp5);
     lineWidth = addSlider("lineWidth", "Line Width", style, 0, 5, false);
-    backgroundColor = addColor("backgroundColor", "background Color", style);  
-    lineColor = addColor("lineColor", "line Color", style);
+    backgroundColor = addColorGroup("background Color", style.backgroundColor);
+    lineColor = addColorGroup("Line Color", style.lineColor);
   }
 
   void update()
   {
-    backgroundColor.setColorValue(style.backgroundColor);
-    lineColor.setColorValue(style.lineColor);
-    lineWidth.setValue(style.lineWidth);
+ 
   }
 }

@@ -6,7 +6,7 @@ class Line
 
   float y_line = 0;
 
-  void build(DrawingData data, float yNoise, float yLine)
+  void build(Data data, float yNoise, float yLine)
   {
 
     points = null;
@@ -57,7 +57,7 @@ class Line
 
 class DrawingGenerator
 {
-  DrawingData data;
+  Data data;
 
   ArrayList<Line> lines;
 
@@ -111,7 +111,8 @@ class DrawingGenerator
       y_Line += delta_y;
     }
   }
-
+  
+  
   void draw()
   {
     boolean needUpdate = false;
@@ -122,20 +123,11 @@ class DrawingGenerator
       data.changed = false;
     }
 
-    int delta_ms =  millis() - lastUpdate;
-    lastUpdate =  millis();
-
-    if (data.main.move.x != 0 || data.main.move.y != 0)
-    {
-      data.main.pos.x += 0.001*data.main.move.x * delta_ms * data.main.moveSpeed * data.Noise1.pow_X;
-      data.main.pos.y += 0.001*data.main.move.y * delta_ms  * data.main.moveSpeed * data.Noise1.pow_Y;
-
+    if (checkMove())
       needUpdate = true;
-    }
-
+      
     if (needUpdate)
       drawer.update();
-
 
     for (int lineIndex = 0; lineIndex < lines.size(); lineIndex++)
     {

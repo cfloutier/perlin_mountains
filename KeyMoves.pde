@@ -1,28 +1,75 @@
   void keyPressed() {
+    
     if (key == CODED) {  
       if (keyCode == UP) 
-        data.main.move.y = -1;
+        move(new PVector(0, -1));
       else if (keyCode == DOWN)
-        data.main.move.y = 1;
+        move(new PVector(0, 1));
       else if (keyCode == LEFT)
-        data.main.move.x = -1;
+        move(new PVector(-1, 0));
       else if (keyCode == RIGHT)
-        data.main.move.x = 1;
+        move(new PVector(1, 0));
     }
   }  
 
   void keyReleased() {
     if (key == CODED) {
-
       if (keyCode == UP) 
-        data.main.move.y = 0;
+        move(new PVector(0, 0));
       else if (keyCode == DOWN)
-        data.main.move.y = 0;
+        move(new PVector(0, 0));
       else if (keyCode == LEFT)
-        data.main.move.x = 0;
+        move(new PVector(0, 0));
       else if (keyCode == RIGHT)
-        data.main.move.x = 0;
+        move(new PVector(0, 0));
     }
   }
   
+  void move(PVector move)
+  {
+    data.move = move;
+    data.tab_name = cp5.getWindow( ).getCurrentTab().getName();
+    
+    
+  }
   
+  int lastUpdate = 0;
+  
+  boolean checkMove( )
+  {
+    if (data.move.x != 0 || data.move.y != 0)
+    {
+      DataLayer layer = null;
+      switch(data.tab_name)
+      {
+        case "Noise1":
+          layer = data.Noise1;
+          break;
+        case "Noise2":
+          layer = data.Noise2;
+          break;        
+        case "Noise3":
+          layer = data.Noise3;
+          break;        
+      }
+      
+      
+      
+      if (layer != null)
+      {
+        int delta_ms =  millis() - lastUpdate;
+        layer.pos.x += 0.001*data.move.x * delta_ms * data.main.moveSpeed_X * layer.pow_X;
+        layer.pos.y += 0.001*data.move.y * delta_ms  * data.main.moveSpeed_Y * layer.pow_Y;   
+        
+      //  println("layer.pos.x " + layer.pos.x);
+      }
+      
+      lastUpdate =  millis();
+      
+      return true;
+    }
+    
+    lastUpdate =  millis();
+    
+    return false;
+  }
