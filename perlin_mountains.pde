@@ -1,4 +1,4 @@
-import controlP5.*; //<>//
+import controlP5.*; //<>// //<>//
 import processing.pdf.*;
 import processing.dxf.*;
 import processing.svg.*;
@@ -22,7 +22,6 @@ void setup()
   setupControls();
 
   data.LoadSettings("./Settings/few islands.json");
-  data.name = "few islands";
 
   dataGui.setGUIValues();
 
@@ -45,7 +44,7 @@ void draw()
 
   if (data.changed)
   {
-    dataGui.update();
+    dataGui.update_ui();
   }
 
   drawer.draw();

@@ -34,16 +34,16 @@ class DataGUI
 
   StyleGUI style = new StyleGUI();
 
-  void update()
+  void update_ui()
   {
     if (!data.changed)
       return;
 
-    main.update();
-    style.update();
-    Noise1.update();
-    Noise2.update();
-    Noise3.update();
+    main.update_ui();
+    style.update_ui();
+    Noise1.update_ui();
+    Noise2.update_ui();
+    Noise3.update_ui();
   }
 
   void setupControls(ControlP5 cp5)

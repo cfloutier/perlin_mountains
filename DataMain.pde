@@ -20,59 +20,18 @@ class DataMain extends GenericDataClass
   int NoiseLod = 4;
   float NoiseFalloff = 0.5;
 
+  int max_override = 5;
+
   void setSeed()
   {
     seed = (int) random(0, 100000000);
+    changed = true;
   }
 
-  void LoadJson(JSONObject src)
-  {
-    if (src == null)
-      return;
-
-    NbLines = src.getInt("NbLines", NbLines);
-    Height = src.getFloat("Height", Height);
-    XSteps = src.getInt("XSteps", XSteps);
-
-    seed = src.getInt("seed", seed);
-
-    intersection = src.getBoolean("intersection", intersection);
-    moveSpeed_X = src.getFloat("moveSpeed_X", moveSpeed_X);
-    moveSpeed_Y = src.getFloat("moveSpeed_Y", moveSpeed_Y);
-
-    NoiseLod = src.getInt("NoiseLod", NoiseLod);
-    NoiseFalloff = src.getFloat("NoiseFalloff", NoiseFalloff);
-  }
-
-  JSONObject SaveJson()
-  {
-    JSONObject dest = new JSONObject();
-
-    dest.setInt("NbLines", NbLines);
-    dest.setFloat("Height", Height);
-    dest.setInt("XSteps", XSteps);
-
-
-
-    dest.setInt("seed", seed);
-
-    dest.setBoolean("intersection", intersection);
-
-    dest.setFloat("moveSpeed_X", moveSpeed_X);
-    dest.setFloat("moveSpeed_Y", moveSpeed_Y);
-
-    dest.setInt("NoiseLod", NoiseLod);
-    dest.setFloat("NoiseFalloff", NoiseFalloff);
-
-    return dest;
-  }
 }
-
 
 class MainGUI extends GUIPanel
 {
-  
-  
   
   DataMain main;
 
@@ -84,6 +43,8 @@ class MainGUI extends GUIPanel
   Slider moveSpeed_X;
   Slider moveSpeed_Y;
 
+  Slider max_override;
+  
   Button seedBt;
   Textlabel seedLabel;
 
@@ -97,6 +58,8 @@ class MainGUI extends GUIPanel
     Height.setValue(main.Height);
 
     intersection.setValue(main.intersection);
+
+    max_override.setValue(main.max_override);
     
     moveSpeed_X.setValue(main.moveSpeed_X);
     moveSpeed_Y.setValue(main.moveSpeed_Y);
@@ -122,6 +85,8 @@ class MainGUI extends GUIPanel
 
     intersection = addToggle( "intersection", "intersection", false);
 
+    max_override = addIntSlider( "max_override", "Max override", 0, 20, false);
+
     addLabel("Move");
 
     moveSpeed_X = addSlider("moveSpeed_X", "Move Speed X", 0, 2, true);
@@ -130,16 +95,16 @@ class MainGUI extends GUIPanel
     addLabel("Random");
 
     seedLabel = addLabel("Random");
-
     seedBt = addButton("Random seed");
+    
+    nextLine();
     seedBt.plugTo(main, "setSeed"); 
 
     NoiseLod = addIntSlider("NoiseLod", "Noise Harmonics", 1, 8, false);
     NoiseFalloff = addSlider("NoiseFalloff", "NoiseFalloff", 0, 1, false);
   }
 
-
-  void update()
+  void update_ui()
   {
     seedLabel.setText("seed : " + main.seed);
   }

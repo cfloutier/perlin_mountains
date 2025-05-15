@@ -110,14 +110,6 @@ class DataLayer extends GenericDataClass
       src.getFloat("pos_x", pos.x), 
       src.getFloat("pos_y", pos.y));
 
-
-    //String[] properties = (String[]) src.keys().toArray(new String[src.size()]);
-
-    // println(properties);
-
-    //println("pos " + src.getFloat("pos_x"));
-    //println("xNoise " + src.getFloat("xNoise"));
-
     xNoise_Mul = src.getInt("xNoise_Mul", xNoise_Mul);
     yNoise_Mul = src.getInt("yNoise_Mul", yNoise_Mul);
     Height_Mul = src.getInt("Height_Mul", Height_Mul);
@@ -197,7 +189,7 @@ class LayerGui extends GUIPanel
     add.setValue(data_layer.add);
     on.setValue(data_layer.on);
 
-    update();
+    update_ui();
   }
 
   void setupControls(String name)
@@ -232,7 +224,7 @@ class LayerGui extends GUIPanel
     setGUIValues();
   }
 
-  void update()
+  void update_ui()
   {
     xNoise_Mul.setValueLabel("x " + computePow(data_layer.xNoise_Mul));
     yNoise_Mul.setValueLabel("x " + computePow(data_layer.yNoise_Mul));

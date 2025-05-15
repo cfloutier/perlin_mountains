@@ -1,14 +1,12 @@
-//<>// //<>//
-
-class Line
+class Line //<>//
 {
   ArrayList<PVector> points = new ArrayList<PVector>();
-
+  boolean[] validity = null;
+  
   float y_line = 0;
 
   void build(float yNoise, float yLine)
   {
-
     points = null;
 
     this.y_line = yLine;
@@ -16,6 +14,7 @@ class Line
     float xPos = 0;
     float deltaX = data.width / (data.main.XSteps - 1);
     points = new ArrayList<PVector>();
+    setAllValid();
     for (int i = 0; i < data.main.XSteps; i++)
     {
       points.add(new PVector(xPos, 0));
@@ -29,20 +28,49 @@ class Line
 
   void draw()
   {
-
     current_graphics.noFill();
+
     current_graphics.beginShape();
+    boolean drawing = false;
 
     for (int i = 0; i < points.size(); i++)
     {
-      PVector pA = points.get(i);
-      current_graphics.vertex(pA.x, pA.y + y_line);
+      boolean valid = validity[i];
+      if (valid)
+      {
+        PVector pA = points.get(i);
+        if (!drawing)
+        {
+          drawing = true;
+          current_graphics.beginShape();     
+        }
+        
+        current_graphics.vertex(pA.x, pA.y + y_line);
+      }
+      else{
+        if (drawing)
+        {
+          drawing = false;
+          current_graphics.endShape();     
+        }
+      }
     }
 
-    current_graphics.endShape();
+    if (drawing)
+    {
+      drawing = false;
+      current_graphics.endShape();     
+    }
   }
 
-  void mergeWith(Line prevLine)
+  void setAllValid()
+  {
+    validity = new boolean[data.main.XSteps];
+    for (int i = 0; i < data.main.XSteps; i++)
+      validity[i] = true;
+  }
+
+  void mergeWith(Line prevLine, int[] counters)
   {
     for (int i = 0; i < data.main.XSteps; i++)
     {
@@ -50,9 +78,25 @@ class Line
       float prev_y =  prevLine.points.get(i).y + prevLine.y_line;
 
       if (y > prev_y)
+      {
+        int counter = counters[i] + 1; 
+        counters[i] = counter;
+        
         points.get(i).y = prev_y - y_line;
+
+        if (counter > data.main.max_override)
+          validity[i] = false;
+        else
+          validity[i] = true;
+      }
+      else
+      {
+        counters[i] = 0;
+        validity[i] = true;
+      }
     }
   }
+  
 }
 
 class DrawingGenerator
@@ -93,14 +137,24 @@ class DrawingGenerator
     }
 
     Line prevLine = null;
+
+    int[] counters = new int[data.main.XSteps];
+    if (data.main.intersection)
+    {
+       for (int i = 0; i < data.main.XSteps; i++)
+        counters[i] = 0;
+    }
+
     for (int lineIndex = 0; lineIndex < data.main.NbLines; lineIndex++)
     {
       Line line = new Line();
       line.build(y_Noise, y_Line);
 
       if (data.main.intersection)
+      {
         if (prevLine != null)
-          line.mergeWith(prevLine);
+          line.mergeWith(prevLine, counters);
+      }
 
       prevLine = line;
 
@@ -110,7 +164,6 @@ class DrawingGenerator
     }
   }
   
-  
   void draw()
   {
     boolean needUpdate = false;
@@ -118,21 +171,28 @@ class DrawingGenerator
     if (data.any_change())
     {
       needUpdate = true;
-      
+      println("need update");
     }
-
+    
     if (checkMove())
       needUpdate = true;
       
     if (needUpdate)
+    {
       drawer.update();
-
+      data.reset_all_changes();
+    }
+    
     for (int lineIndex = 0; lineIndex < lines.size(); lineIndex++)
     {
       lines.get(lineIndex).draw();
     }
     
     
-    data.resey_changed();
+    
+    
+    
+    
+    
   }
 }
