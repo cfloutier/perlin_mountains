@@ -40,14 +40,15 @@ Random perlinRandom;
  */
 public float my_noise(float x) {
   // is this legit? it's a dumb way to do it (but repair it later)
-  return my_noise(x, 0f, 0f);
+  return noise(x, 0f, 0f);
 }
 
 /**
  */
 public float my_noise(float x, float y) {
-  return my_noise(x, y, 0f);
+  return noise(x, y, 0f);
 }
+
 
 /**
  * ( begin auto-generated from noise.xml )
@@ -88,7 +89,7 @@ public float my_noise(float x, float y) {
  * @see PApplet#noiseDetail(int, float)
  * @see PApplet#random(float,float)
  */
-public float my_noise(float x, float y, float z) {
+public float noise(float x, float y, float z) {
   if (perlin == null) {
     if (perlinRandom == null) {
       perlinRandom = new Random();
@@ -111,8 +112,8 @@ public float my_noise(float x, float y, float z) {
   if (x<0) x=-x;
   if (y<0) y=-y;
   if (z<0) z=-z;
-
-  int xi=(int)x, yi=(int)y, zi=(int)z;
+ //<>// //<>//
+  int xi=(int)x, yi=(int)y, zi=(int)z; //<>//
   float xf = x - xi;
   float yf = y - yi;
   float zf = z - zi;
@@ -126,8 +127,8 @@ public float my_noise(float x, float y, float z) {
   for (int i=0; i<perlin_octaves; i++) {
     int of=xi+(yi<<PERLIN_YWRAPB)+(zi<<PERLIN_ZWRAPB);
 
-    rxf=my_noise_fsc(xf);
-    ryf=my_noise_fsc(yf);
+    rxf=noise_fsc(xf);
+    ryf=noise_fsc(yf);
 
     n1  = perlin[of&PERLIN_SIZE];
     n1 += rxf*(perlin[(of+1)&PERLIN_SIZE]-n1);
@@ -142,7 +143,7 @@ public float my_noise(float x, float y, float z) {
     n3 += rxf*(perlin[(of+PERLIN_YWRAP+1)&PERLIN_SIZE]-n3);
     n2 += ryf*(n3-n2);
 
-    n1 += my_noise_fsc(zf)*(n2-n1);
+    n1 += noise_fsc(zf)*(n2-n1);
 
     r += n1*ampl;
     ampl *= perlin_amp_falloff;
@@ -172,7 +173,7 @@ public float my_noise(float x, float y, float z) {
 // [toxi 031112]
 // now adjusts to the size of the cosLUT used via
 // the new variables, defined above
-private float my_noise_fsc(float i) {
+private float noise_fsc(float i) {
   // using bagel's cosine table instead
 
   int index = (int)(i*perlin_PI)%perlin_TWOPI;

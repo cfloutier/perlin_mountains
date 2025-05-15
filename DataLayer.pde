@@ -6,8 +6,16 @@ static float computePow(int mul)
   return pow(10, mul);
 }
 
-class DataLayer
+class DataLayer extends GenericDataClass
 {
+  
+    DataLayer(String layer_name)
+    {
+      super(layer_name);
+      
+    }
+  
+  
   boolean on = false;
 
   int mode = 0;
@@ -145,7 +153,7 @@ class DataLayer
   }
 }
 
-class LayerGui extends UI_Panel
+class LayerGui extends GUIPanel
 {
   LayerGui(DataLayer data_layer, String name)
   {
@@ -192,30 +200,30 @@ class LayerGui extends UI_Panel
     update();
   }
 
-  void setupControls(String name, ControlP5 cp5)
+  void setupControls(String name)
   {
-    super.Init(name, cp5);
+    super.Init(name, data_layer);
 
     addLabel(name);
 
-    on = addToggle("on", "on/off", data_layer);
+    on = addToggle("on", "on/off", false);
 
-    xNoise = addSlider("xNoise", "X Noise", data_layer, 0, 10, true);
-    yNoise = addSlider("yNoise", "Y Noise", data_layer, 0, 30, true);
-    Height_Noise = addSlider("Height_Noise", "Height_Noise", data_layer, 0, 10, false);
+    xNoise = addSlider("xNoise", "X Noise", 0, 10, true);
+    yNoise = addSlider("yNoise", "Y Noise", 0, 30, true);
+    Height_Noise = addSlider("Height_Noise", "Height_Noise", 0, 10, false);
 
-    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", data_layer, -1, 2, true);
-    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", data_layer, -1, 3, true);
-    Height_Mul = addIntSlider("Height_Mul", "Height Mult", data_layer, -3, 1, false);
+    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", -1, 2, true);
+    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", -1, 3, true);
+    Height_Mul = addIntSlider("Height_Mul", "Height Mult", -3, 1, false);
 
-    Added_Height = addSlider("Added_Height", "Added_Height", data_layer, -1, 1, false);
+    Added_Height = addSlider("Added_Height", "Added_Height", -1, 1, false);
 
     Reset_Added_Height = addButton("recenter");
     Reset_Added_Height.plugTo(this, "rescenterH");
 
-    add = addToggle("add", "add values", data_layer);
+    add = addToggle("add", "add values", false);
 
-    mode = addIntSlider("mode", "mode", data_layer, 0, 2, false);
+    mode = addIntSlider("mode", "mode", 0, 2, false);
   }
 
   void rescenterH()

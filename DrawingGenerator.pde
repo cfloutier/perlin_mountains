@@ -6,7 +6,7 @@ class Line
 
   float y_line = 0;
 
-  void build(Data data, float yNoise, float yLine)
+  void build(float yNoise, float yLine)
   {
 
     points = null;
@@ -57,8 +57,6 @@ class Line
 
 class DrawingGenerator
 {
-  Data data;
-
   ArrayList<Line> lines;
 
   int lastUpdate  = 0;
@@ -66,10 +64,10 @@ class DrawingGenerator
   void update()
   {
     noiseSeed(data.main.seed);
-    noiseDetail(data.main.NoiseLod, data .main.NoiseFalloff);
+    noiseDetail(data.main.NoiseLod, data.main.NoiseFalloff);
     
     my_noiseSeed(data.main.seed);
-    my_noiseDetail(data.main.NoiseLod, data .main.NoiseFalloff);
+    my_noiseDetail(data.main.NoiseLod, data.main.NoiseFalloff);
 
     lines = new ArrayList<Line>();
 
@@ -98,7 +96,7 @@ class DrawingGenerator
     for (int lineIndex = 0; lineIndex < data.main.NbLines; lineIndex++)
     {
       Line line = new Line();
-      line.build(data, y_Noise, y_Line);
+      line.build(y_Noise, y_Line);
 
       if (data.main.intersection)
         if (prevLine != null)
@@ -117,10 +115,10 @@ class DrawingGenerator
   {
     boolean needUpdate = false;
    
-    if (data.changed)
+    if (data.any_change())
     {
       needUpdate = true;
-      data.changed = false;
+      
     }
 
     if (checkMove())
@@ -133,5 +131,8 @@ class DrawingGenerator
     {
       lines.get(lineIndex).draw();
     }
+    
+    
+    data.resey_changed();
   }
 }

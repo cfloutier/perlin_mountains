@@ -1,0 +1,60 @@
+{
+  "Noise1": {
+    "mode": 1,
+    "pos_y": -6.940626621246338,
+    "add": true,
+    "Height_Noise": 1.933333396911621,
+    "pos_x": -5.062222957611084,
+    "Added_Height": 0,
+    "xNoise": 0.3999999761581421,
+    "xNoise_Mul": 1,
+    "Height_Mul": -1,
+    "yNoise": 30,
+    "yNoise_Mul": 0,
+    "on": true
+  },
+  "Style": {
+    "backgroundColor": -1,
+    "lineColor": -16777216,
+    "lineWidth": 0.8333333730697632
+  },
+  "Main": {
+    "moveSpeed_X": 0.8333333730697632,
+    "seed": 15407264,
+    "NoiseFalloff": 0.6666666865348816,
+    "intersection": false,
+    "NoiseLod": 2,
+    "NbLines": 766,
+    "Height": 0.27666667103767395,
+    "moveSpeed_Y": 0.5266667008399963,
+    "XSteps": 1281
+  },
+  "Noise3": {
+    "mode": 0,
+    "pos_y": 0,
+    "add": false,
+    "Height_Noise": 0,
+    "pos_x": 0,
+    "Added_Height": -0.046666622161865234,
+    "xNoise": 0,
+    "xNoise_Mul": 0,
+    "Height_Mul": 0,
+    "yNoise": 0,
+    "yNoise_Mul": 0,
+    "on": false
+  },
+  "Noise2": {
+    "mode": 1,
+    "pos_y": 3.2712321281433105,
+    "add": true,
+    "Height_Noise": 3.933333396911621,
+    "pos_x": 2.032444715499878,
+    "Added_Height": 0,
+    "xNoise": 2.6666667461395264,
+    "xNoise_Mul": 0,
+    "Height_Mul": -1,
+    "yNoise": 7.5,
+    "yNoise_Mul": 0,
+    "on": true
+  }
+}

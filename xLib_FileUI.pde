@@ -2,6 +2,8 @@
 void addFileTab()
 {
   cp5.addTab("Files");
+  
+  println("addFileTab");
 
   float xPos = 0;
   float yPos = 20;
@@ -31,14 +33,6 @@ void addFileTab()
 
   xPos += widthButton;
 
-/*  cp5.addButton("ExportDXF")
-    .setPosition(xPos, yPos)
-    .setSize(widthButton, heightButton)
-    .moveTo("Files");      
-
-  xPos += widthButton;
-*/
-
   cp5.addButton("ExportSVG")
     .setPosition(xPos, yPos)
     .setSize(widthButton, heightButton)
@@ -49,17 +43,18 @@ void addFileTab()
 
 void LoadJson()
 {
-  File file = new File(".");
-  selectInput("Select data file ", "loadSelected", file);
+  println("LoadJson");
+  selectInput("Select data file ", "loadSelected", dataFile("../Settings/default.json")  );
 }
 
 void loadSelected(File selection) 
 {
   if (selection == null) 
   {
+
   } else 
   {
-    data.LoadJson(selection.getAbsolutePath());
+    data.LoadSettings(selection.getAbsolutePath());
     data.name = selection.getName();
     data.name = data.name.substring(0, data.name.length() - 5);
    
@@ -69,7 +64,7 @@ void loadSelected(File selection)
 
 void SaveJson()
 {
-  selectInput("Save data file ", "saveSelected");
+  selectInput("Save data file ", "saveSelected", dataFile("../Settings/default.json"));
 }
 
 void saveSelected(File selection) 
@@ -82,11 +77,10 @@ void saveSelected(File selection)
     if (path.length() < 5 || !path.substring(path.length() - 5).equals(".json"))
       path = path + ".json";
 
-    data.SaveJson(path);
+    data.SaveSettings(path);
     
-    data.name = selection.getName();
-    data.name = data.name.substring(0, data.name.length() - 5);
-  
+    String name = selection.getName();
+    data.name = name.substring(0, name.length() - 5);
   }
 }
 
@@ -114,19 +108,27 @@ void ExportSVG()
 
 void start_draw()
 {
+  dataGui.update();
+
+  if (data.changed)
+  {
+    if (data.auto_save)
+      data.save();
+
+    data.changed = false;
+  }
+
   if (record) 
   {
-
     String name = data.name;
     if (name == "")
-      name = "Perlin_Mountain";
+      name = "default";
       
     float sizeMultiplier = 1;
     
-    println(name);
+    println("saving " + name);
       
    // sizeMultiplier = (float) width  / 28;
-      
       
     float newWidth = width * sizeMultiplier;
     float newheight = height * sizeMultiplier;
@@ -146,16 +148,15 @@ void start_draw()
     current_graphics.strokeWeight(data.style.lineWidth*sizeMultiplier);
     
     current_graphics.rotate(-PI/2);
-   
-     current_graphics.translate(-newWidth,newheight/2);
-    
+    current_graphics.translate(-newWidth,newheight/2);
     
   } else {
     
     current_graphics = g;
 
     background(data.style.backgroundColor.col);
-    strokeWeight(data.style.lineWidth);   
+    strokeWeight(data.style.lineWidth);
+
     stroke(data.style.lineColor.col);
     
     current_graphics = g;
@@ -163,8 +164,6 @@ void start_draw()
     data.setSize(width, height);
   } 
 }
-
-
 
 void end_draw()
 {

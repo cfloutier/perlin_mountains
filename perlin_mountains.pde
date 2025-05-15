@@ -4,7 +4,7 @@ import processing.dxf.*;
 import processing.svg.*;
 
 
-Data data;
+PerlinMountainsData data;
 DataGUI dataGui;
 
 PGraphics current_graphics;
@@ -16,12 +16,12 @@ void setup()
   size(1200, 800);
 
   drawer =  new DrawingGenerator();
-  data = new Data();
+  data = new PerlinMountainsData();
   dataGui = new DataGUI();
 
   setupControls();
 
-  data.LoadJson("./Saved/few islands.json");
+  data.LoadSettings("./Saved/few islands.json");
   data.name = "few islands";
 
   dataGui.setGUIValues();
@@ -35,8 +35,8 @@ void setupControls()
 { 
   cp5 = new ControlP5(this);
   cp5.getTab("default").setLabel("Hide GUI");
-  dataGui.setupControls( cp5 );    
   addFileTab();
+  dataGui.setupControls( cp5 );    
 }
 
 void draw()
@@ -45,10 +45,9 @@ void draw()
 
   if (data.changed)
   {
-    dataGui.updateUI();
+    dataGui.update();
   }
 
-  drawer.data = data;
   drawer.draw();
 
   end_draw();
