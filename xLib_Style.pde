@@ -1,4 +1,4 @@
-class Style extends GenericDataClass
+class Style extends GenericData
 {
   Style(){ super("Style"); }
   

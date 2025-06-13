@@ -6,7 +6,7 @@ static float computePow(int mul)
   return pow(10, mul);
 }
 
-class DataLayer extends GenericDataClass
+class DataLayer extends GenericData
 {
   
     DataLayer(String layer_name)

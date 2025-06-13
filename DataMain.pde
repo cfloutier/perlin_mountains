@@ -1,5 +1,5 @@
 
-class DataMain extends GenericDataClass
+class DataMain extends GenericData
 {
   DataMain()
   {  

@@ -34,11 +34,11 @@ class GUIPanel implements ControlListener
   int heightCtrl = 20;
   
   
-  GenericDataClass associated_data;
+  GenericData associated_data;
   
   Tab tab;
 
-  void Init(String pageName, GenericDataClass data)
+  void Init(String pageName, GenericData data)
   {
     this.pageName = pageName; //<>// //<>//
     this.associated_data = data;
