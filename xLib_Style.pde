@@ -34,20 +34,26 @@ class StyleGUI extends GUIPanel
 {
   Style style;
   
+  StyleGUI(Style dataStyle)
+  {
+    super("Style", dataStyle);
+    this.style = dataStyle;
+  }
+  
   Slider lineWidth;
   ColorGroup backgroundColor;
   ColorGroup lineColor;
 
-  void setGUIValues()  
+  void setGUIValues()    
   {
     lineWidth.setValue(style.lineWidth);
-  }
+  }  
 
   void setupControls()
   {
-    style = data.style;
-    super.Init("Style", style);
-    lineWidth = addSlider("lineWidth", "Line Width", 0, 5, false);
+    super.Init();
+    
+    lineWidth = addSlider("lineWidth", "Line Width", 0, 5);
     lineColor = addColorGroup("Line Color", style.lineColor);
     backgroundColor = addColorGroup("background Color", style.backgroundColor);
   }

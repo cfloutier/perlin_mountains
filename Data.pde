@@ -1,7 +1,5 @@
 import controlP5.*;  //<>//
 
-
-
 class PerlinMountainsData extends DataGlobal
 {
   String tab_name;
@@ -24,15 +22,14 @@ class PerlinMountainsData extends DataGlobal
   }
 }
 
-
 class DataGUI 
 {
   LayerGui Noise1;
   LayerGui Noise2;
   LayerGui Noise3;
-  MainGUI main = new MainGUI(); 
+  MainGUI main;
 
-  StyleGUI style = new StyleGUI();
+  StyleGUI style;
 
   void update_ui()
   {
@@ -45,6 +42,21 @@ class DataGUI
     Noise2.update_ui();
     Noise3.update_ui();
   }
+  
+  boolean mousePressed()
+  {
+    return false;
+  }
+  
+  boolean mouseDragged()
+  {
+    return false;
+  }
+  
+  boolean mouseReleased()
+  {
+    return false;
+  }
 
   void setupControls(ControlP5 cp5)
   { 
@@ -56,7 +68,11 @@ class DataGUI
     cp5.addTab("Noise3");
 
     main.setupControls( );    
+    
+    style = new StyleGUI(data.style);
     style.setupControls(  );    
+    
+    main = new MainGUI(data.main); 
 
     Noise1 = new LayerGui(data.Noise1, "Layer 1");
     Noise1.setupControls("Noise1");

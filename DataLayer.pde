@@ -149,6 +149,7 @@ class LayerGui extends GUIPanel
 {
   LayerGui(DataLayer data_layer, String name)
   {
+    super(name, data_layer);
     this.data_layer = data_layer;
     this.name = name;
   }
@@ -194,28 +195,28 @@ class LayerGui extends GUIPanel
 
   void setupControls(String name)
   {
-    super.Init(name, data_layer);
+    super.Init();
 
     addLabel(name);
 
-    on = addToggle("on", "on/off", false);
+    on = addToggle("on", "on/off");
 
-    xNoise = addSlider("xNoise", "X Noise", 0, 10, true);
-    yNoise = addSlider("yNoise", "Y Noise", 0, 30, true);
-    Height_Noise = addSlider("Height_Noise", "Height_Noise", 0, 10, false);
+    xNoise = addSlider("xNoise", "X Noise", 0, 10);
+    yNoise = addSlider("yNoise", "Y Noise", 0, 30);
+    Height_Noise = addSlider("Height_Noise", "Height_Noise", 0, 10);
 
-    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", -1, 2, true);
-    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", -1, 3, true);
-    Height_Mul = addIntSlider("Height_Mul", "Height Mult", -3, 1, false);
+    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", -1, 2);
+    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", -1, 3);
+    Height_Mul = addIntSlider("Height_Mul", "Height Mult", -3, 1);
 
-    Added_Height = addSlider("Added_Height", "Added_Height", -1, 1, false);
+    Added_Height = addSlider("Added_Height", "Added_Height", -1, 1);
 
     Reset_Added_Height = addButton("recenter");
     Reset_Added_Height.plugTo(this, "rescenterH");
 
-    add = addToggle("add", "add values", false);
+    add = addToggle("add", "add values");
 
-    mode = addIntSlider("mode", "mode", 0, 2, false);
+    mode = addIntSlider("mode", "mode", 0, 2);
   }
 
   void rescenterH()

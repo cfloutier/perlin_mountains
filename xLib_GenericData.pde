@@ -1,9 +1,6 @@
 import java.lang.reflect.Field;
 
 
-
-
-
 // classe de base des données sauvegardable
 class GenericData
 {
@@ -43,7 +40,7 @@ class GenericData
     Field[] fields = this.getClass().getDeclaredFields();
 
     for (Field field : fields) {
-      try {
+      try { //<>// //<>//
         field.setAccessible(true); // Allow access to private fields if necessary
         String name = field.getName();
         if (name == "changed" || name =="this$0")
@@ -104,6 +101,26 @@ class GenericData
 
     return json;
   }
+  
+  void CopyFrom(GenericData src)
+  {
+    Field[] fields = this.getClass().getDeclaredFields();
+    for (Field field : fields) {
+      try {
+        field.setAccessible(true); // Allow access to private fields if necessary
+        String name = field.getName();
+        if (name == "changed" || name =="this$0")
+        {
+          continue;
+        }
+        
+        field.set(this, field.get(src));
+      }
+      catch (IllegalAccessException e) {
+        e.printStackTrace(); // Handle exceptions gracefully
+      }
+    }
+  }
 }
 
 class DataGlobal
@@ -120,6 +137,12 @@ class DataGlobal
 
   float width = 800;
   float height = 600;
+  float global_scale = 1;
+  
+  void reset()
+  {
+    println("error calling base reset");
+  }
 
   void setSize(float width, float height)
   {
@@ -158,9 +181,10 @@ class DataGlobal
   void LoadSettings(String path)
   {
     println("loading settings : " + path);
+    reset();
     settings_path = path;
-
-    data.name = getFileNameWithoutExtension(path);
+ //<>//
+    data.name = getFileNameWithoutExtension(path); //<>//
     JSONObject json = loadJSONObject(path);
 
     for (GenericData chapter : chapters) {

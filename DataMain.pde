@@ -32,9 +32,15 @@ class DataMain extends GenericData
 
 class MainGUI extends GUIPanel
 {
-  
   DataMain main;
-
+  
+  
+  MainGUI(DataMain main)
+  {
+    super("Main", main);
+    this.main = main;
+  }
+  
   Slider NbLines;
   Slider XSteps;
   Slider Height;
@@ -72,25 +78,25 @@ class MainGUI extends GUIPanel
 
   void setupControls()
   {
-    super.Init("Main", data.main);
+    super.Init();
 
     main = data.main;
 
     addLabel("Page");
 
-    NbLines = addSlider("NbLines", "Nb of Lines", 1, 1000, true);
-    XSteps = addSlider("XSteps", "X Steps", 4, 2000, false);
+    NbLines = addSlider("NbLines", "Nb of Lines", 1, 1000);
+    XSteps = addSlider("XSteps", "X Steps", 4, 2000);
 
-    Height = addSlider("Height", "Drawing Height", 0, 1, false);
+    Height = addSlider("Height", "Drawing Height", 0, 1);
 
-    intersection = addToggle( "intersection", "intersection", false);
+    intersection = addToggle( "intersection", "intersection");
 
-    max_override = addIntSlider( "max_override", "Max override", 0, 20, false);
+    max_override = addIntSlider( "max_override", "Max override", 0, 20);
 
     addLabel("Move");
 
-    moveSpeed_X = addSlider("moveSpeed_X", "Move Speed X", 0, 2, true);
-    moveSpeed_Y = addSlider("moveSpeed_Y", "Move Speed Y", 0, 2, false);
+    moveSpeed_X = addSlider("moveSpeed_X", "Move Speed X", 0, 2);
+    moveSpeed_Y = addSlider("moveSpeed_Y", "Move Speed Y", 0, 2);
     
     addLabel("Random");
 
@@ -100,8 +106,8 @@ class MainGUI extends GUIPanel
     nextLine();
     seedBt.plugTo(main, "setSeed"); 
 
-    NoiseLod = addIntSlider("NoiseLod", "Noise Harmonics", 1, 8, false);
-    NoiseFalloff = addSlider("NoiseFalloff", "NoiseFalloff", 0, 1, false);
+    NoiseLod = addIntSlider("NoiseLod", "Noise Harmonics", 1, 8);
+    NoiseFalloff = addSlider("NoiseFalloff", "NoiseFalloff", 0, 1);
   }
 
   void update_ui()
