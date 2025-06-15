@@ -383,7 +383,6 @@ class GUIPanel implements ControlListener
 
     s.getCaptionLabel().getStyle().marginLeft = -getWidthLabel(label) - 8; // adjust -10 as needed
 
-
     return s;
   }
 

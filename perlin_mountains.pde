@@ -1,4 +1,4 @@
-import controlP5.*; //<>// //<>//
+import controlP5.*; //<>// //<>// //<>//
 import processing.pdf.*;
 import processing.dxf.*;
 import processing.svg.*;
@@ -35,12 +35,18 @@ void setupControls()
   cp5 = new ControlP5(this);
   cp5.getTab("default").setLabel("Hide GUI");
   addFileTab();
-  dataGui.setupControls( cp5 );     //<>//
+  dataGui.setupControls( cp5 );    
 }
 
 void draw()
 {
   start_draw();
+
+  // recenter
+  pushMatrix();
+  translate(width/2, height/2);
+  scale(data.global_scale,data.global_scale);
+  translate(-width/2, -height/2);
 
   if (data.changed)
   {
@@ -49,5 +55,6 @@ void draw()
 
   drawer.draw();
 
+  popMatrix();
   end_draw();
 }

@@ -89,15 +89,21 @@ class MainGUI extends GUIPanel
 
     Height = addSlider("Height", "Drawing Height", 0, 1);
 
+    nextLine();
+
     intersection = addToggle( "intersection", "intersection");
 
     max_override = addIntSlider( "max_override", "Max override", 0, 20);
+
+
+    nextLine();
 
     addLabel("Move");
 
     moveSpeed_X = addSlider("moveSpeed_X", "Move Speed X", 0, 2);
     moveSpeed_Y = addSlider("moveSpeed_Y", "Move Speed Y", 0, 2);
     
+    nextLine();
     addLabel("Random");
 
     seedLabel = addLabel("Random");

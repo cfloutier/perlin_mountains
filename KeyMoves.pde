@@ -30,7 +30,7 @@
     data.move = move;
     data.tab_name = cp5.getWindow( ).getCurrentTab().getName();
     
-    
+    print(data.tab_name);
   }
   
   int lastUpdate = 0;
@@ -42,18 +42,16 @@
       DataLayer layer = null;
       switch(data.tab_name)
       {
-        case "Noise1":
+        case "Layer 1":
           layer = data.Noise1;
           break;
-        case "Noise2":
+        case "Layer 2":
           layer = data.Noise2;
           break;        
-        case "Noise3":
+        case "Layer 3":
           layer = data.Noise3;
           break;        
       }
-      
-      
       
       if (layer != null)
       {
@@ -61,7 +59,7 @@
         layer.pos.x += 0.001*data.move.x * delta_ms * data.main.moveSpeed_X * layer.pow_X;
         layer.pos.y += 0.001*data.move.y * delta_ms  * data.main.moveSpeed_Y * layer.pow_Y;   
         
-      //  println("layer.pos.x " + layer.pos.x);
+        println("layer.pos.x " + layer.pos.x);
       }
       
       lastUpdate =  millis();

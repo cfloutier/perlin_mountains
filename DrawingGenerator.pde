@@ -1,4 +1,4 @@
-class Line //<>//
+class Line
 {
   ArrayList<PVector> points = new ArrayList<PVector>();
   boolean[] validity = null;

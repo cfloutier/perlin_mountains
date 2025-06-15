@@ -11,7 +11,6 @@ class PerlinMountainsData extends DataGlobal
   DataLayer Noise2 = new DataLayer("Noise2");
   DataLayer Noise3 = new DataLayer("Noise3");
 
-
   PerlinMountainsData()
   {
       addChapter(main);
@@ -60,20 +59,12 @@ class DataGUI
 
   void setupControls(ControlP5 cp5)
   { 
-    cp5.addTab("Style");
-    cp5.addTab("Main");
-
-    cp5.addTab("Noise1");
-    cp5.addTab("Noise2");
-    cp5.addTab("Noise3");
-
-    main.setupControls( );    
-    
     style = new StyleGUI(data.style);
     style.setupControls(  );    
     
     main = new MainGUI(data.main); 
-
+    main.setupControls( );    
+  
     Noise1 = new LayerGui(data.Noise1, "Layer 1");
     Noise1.setupControls("Noise1");
 
@@ -88,8 +79,8 @@ class DataGUI
 
   void setGUIValues()
   {
-    Noise2.setGUIValues();
     Noise1.setGUIValues();
+    Noise2.setGUIValues();
     Noise3.setGUIValues();
     style.setGUIValues();
     main.setGUIValues();

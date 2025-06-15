@@ -200,19 +200,26 @@ class LayerGui extends GUIPanel
     addLabel(name);
 
     on = addToggle("on", "on/off");
+    
+    nextLine();
 
     xNoise = addSlider("xNoise", "X Noise", 0, 10);
     yNoise = addSlider("yNoise", "Y Noise", 0, 30);
     Height_Noise = addSlider("Height_Noise", "Height_Noise", 0, 10);
 
+    nextLine();
+
     xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", -1, 2);
     yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", -1, 3);
     Height_Mul = addIntSlider("Height_Mul", "Height Mult", -3, 1);
 
-    Added_Height = addSlider("Added_Height", "Added_Height", -1, 1);
+    nextLine();
 
+    Added_Height = addSlider("Added_Height", "Added_Height", -1, 1);
     Reset_Added_Height = addButton("recenter");
     Reset_Added_Height.plugTo(this, "rescenterH");
+    
+    nextLine();
 
     add = addToggle("add", "add values");
 

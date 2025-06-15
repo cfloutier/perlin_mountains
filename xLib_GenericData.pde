@@ -40,7 +40,7 @@ class GenericData
     Field[] fields = this.getClass().getDeclaredFields();
 
     for (Field field : fields) {
-      try { //<>// //<>//
+      try { //<>// //<>// //<>//
         field.setAccessible(true); // Allow access to private fields if necessary
         String name = field.getName();
         if (name == "changed" || name =="this$0")
@@ -141,7 +141,7 @@ class DataGlobal
   
   void reset()
   {
-    println("error calling base reset");
+      println("error calling base reset");
   }
 
   void setSize(float width, float height)
