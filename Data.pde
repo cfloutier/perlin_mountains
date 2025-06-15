@@ -1,4 +1,4 @@
-import controlP5.*;  //<>//
+import controlP5.*;  //<>// //<>//
 
 class PerlinMountainsData extends DataGlobal
 {
@@ -7,82 +7,75 @@ class PerlinMountainsData extends DataGlobal
   
   Style style = new Style();
   DataMain main = new DataMain();  
-  DataLayer Noise1 = new DataLayer("Noise1");
-  DataLayer Noise2 = new DataLayer("Noise2");
-  DataLayer Noise3 = new DataLayer("Noise3");
+  DataLayers layers = new DataLayers();
 
   PerlinMountainsData()
   {
-      addChapter(main);
-      addChapter(Noise1);
-      addChapter(Noise2);
-      addChapter(Noise3);    
-      addChapter(style);
+    addChapter(main);
+    addChapter(style);
+    addChapter(layers); 
+  }
+
+  void reset()
+  {
+    main.CopyFrom(new DataMain());
+
+    // needed to be reset it's proper way
+    layers.reset();
+
+    style.CopyFrom(new Style());
   }
 }
 
-class DataGUI 
+class DataGUI  extends MainPanel
 {
-  LayerGui Noise1;
-  LayerGui Noise2;
-  LayerGui Noise3;
-  MainGUI main;
+  DataGlobal data;
 
-  StyleGUI style;
-
-  void update_ui()
-  {
-    if (!data.changed)
-      return;
-
-    main.update_ui();
-    style.update_ui();
-    Noise1.update_ui();
-    Noise2.update_ui();
-    Noise3.update_ui();
-  }
   
-  boolean mousePressed()
-  {
-    return false;
-  }
-  
-  boolean mouseDragged()
-  {
-    return false;
-  }
-  
-  boolean mouseReleased()
-  {
-    return false;
-  }
+  MainGUI main_ui;
+  StyleGUI style_ui;
+  LayersGui layers_ui;
 
-  void setupControls(ControlP5 cp5)
-  { 
-    style = new StyleGUI(data.style);
-    style.setupControls(  );    
+  public DataGUI(PerlinMountainsData data)
+  {
+    this.data = data;
+
     
-    main = new MainGUI(data.main); 
-    main.setupControls( );    
-  
-    Noise1 = new LayerGui(data.Noise1, "Layer 1");
-    Noise1.setupControls("Noise1");
-
-    Noise2 = new LayerGui(data.Noise2, "Layer 2");
-    Noise2.setupControls("Noise2");
-    
-    Noise3 = new LayerGui(data.Noise3, "Layer 3");
-    Noise3.setupControls("Noise3");
-
-    cp5.getTab("Main").bringToFront();
+    main_ui = new MainGUI(data.main); 
+    layers_ui = new LayersGui(data.layers); 
+    style_ui = new StyleGUI(data.style); 
   }
 
-  void setGUIValues()
+  void Init()
   {
-    Noise1.setGUIValues();
-    Noise2.setGUIValues();
-    Noise3.setGUIValues();
-    style.setGUIValues();
-    main.setGUIValues();
+    addTab(main_ui);
+    addTab(style_ui);
+    addTab(layers_ui);
+    super.Init();
+
+    cp5.getTab("Layers").bringToFront();
+  }  
+
+
+  int last_update = 0;
+  boolean checkKeyMove()
+  {
+   /*   
+      if (layer != null)
+      {
+        int delta_ms =  millis() - lastUpdate;
+        layer.pos.x += 0.001*data.move.x * delta_ms * data.main.moveSpeed_X * layer.pow_X;
+        layer.pos.y += 0.001*data.move.y * delta_ms  * data.main.moveSpeed_Y * layer.pow_Y;   
+        
+        println("layer.pos.x " + layer.pos.x);
+      }
+      
+      last_update =  millis();
+      
+      return true;
+   
+    */
+    return false;
   }
+
 }

@@ -39,8 +39,8 @@ class MainPanel
 
     for (GUIPanel panel : panels)
     {
-      panel.Init(); //<>// //<>//
-      panel.setupControls(); //<>// //<>//
+      panel.Init(); 
+      panel.setupControls(); 
     }
   }
 
@@ -78,17 +78,43 @@ class MainPanel
       panel.draw();
     }
   }
+  
+  
+  PVector key_move;
+  
+  
+  
+  
+  
+  boolean checkKeyMove( )  
+  {
+    
+    if (key_move.x != 0 || key_move.y != 0)
+    {
+      //println("mouse pressed " + mouseX);
+      for (GUIPanel panel : panels)
+      {
+        if (!panel.tab.isActive())
+          continue;
+        // call active panel
+        if (panel.key_move(key_move))
+        {
+          return true;
+        }
+      }
+    }
+  }
+  
 
   GUIPanel dragging_panel;
+  
 
   void mousePressed()
   {
     if (cp5.isMouseOver())
       return;
 
-    println("mouse pressed " + mouseX);
-
-
+    //println("mouse pressed " + mouseX);
     for (GUIPanel panel : panels)
     {
       if (!panel.tab.isActive())
@@ -102,8 +128,7 @@ class MainPanel
     }
 
     // if not check the non active panel
-
-     for (GUIPanel panel : panels)
+    for (GUIPanel panel : panels)
     {
       if (panel.tab.isActive())
         continue;
@@ -385,10 +410,15 @@ class GUIPanel implements ControlListener
 
     return s;
   }
-
+  
   Toggle addToggle(String name, String label)
   {
-    Toggle t = cp5.addToggle(associated_data, name)
+    return addToggle(name, label, associated_data);
+  }
+
+  Toggle addToggle(String name, String label, Object the_data)
+  {
+    Toggle t = cp5.addToggle(the_data, name)
       .setLabel(label)
       .setPosition(xPos, yPos)
       .setSize(100, heightCtrl)
@@ -399,7 +429,6 @@ class GUIPanel implements ControlListener
     int tmp = controlerColor.getActive();
     controlerColor.setActive( controlerColor.getBackground());
     controlerColor.setBackground(tmp);
-
 
     xPos+=100+5;
 

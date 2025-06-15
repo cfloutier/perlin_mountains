@@ -1,4 +1,4 @@
-import controlP5.*; //<>// //<>// //<>//
+import controlP5.*; //<>// //<>// //<>// //<>//
 import processing.pdf.*;
 import processing.dxf.*;
 import processing.svg.*;
@@ -17,14 +17,12 @@ void setup()
 
   drawer =  new DrawingGenerator();
   data = new PerlinMountainsData();
-  dataGui = new DataGUI();
+  dataGui = new DataGUI(data);
 
   setupControls();
 
   data.LoadSettings("./Settings/few islands.json");
-
   dataGui.setGUIValues();
-
   surface.setResizable(true);
 
   //noLoop();  // Run once and stop
@@ -35,7 +33,7 @@ void setupControls()
   cp5 = new ControlP5(this);
   cp5.getTab("default").setLabel("Hide GUI");
   addFileTab();
-  dataGui.setupControls( cp5 );    
+  dataGui.Init();
 }
 
 void draw()

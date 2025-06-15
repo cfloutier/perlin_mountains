@@ -20,10 +20,13 @@ class Line
       points.add(new PVector(xPos, 0));
       xPos += deltaX;
     }
-
-    points = data.Noise1.compute_Line(points, yNoise);
-    points = data.Noise2.compute_Line(points, yNoise);
-    points = data.Noise3.compute_Line(points, yNoise);
+    
+    DataLayers layers = data.layers; 
+    for (int i = 0; i < layers.count(); i++)
+    {
+      DataLayer layer = layers.layer(i);
+      layer.compute_Line(points, yNoise);
+    }
   }
 
   void draw()
@@ -114,10 +117,13 @@ class DrawingGenerator
     my_noiseDetail(data.main.NoiseLod, data.main.NoiseFalloff);
 
     lines = new ArrayList<Line>();
-
-    data.Noise1.computePowS();
-    data.Noise2.computePowS();
-    data.Noise3.computePowS();
+    
+    DataLayers layers = data.layers; 
+    for (int i = 0; i < layers.count(); i++)
+    {
+      DataLayer layer = layers.layer(i);
+      layer.computePowS();
+    }
 
     float y_Noise = data.main.Height /2;
     float y_Line = data.height/2 + y_Noise * data.width;
@@ -174,7 +180,7 @@ class DrawingGenerator
       println("need update");
     }
     
-    if (checkMove())
+    if (dataGui.checkKeyMove())
       needUpdate = true;
       
     if (needUpdate)

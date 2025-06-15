@@ -1,0 +1,326 @@
+static float computePow(int mul)
+{
+  return pow(10, mul);
+}
+
+class DataLayer extends GenericData
+{
+  DataLayer() {
+    super("Layer");
+  }
+  
+  boolean on = false;
+  int mode = 0;
+
+  float xNoise = 0.4;
+  float yNoise = 0.4;
+  float Height_Noise = 5;
+
+  float Added_Height = 0;
+
+  int xNoise_Mul = 1;
+  int yNoise_Mul = 1;
+  int Height_Mul = 1;
+
+  boolean add = true;
+
+  float pow_X;
+  float pow_Y;
+  float pow_H;
+
+  float pos_x = 0;
+  float pos_y = 0;
+
+  void computePowS()
+  {
+    pow_X = computePow(xNoise_Mul)*xNoise;
+    pow_Y = computePow(yNoise_Mul)*yNoise;
+    pow_H = computePow(Height_Mul)*Height_Noise;
+  }
+
+  float computeNoise(float noise_X, float noise_Y)
+  {
+    switch(mode)
+    {
+    default:
+    case 0:
+      return noise(noise_X, noise_Y) - 0.5;
+    case 1:
+      return my_noise(noise_X, noise_Y) - 0.5;
+    case 2:
+      return sin(noise_X+noise_Y) *0.5f;
+    }
+  }
+
+  ArrayList<PVector> compute_Line(ArrayList<PVector> points, float y)
+  {
+    if (!on)
+      return points;
+
+    float noise_X = pos_x - pow_X/2;
+    float delta_noiseX =  pow_X / (data.main.XSteps-1);
+
+    float ypos_Noise = pos_y + y * pow_Y;
+
+    for (int i = 0; i < data.main.XSteps; i++)
+    {  
+      // float noise = noise_d(noise_X, ypos_Noise) - 0.5;
+      //float noise = noise(noise_X, ypos_Noise) - 0.5;
+
+      // noise = sin(noise_X + ypos_Noise)/2;
+      float noise = computeNoise(noise_X, ypos_Noise);
+
+      float h = (pow_H * noise - Added_Height) * data.width;     
+      PVector prevPoint = points.get(i);
+      PVector newPoint = null;
+      if (add)
+        newPoint = new PVector(prevPoint.x, h + prevPoint.y);   
+      else
+      {
+        float min = min(prevPoint.y, h);
+        newPoint = new PVector(prevPoint.x, min);
+      }
+
+      points.set(i, newPoint); 
+      noise_X += delta_noiseX;
+    }
+
+    return points;
+  }
+
+}
+
+
+class DataLayers extends DataList
+{
+  DataLayer edit_layer = new DataLayer();
+
+  DataLayers() {
+    super("Layers", "layer");
+  }
+
+  void reset()
+  {
+    super.reset();
+    
+    edit_layer.CopyFrom(new DataLayer());
+  }
+  
+  DataLayer newItem()
+  {
+    return new DataLayer();
+  }
+  
+  DataLayer layer(int index)
+  {
+    return (DataLayer) items.get(index);
+  }
+}
+
+class LayersGui extends GUIListPanel
+{
+  DataLayers pdata = null;
+  
+  LayersGui(DataLayers data)
+  {
+    super("Layers", data);
+     this.pdata = data;
+  }
+
+  Textlabel current_Layer;
+
+  Slider xNoise;
+  Slider Height_Noise;  
+  Slider Added_Height;
+  Button Reset_Added_Height;
+  Slider yNoise;
+
+  Slider xNoise_Mul;
+  Slider yNoise_Mul;
+  Slider Height_Mul;
+
+  Slider mode;
+  Toggle add;
+  Toggle on;
+
+
+
+  
+  void setupControls()
+  {
+    super.Init();
+
+    addListBar();
+
+    current_Layer = addLabel("current Layer : ??");
+
+    on = addToggle("on", "on/off", pdata.edit_layer);
+
+    nextLine();
+
+    xNoise = addSlider("xNoise", "X Noise", pdata.edit_layer, 0, 10);
+    yNoise = addSlider("yNoise", "Y Noise", pdata.edit_layer, 0, 30);
+    Height_Noise = addSlider("Height_Noise", "Height_Noise", pdata.edit_layer,  0, 10);
+
+    nextLine();
+
+    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", pdata.edit_layer, -1, 2);
+    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", pdata.edit_layer, -1, 3);
+    Height_Mul = addIntSlider("Height_Mul", "Height Mult", pdata.edit_layer, -3, 1);
+
+    nextLine();
+
+    Added_Height = addSlider("Added_Height", "Added_Height", pdata.edit_layer, -1, 1);
+    Reset_Added_Height = addButton("recenter");
+    Reset_Added_Height.plugTo(this, "rescenterH");
+    
+    nextLine();
+
+    add = addToggle("add", "add values", pdata.edit_layer);
+    mode = addIntSlider("mode", "mode", pdata.edit_layer, 0, 2);
+  }
+
+  void updateCurrentItem()
+  {
+    if (pdata.count() == 0)
+    {
+      on.hide();
+      xNoise.hide();
+      yNoise.hide();
+      Height_Noise.hide();
+      xNoise_Mul.hide();
+      yNoise_Mul.hide();
+      Height_Mul.hide();
+      Added_Height.hide();
+      Reset_Added_Height.hide();
+      add.hide();
+      mode.hide();
+
+      current_Layer.setText("No Planet");
+
+      return;
+    }
+
+    on.show();
+    xNoise.show();
+    yNoise.show();
+    Height_Noise.show();
+    xNoise_Mul.show();
+    yNoise_Mul.show();
+    Height_Mul.show();
+    Added_Height.show();
+    Reset_Added_Height.show();
+    add.show();
+    mode.show();
+
+    if (pdata.current_index != last_index)
+    {
+      last_index = pdata.current_index;
+      
+      DataLayer layer = pdata.layer(pdata.current_index);
+      pdata.edit_layer.CopyFrom(layer);
+      
+      // println("edit_planet changed");
+      // println("edit_planet.radius " + pdata.edit_planet.radius); 
+
+      on.setValue(layer.on);
+      xNoise.setValue(layer.xNoise);
+      yNoise.setValue(layer.yNoise);
+      Height_Noise.setValue(layer.Height_Noise);
+      xNoise_Mul.setValue(layer.xNoise_Mul);
+      yNoise_Mul.setValue(layer.yNoise_Mul);
+      Height_Mul.setValue(layer.Height_Mul);
+      Added_Height.setValue(layer.Added_Height);
+
+      add.setValue(layer.add);
+      mode.setValue(layer.mode);
+
+      current_Layer.setText("Layer " + (pdata.current_index + 1) + " / " + pdata.count());
+    }
+    else
+    {
+      DataLayer layer = pdata.layer(pdata.current_index);
+      layer.CopyFrom(pdata.edit_layer);
+      data.changed = true;
+    }
+  }
+
+  void update_ui()
+  {
+    updateCurrentItem();
+  }
+
+  void setGUIValues()
+  {
+    updateCurrentItem();
+  }
+  
+  void rescenterH()
+  {
+    pdata.edit_layer.Added_Height = 0;
+    
+    setGUIValues();
+  }
+
+  void draw()
+  {
+    
+  }
+
+  PVector mousePosition()
+  {
+    return new PVector( (mouseX-width/2)/data.global_scale, (mouseY-height/2)/data.global_scale);
+  }
+  
+  PVector last_mouse_pos;;
+  
+  boolean mousePressed()
+  {
+    // check if a planet is hit
+    //PVector pos = mousePosition();
+    
+    //int index = 0;
+    // for (GenericData item: pdata.items)
+    // {
+    //   DataPlanet planet = (DataPlanet) item;
+    //   PVector planet_pos = new PVector(planet.center_x, planet.center_y );
+    //   float dist = PVector.dist(planet_pos, pos);
+    //   if (dist < planet.drawRadius())
+    //   {
+    //     last_mouse_pos = pos;
+    //     pdata.current_index = index;
+    //     updateCurrentItem();
+    //     return true;
+    //   }
+
+    //   index ++;
+    // }
+
+    return false; 
+  }
+
+  void mouseDragged()
+  {
+    // PVector pos = mousePosition();
+    // // called if drag has started on each mouse move
+    // PVector delta =  PVector.sub(last_mouse_pos, pos);
+    
+   // print(delta);
+    
+    // DataPlanet planet = (DataPlanet) pdata.items.get(pdata.current_index);
+    
+    // planet.center_x -= delta.x;
+    // planet.center_y -= delta.y;
+    
+    // center_x.setValue(planet.center_x);
+    // center_y.setValue(planet.center_y);
+    
+    //last_mouse_pos = pos;
+  }
+
+  void mouseReleased()
+  {
+    // called if drag has started on mouse up
+  }
+
+}
