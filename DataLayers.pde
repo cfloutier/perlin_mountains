@@ -26,6 +26,26 @@ class DataLayer extends GenericData
 
   float pos_x = 0;
   float pos_y = 0;
+  
+  PVector start_mouse_drag = new PVector(0,0);
+  PVector previous_pos = new PVector(0,0);
+  
+  void on_start_drag()
+  {
+    start_mouse_drag = new PVector(mouseX,mouseY);
+    previous_pos = new PVector(pos_x, pos_y);
+  }
+
+   void on_drag()
+  {
+    PVector delta_mouse = new PVector(mouseX - start_mouse_drag.x,mouseY -start_mouse_drag.y);
+
+    float move_x = -0.001*delta_mouse.x * data.main.moveSpeed_X;
+    float move_y = -0.001*delta_mouse.y * data.main.moveSpeed_Y;
+   
+    pos_x = previous_pos.x + move_x * pow_X();
+    pos_y = previous_pos.y + move_y * pow_Y(); 
+  }
 
   float computeNoise(float noise_X, float noise_Y)
   {
@@ -55,10 +75,7 @@ class DataLayer extends GenericData
   {
     if (!on)
       return points;
-
-    // println("compute_Line xNoise " + xNoise);
-    // println("compute_Line pos_x " + pos_x);
-    
+   
     float pow_X = pow_X();
     float pow_Y = pow_Y();
     float pow_H = computePow(Height_Mul)*Height_Noise;
@@ -145,7 +162,7 @@ class LayersGui extends GUIListPanel
 
   Slider xNoise;
   Slider Height_Noise;  
-  Slider Added_Height;
+  Slider Added_Height;  
   Button Reset_Added_Height;
   Slider yNoise;
 
@@ -231,9 +248,6 @@ class LayersGui extends GUIListPanel
       DataLayer layer = pdata.layer(pdata.current_index);
       pdata.edit_layer.CopyFrom(layer);
       
-      //println("edit_layer changed");
-      //println("edit_layer.xNoise_Mul " + pdata.edit_layer.xNoise_Mul); 
-
       on.setValue(layer.on);
 
       xNoise.setValue(layer.xNoise);
@@ -303,61 +317,74 @@ class LayersGui extends GUIListPanel
 
     return true;
   }
-
-  PVector mousePosition()
+  
+  
+  boolean drag_current = true;
+  boolean dragging = false;
+  
+  
+  void on_start_drag()
   {
-    return new PVector( (mouseX-width/2)/data.global_scale, (mouseY-height/2)/data.global_scale);
+    dragging = true;
+    drag_current = tab.isActive();
+    
+    if (drag_current)
+    {
+       DataLayer layer = pdata.layer(pdata.current_index);
+       if (pdata.count() == 0)
+        return;
+  
+      if (pdata.current_index < 0 || pdata.current_index >= pdata.count())
+        return; 
+        
+      layer.on_start_drag();        
+    }
+    else
+    {
+        for (int i = 0 ; i < pdata.count(); i++)
+        {
+          DataLayer layer = pdata.layer(i);
+          layer.on_start_drag();
+        }
+    }   
   }
   
-  PVector last_mouse_pos;;
   
-  boolean mousePressed()
+  void on_drag()
   {
-    // check if a planet is hit
-    //PVector pos = mousePosition();
+    if (!dragging) 
+      return;
     
-    //int index = 0;
-    // for (GenericData item: pdata.items)
-    // {
-    //   DataPlanet planet = (DataPlanet) item;
-    //   PVector planet_pos = new PVector(planet.center_x, planet.center_y );
-    //   float dist = PVector.dist(planet_pos, pos);
-    //   if (dist < planet.drawRadius())
-    //   {
-    //     last_mouse_pos = pos;
-    //     pdata.current_index = index;
-    //     updateCurrentItem();
-    //     return true;
-    //   }
-
-    //   index ++;
-    // }
-
-    return false; 
+    if (drag_current)
+    {
+       DataLayer layer = pdata.layer(pdata.current_index);
+       if (pdata.count() == 0)
+        return;
+  
+      if (pdata.current_index < 0 || pdata.current_index >= pdata.count())
+        return; 
+        
+      layer.on_drag();        
+    }
+    else
+    {
+        for (int i = 0 ; i < pdata.count(); i++)
+        {
+          DataLayer layer = pdata.layer(i);
+          layer.on_drag();
+        }
+    }
+    
+    pdata.apply_to_edit();
+    pdata.changed = true;
   }
-
-  void mouseDragged()
+  
+  void end_drag()
   {
-    // PVector pos = mousePosition();
-    // // called if drag has started on each mouse move
-    // PVector delta =  PVector.sub(last_mouse_pos, pos);
-    
-   // print(delta);
-    
-    // DataPlanet planet = (DataPlanet) pdata.items.get(pdata.current_index);
-    
-    // planet.center_x -= delta.x;
-    // planet.center_y -= delta.y;
-    
-    // center_x.setValue(planet.center_x);
-    // center_y.setValue(planet.center_y);
-    
-    //last_mouse_pos = pos;
+    dragging = false;
   }
-
-  void mouseReleased()
-  {
-    // called if drag has started on mouse up
-  }
-
+    
+    
+  
+  
 }

@@ -97,8 +97,8 @@ class MainGUI extends GUIPanel
 
     addLabel("Move");
 
-    moveSpeed_X = addSlider("moveSpeed_X", "Move Speed X", 0, 2);
-    moveSpeed_Y = addSlider("moveSpeed_Y", "Move Speed Y", 0, 2);
+    moveSpeed_X = addSlider("moveSpeed_X", "Move Speed X", 0, 1);
+    moveSpeed_Y = addSlider("moveSpeed_Y", "Move Speed Y", 0, 1);
     
     nextLine();
     addLabel("Random");

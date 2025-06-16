@@ -171,10 +171,9 @@ class DrawingGenerator
     //print("draw");
     boolean needUpdate = false;
    
-    if (data.any_change())
+    if (data.any_change())  
     {
       needUpdate = true;
-      //println("need update");
     }
     
     if (dataGui.checkKeyMove())
@@ -182,7 +181,6 @@ class DrawingGenerator
       
     if (needUpdate)
     {
-      //println("needUpdate");
       drawer.update();
       data.reset_all_changes();
     }

@@ -1,4 +1,4 @@
-import controlP5.*;  //<>// //<>// //<>//
+import controlP5.*;  //<>// //<>// //<>// //<>// //<>//
 
 class PerlinMountainsData extends DataGlobal
 {
@@ -23,12 +23,6 @@ class PerlinMountainsData extends DataGlobal
     // needed to be reset it's proper way
     layers.reset();
   }
-  
-  
-  
-  
-  
-  
 }
 
 class DataGUI  extends MainPanel
@@ -50,8 +44,8 @@ class DataGUI  extends MainPanel
 
   void Init()
   {
-    addTab(main_ui);
     addTab(style_ui);
+    addTab(main_ui);
     addTab(layers_ui);
     super.Init();
 
@@ -71,7 +65,6 @@ class DataGUI  extends MainPanel
    
     if (key_move.x != 0 || key_move.y != 0)
     {
-      //println("mouse pressed " + mouseX);
       for (GUIPanel panel : panels)
       {
         if (!panel.tab.isActive())
@@ -83,7 +76,6 @@ class DataGUI  extends MainPanel
         }
       }
       
-      //println("move all layers");
       float move_x =  0.001*key_move.x * delta_ms * data.main.moveSpeed_X;
       float move_y =  0.001*key_move.y * delta_ms * data.main.moveSpeed_Y;
   
@@ -101,4 +93,26 @@ class DataGUI  extends MainPanel
     
     return false;
   }
+
+  PVector last_mouse_pos = null;
+
+  void mousePressed()
+  {
+    if (cp5.isMouseOver())
+      return;
+      
+    layers_ui.on_start_drag();
+  }
+  
+  void mouseDragged()
+  {
+    layers_ui.on_drag();
+  }
+
+  void mouseReleased() {
+    layers_ui.end_drag();
+   
+  }
+
+
 }

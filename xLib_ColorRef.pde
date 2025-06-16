@@ -30,8 +30,6 @@ class ColorButton
   void onClic()
   {
     group.colorRef.col = this.col;
-    //println("onClic color new color" + refColor.col);
-    //println("modified refColor " + refColor); //<>//
   }
 }
 
