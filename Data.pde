@@ -1,4 +1,4 @@
-import controlP5.*;  //<>// //<>//
+import controlP5.*;  //<>// //<>// //<>//
 
 class PerlinMountainsData extends DataGlobal
 {
@@ -24,19 +24,11 @@ class PerlinMountainsData extends DataGlobal
     // needed to be reset it's proper way
     layers.reset();
   }
-  
-  void LoadSettings(String path)
-  {
-    super.LoadSettings(path);
-    
-    // reset the indexes
-    
-  }
 }
 
 class DataGUI  extends MainPanel
 {
-  DataGlobal data;
+  PerlinMountainsData data;
 
   MainGUI main_ui;
   StyleGUI style_ui;
@@ -85,7 +77,23 @@ class DataGUI  extends MainPanel
           return true;
         }
       }
+      
+      //println("move all layers");
+      float move_x =  0.001*key_move.x * delta_ms * data.main.moveSpeed_X;
+      float move_y =  0.001*key_move.y * delta_ms * data.main.moveSpeed_Y;
+  
+      for (int i = 0 ; i < data.layers.count(); i++)
+      {
+        DataLayer layer = data.layers.layer(i);
+        layer.pos_x += move_x * layer.pow_X();  
+        layer.pos_y += move_y * layer.pow_Y();
+      }
+      
+      data.layers.apply_to_edit();
+
+      return true;
     }
+    
 
     return false;
   }

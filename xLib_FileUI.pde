@@ -220,6 +220,8 @@ void start_draw()
 
     background(data.style.backgroundColor.col);
     strokeWeight(data.style.lineWidth);
+    
+    println("line color " + data.style.lineColor.col);
 
     stroke(data.style.lineColor.col);
     

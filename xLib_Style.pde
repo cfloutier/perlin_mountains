@@ -54,6 +54,7 @@ class StyleGUI extends GUIPanel
     super.Init();
     
     lineWidth = addSlider("lineWidth", "Line Width", 0, 5);
+    nextLine();
     lineColor = addColorGroup("Line Color", style.lineColor);
     backgroundColor = addColorGroup("background Color", style.backgroundColor);
   }

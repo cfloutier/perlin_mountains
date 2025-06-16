@@ -80,7 +80,6 @@ class GUIPanel implements ControlListener
 
   boolean key_move(PVector key_move, int delta_ms)
   {
-    print("key_move not implemented " + key_move + " " + delta_ms);
     return false;
   }
 

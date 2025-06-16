@@ -45,7 +45,7 @@ class DataList extends GenericData
   public JSONObject SaveJson() {
     JSONObject json = new JSONObject();
 
-    int nb_items = items.size(); //<>//
+    int nb_items = items.size();
     json.setInt("nb_items", nb_items);
 
     for (int i = 0; i < nb_items; i++)

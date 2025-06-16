@@ -57,7 +57,7 @@ class DataLayer extends GenericData
       return points;
 
     // println("compute_Line xNoise " + xNoise);
-    //println("compute_Line pos_x " + pos_x);
+    // println("compute_Line pos_x " + pos_x);
     
     float pow_X = pow_X();
     float pow_Y = pow_Y();
@@ -101,6 +101,17 @@ class DataLayers extends DataList
 
   DataLayers() {
     super("Layers", "layer");
+  }
+  
+  void apply_to_edit()
+  {
+    if (count() == 0)
+      return;
+
+   if (current_index < 0 || current_index >= count())
+      current_index = 0;
+
+    edit_layer.CopyFrom(layer(current_index));
   }
 
   void reset()
