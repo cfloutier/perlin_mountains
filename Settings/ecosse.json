@@ -1,18 +1,4 @@
 {
-  "Noise1": {
-    "mode": 1,
-    "pos_y": -4.11073637008667,
-    "add": true,
-    "Height_Noise": 1.4333332777023315,
-    "pos_x": 6.0967817306518555,
-    "Added_Height": -0.41999995708465576,
-    "xNoise": 2.366666793823242,
-    "xNoise_Mul": 0,
-    "Height_Mul": -1,
-    "yNoise": 1.399999976158142,
-    "yNoise_Mul": 3,
-    "on": true
-  },
   "Style": {
     "backgroundColor": -1,
     "lineColor": -16777216,
@@ -29,32 +15,53 @@
     "moveSpeed_Y": 0.7933333516120911,
     "XSteps": 383
   },
-  "Noise3": {
-    "mode": 1,
-    "pos_y": 0,
-    "add": false,
-    "Height_Noise": 2.700000047683716,
-    "pos_x": 0,
-    "Added_Height": -0.08666664361953735,
-    "xNoise": 3.4666666984558105,
-    "xNoise_Mul": 0,
-    "Height_Mul": -2,
-    "yNoise": 17.299999237060547,
-    "yNoise_Mul": 0,
-    "on": true
-  },
-  "Noise2": {
-    "mode": 1,
-    "pos_y": 5.970943927764893,
-    "add": true,
-    "Height_Noise": 1.2000000476837158,
-    "pos_x": 1.2676407098770142,
-    "Added_Height": 0.34666669368743896,
-    "xNoise": 0.23333333432674408,
-    "xNoise_Mul": 1,
-    "Height_Mul": -1,
-    "yNoise": 18.700000762939453,
-    "yNoise_Mul": 0,
-    "on": true
+
+
+  "Layers": {
+    "nb_items": 3,
+
+    "layer_1": {
+      "mode": 1,
+      "pos_y": -4.11073637008667,
+      "add": true,
+      "Height_Noise": 1.4333332777023315,
+      "pos_x": 6.0967817306518555,
+      "Added_Height": -0.41999995708465576,
+      "xNoise": 2.366666793823242,
+      "xNoise_Mul": 0,
+      "Height_Mul": -1,
+      "yNoise": 1.399999976158142,
+      "yNoise_Mul": 3,
+      "on": true
+    },
+
+    "layer_3": {
+      "mode": 1,
+      "pos_y": 0,
+      "add": false,
+      "Height_Noise": 2.700000047683716,
+      "pos_x": 0,
+      "Added_Height": -0.08666664361953735,
+      "xNoise": 3.4666666984558105,
+      "xNoise_Mul": 0,
+      "Height_Mul": -2,
+      "yNoise": 17.299999237060547,
+      "yNoise_Mul": 0,
+      "on": true
+    },
+    "layer_2": {
+      "mode": 1,
+      "pos_y": 5.970943927764893,
+      "add": true,
+      "Height_Noise": 1.2000000476837158,
+      "pos_x": 1.2676407098770142,
+      "Added_Height": 0.34666669368743896,
+      "xNoise": 0.23333333432674408,
+      "xNoise_Mul": 1,
+      "Height_Mul": -1,
+      "yNoise": 18.700000762939453,
+      "yNoise_Mul": 0,
+      "on": true
+    }
   }
 }

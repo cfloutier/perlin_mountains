@@ -15,6 +15,8 @@ class Line
     float deltaX = data.width / (data.main.XSteps - 1);
     points = new ArrayList<PVector>();
     setAllValid();
+
+    
     for (int i = 0; i < data.main.XSteps; i++)
     {
       points.add(new PVector(xPos, 0));
@@ -118,12 +120,6 @@ class DrawingGenerator
 
     lines = new ArrayList<Line>();
     
-    DataLayers layers = data.layers; 
-    for (int i = 0; i < layers.count(); i++)
-    {
-      DataLayer layer = layers.layer(i);
-      layer.computePowS();
-    }
 
     float y_Noise = data.main.Height /2;
     float y_Line = data.height/2 + y_Noise * data.width;
@@ -172,12 +168,13 @@ class DrawingGenerator
   
   void draw()
   {
+    //print("draw");
     boolean needUpdate = false;
    
     if (data.any_change())
     {
       needUpdate = true;
-      println("need update");
+      //println("need update");
     }
     
     if (dataGui.checkKeyMove())
@@ -185,6 +182,7 @@ class DrawingGenerator
       
     if (needUpdate)
     {
+      //println("needUpdate");
       drawer.update();
       data.reset_all_changes();
     }
@@ -193,11 +191,6 @@ class DrawingGenerator
     {
       lines.get(lineIndex).draw();
     }
-    
-    
-    
-    
-    
     
     
   }

@@ -19,11 +19,18 @@ class PerlinMountainsData extends DataGlobal
   void reset()
   {
     main.CopyFrom(new DataMain());
+    style.CopyFrom(new Style());
 
     // needed to be reset it's proper way
     layers.reset();
-
-    style.CopyFrom(new Style());
+  }
+  
+  void LoadSettings(String path)
+  {
+    super.LoadSettings(path);
+    
+    // reset the indexes
+    
   }
 }
 
@@ -31,7 +38,6 @@ class DataGUI  extends MainPanel
 {
   DataGlobal data;
 
-  
   MainGUI main_ui;
   StyleGUI style_ui;
   LayersGui layers_ui;
@@ -40,7 +46,6 @@ class DataGUI  extends MainPanel
   {
     this.data = data;
 
-    
     main_ui = new MainGUI(data.main); 
     layers_ui = new LayersGui(data.layers); 
     style_ui = new StyleGUI(data.style); 
@@ -56,25 +61,32 @@ class DataGUI  extends MainPanel
     cp5.getTab("Layers").bringToFront();
   }  
 
-
-  int last_update = 0;
+  int last_update = -1;
   boolean checkKeyMove()
   {
-   /*   
-      if (layer != null)
-      {
-        int delta_ms =  millis() - lastUpdate;
-        layer.pos.x += 0.001*data.move.x * delta_ms * data.main.moveSpeed_X * layer.pow_X;
-        layer.pos.y += 0.001*data.move.y * delta_ms  * data.main.moveSpeed_Y * layer.pow_Y;   
-        
-        println("layer.pos.x " + layer.pos.x);
-      }
-      
+    if (last_update == -1)
+    {
       last_update =  millis();
-      
-      return true;
+      return false;
+    }
+    int delta_ms =  millis() - last_update;
+    last_update =  millis();
    
-    */
+    if (key_move.x != 0 || key_move.y != 0)
+    {
+      //println("mouse pressed " + mouseX);
+      for (GUIPanel panel : panels)
+      {
+        if (!panel.tab.isActive())
+          continue;
+        // call active panel
+        if (panel.key_move(key_move, delta_ms))
+        {
+          return true;
+        }
+      }
+    }
+
     return false;
   }
 

@@ -24,19 +24,8 @@ class DataLayer extends GenericData
 
   boolean add = true;
 
-  float pow_X;
-  float pow_Y;
-  float pow_H;
-
   float pos_x = 0;
   float pos_y = 0;
-
-  void computePowS()
-  {
-    pow_X = computePow(xNoise_Mul)*xNoise;
-    pow_Y = computePow(yNoise_Mul)*yNoise;
-    pow_H = computePow(Height_Mul)*Height_Noise;
-  }
 
   float computeNoise(float noise_X, float noise_Y)
   {
@@ -51,12 +40,29 @@ class DataLayer extends GenericData
       return sin(noise_X+noise_Y) *0.5f;
     }
   }
+  
+  float pow_X()
+  {
+    return computePow(xNoise_Mul)*xNoise;
+  }
+  
+  float pow_Y()
+  {
+    return computePow(yNoise_Mul)*yNoise;
+  }
 
   ArrayList<PVector> compute_Line(ArrayList<PVector> points, float y)
   {
     if (!on)
       return points;
 
+    // println("compute_Line xNoise " + xNoise);
+    //println("compute_Line pos_x " + pos_x);
+    
+    float pow_X = pow_X();
+    float pow_Y = pow_Y();
+    float pow_H = computePow(Height_Mul)*Height_Noise;
+ 
     float noise_X = pos_x - pow_X/2;
     float delta_noiseX =  pow_X / (data.main.XSteps-1);
 
@@ -87,9 +93,7 @@ class DataLayer extends GenericData
 
     return points;
   }
-
 }
-
 
 class DataLayers extends DataList
 {
@@ -102,7 +106,6 @@ class DataLayers extends DataList
   void reset()
   {
     super.reset();
-    
     edit_layer.CopyFrom(new DataLayer());
   }
   
@@ -143,9 +146,6 @@ class LayersGui extends GUIListPanel
   Toggle add;
   Toggle on;
 
-
-
-  
   void setupControls()
   {
     super.Init();
@@ -220,16 +220,19 @@ class LayersGui extends GUIListPanel
       DataLayer layer = pdata.layer(pdata.current_index);
       pdata.edit_layer.CopyFrom(layer);
       
-      // println("edit_planet changed");
-      // println("edit_planet.radius " + pdata.edit_planet.radius); 
+      //println("edit_layer changed");
+      //println("edit_layer.xNoise_Mul " + pdata.edit_layer.xNoise_Mul); 
 
       on.setValue(layer.on);
+
       xNoise.setValue(layer.xNoise);
       yNoise.setValue(layer.yNoise);
       Height_Noise.setValue(layer.Height_Noise);
+
       xNoise_Mul.setValue(layer.xNoise_Mul);
       yNoise_Mul.setValue(layer.yNoise_Mul);
       Height_Mul.setValue(layer.Height_Mul);
+
       Added_Height.setValue(layer.Added_Height);
 
       add.setValue(layer.add);
@@ -252,19 +255,42 @@ class LayersGui extends GUIListPanel
 
   void setGUIValues()
   {
+    // super important car sinon les champs dans edit_layers sont maintenus
+    last_index = -1;
     updateCurrentItem();
   }
   
   void rescenterH()
   {
     pdata.edit_layer.Added_Height = 0;
-    
     setGUIValues();
   }
 
   void draw()
   {
     
+  }
+
+  boolean key_move(PVector key_move, int delta_ms)
+  {
+    if (pdata.count() == 0)
+      return false;
+
+    if (pdata.current_index < 0 || pdata.current_index >= pdata.count())
+      return false;
+
+    DataLayer layer = pdata.layer(pdata.current_index);
+
+    float move_x =  0.001*key_move.x * delta_ms * data.main.moveSpeed_X;
+    float move_y =  0.001*key_move.y * delta_ms * data.main.moveSpeed_Y;
+
+    layer.pos_x += move_x * layer.pow_X();
+    layer.pos_y += move_y * layer.pow_Y(); 
+    
+    pdata.edit_layer.pos_x = layer.pos_x;
+    pdata.edit_layer.pos_y = layer.pos_y;
+
+    return true;
   }
 
   PVector mousePosition()

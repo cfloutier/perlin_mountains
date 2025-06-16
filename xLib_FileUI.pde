@@ -141,7 +141,10 @@ void saveSelected(File selection)
     data.SaveSettings(path);
     
     String name = selection.getName();
-    data.name = name.substring(0, name.length() - 5);
+    if (name.endsWith(".json"))
+      data.name = name.substring(0, name.length() - 5);
+    else
+      data.name = name;
   }
 }
 

@@ -183,8 +183,8 @@ class DataGlobal
     println("loading settings : " + path);
     reset();
     settings_path = path;
- //<>//
-    data.name = getFileNameWithoutExtension(path); //<>//
+
+    data.name = getFileNameWithoutExtension(path);
     JSONObject json = loadJSONObject(path);
 
     for (GenericData chapter : chapters) {
@@ -228,7 +228,7 @@ class DataGlobal
       if (chapter.changed)
         return true;
     }
-
+  
     return false;
   }
 

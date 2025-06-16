@@ -2,32 +2,32 @@
     
     if (key == CODED) {  
       if (keyCode == UP) 
-        move(new PVector(0, -1));
+        set_key_move(new PVector(0, -1));
       else if (keyCode == DOWN)
-        move(new PVector(0, 1));
+        set_key_move(new PVector(0, 1));
       else if (keyCode == LEFT)
-        move(new PVector(-1, 0));
+        set_key_move(new PVector(-1, 0));
       else if (keyCode == RIGHT)
-        move(new PVector(1, 0));
+        set_key_move(new PVector(1, 0));
     }
   }  
 
   void keyReleased() {
     if (key == CODED) {
       if (keyCode == UP) 
-        move(new PVector(0, 0));
+        set_key_move(new PVector(0, 0));
       else if (keyCode == DOWN)
-        move(new PVector(0, 0));
+        set_key_move(new PVector(0, 0));
       else if (keyCode == LEFT)
-        move(new PVector(0, 0));
+        set_key_move(new PVector(0, 0));
       else if (keyCode == RIGHT)
-        move(new PVector(0, 0));
+        set_key_move(new PVector(0, 0));
     }
   }
   
-  void move(PVector move)
+  void set_key_move(PVector key_move)
   {
-    dataGui.key_move = move;
+    dataGui.set_key_move(key_move);
     //dataGui.tab_name = cp5.getWindow( ).getCurrentTab().getName();
     //print(data.tab_name);
   }

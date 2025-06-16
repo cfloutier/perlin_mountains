@@ -1,16 +1,4 @@
 {
-  "Noise1": {
-    "mode": 1,
-    "add": true,
-    "Height_Noise": 3.3333334922790527,
-    "Added_Height": 0,
-    "xNoise": 0.5,
-    "xNoise_Mul": 1,
-    "Height_Mul": -1,
-    "yNoise": 13.600000381469727,
-    "yNoise_Mul": 0,
-    "on": true
-  },
   "Style": {
     "backgroundColor": -16777216,
     "lineColor": -1,
@@ -28,16 +16,36 @@
     "Height": 0.32333335280418396,
     "XSteps": 1980
   },
-  "Noise2": {
-    "mode": 1,
-    "add": false,
-    "Height_Noise": 4.333333492279053,
-    "Added_Height": 0.006666660308837891,
-    "xNoise": 2.4000000953674316,
-    "xNoise_Mul": 0,
-    "Height_Mul": -2,
-    "yNoise": 13,
-    "yNoise_Mul": 0,
-    "on": true
+
+
+  "Layers": {
+    "nb_items": 3,
+
+
+    "layer_1": {
+      "mode": 1,
+      "add": true,
+      "Height_Noise": 3.3333334922790527,
+      "Added_Height": 0,
+      "xNoise": 0.5,
+      "xNoise_Mul": 1,
+      "Height_Mul": -1,
+      "yNoise": 13.600000381469727,
+      "yNoise_Mul": 0,
+      "on": true
+    },
+
+    "layer_2": {
+      "mode": 1,
+      "add": false,
+      "Height_Noise": 4.333333492279053,
+      "Added_Height": 0.006666660308837891,
+      "xNoise": 2.4000000953674316,
+      "xNoise_Mul": 0,
+      "Height_Mul": -2,
+      "yNoise": 13,
+      "yNoise_Mul": 0,
+      "on": true
+    }
   }
 }

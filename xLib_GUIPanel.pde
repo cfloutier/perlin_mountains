@@ -1,9 +1,7 @@
-
 int indexControler = 0;
 
 static final int StartX = 20;
 static final int StartY = 20;
-
 
 static class LabelsHandler
 {
@@ -20,159 +18,6 @@ static class LabelsHandler
   }
 }
 
-class MainPanel
-{
-  ArrayList<GUIPanel> panels = new ArrayList<GUIPanel>();
-  String activeTab = "";
-  MainPanel()
-  {
-  }
-
-  void addTab(GUIPanel panel)
-  {
-    panels.add(panel);
-  }
-
-  void Init()
-  {
-    // must be called after addTabs
-
-    for (GUIPanel panel : panels)
-    {
-      panel.Init(); 
-      panel.setupControls(); 
-    }
-  }
-
-  void setGUIValues()
-  {
-    for (GUIPanel panel : panels)
-    {
-      panel.setGUIValues();
-    }
-  }
-
-  void update_ui()
-  {
-    // update all changes in data to controller thats are not user imputs
-    // like labels
-    // or show hide controls depending on a status
-
-    if (!data.any_change() && !data.need_update_ui )
-      return;
-
-    for (GUIPanel panel : panels)
-    {
-      panel.update_ui();
-    }
-  }
-
-  void draw()
-  {
-    // checks if it's not an export
-    if (record)
-      return;
-
-    for (GUIPanel panel : panels)
-    {
-      panel.draw();
-    }
-  }
-  
-  
-  PVector key_move;
-  
-  
-  
-  
-  
-  boolean checkKeyMove( )  
-  {
-    
-    if (key_move.x != 0 || key_move.y != 0)
-    {
-      //println("mouse pressed " + mouseX);
-      for (GUIPanel panel : panels)
-      {
-        if (!panel.tab.isActive())
-          continue;
-        // call active panel
-        if (panel.key_move(key_move))
-        {
-          return true;
-        }
-      }
-    }
-  }
-  
-
-  GUIPanel dragging_panel;
-  
-
-  void mousePressed()
-  {
-    if (cp5.isMouseOver())
-      return;
-
-    //println("mouse pressed " + mouseX);
-    for (GUIPanel panel : panels)
-    {
-      if (!panel.tab.isActive())
-        continue;
-
-      if (panel.mousePressed())
-      {
-        dragging_panel = panel;
-        return;
-      }
-    }
-
-    // if not check the non active panel
-    for (GUIPanel panel : panels)
-    {
-      if (panel.tab.isActive())
-        continue;
-
-      if (panel.mousePressed())
-      {
-        dragging_panel = panel;
-        cp5.getTab(dragging_panel.pageName).bringToFront();
-        return;
-      }
-    }
-  }
-
-  void mouseDragged()
-  {
-    if (dragging_panel != null)
-    {
-      dragging_panel.mouseDragged();
-    }
-  }
-
-  void mouseReleased() {
-
-    if (dragging_panel != null)
-    {
-      dragging_panel.mouseReleased();
-      dragging_panel = null;
-    }
-  }
-}
-
-void mousePressed() {
-    dataGui.mousePressed();
-}
-
-void mouseDragged() {
-    dataGui.mouseDragged();
-}
-
-void mouseReleased() {
-    dataGui.mouseReleased();
-}
-
-
 class GUIPanel implements ControlListener
 {
   String pageName;
@@ -185,9 +30,7 @@ class GUIPanel implements ControlListener
   int widthCtrl = 300;
   int heightCtrl = 20;
 
-
   GenericData associated_data;
-
 
   GUIPanel(String pageName, GenericData data)
   {
@@ -235,10 +78,18 @@ class GUIPanel implements ControlListener
     println("Error : update_ui() must be implemented in extended classes ");
   }
 
+  boolean key_move(PVector key_move, int delta_ms)
+  {
+    print("key_move not implemented " + key_move + " " + delta_ms);
+    return false;
+  }
+
   void draw()
   {
     // can be optionnally setup to draw figure in the drawing
   }
+
+
 
   boolean mousePressed()
   {

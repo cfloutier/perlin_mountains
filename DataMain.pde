@@ -33,8 +33,6 @@ class DataMain extends GenericData
 class MainGUI extends GUIPanel
 {
   DataMain main;
-  
-  
   MainGUI(DataMain main)
   {
     super("Main", main);
@@ -95,7 +93,6 @@ class MainGUI extends GUIPanel
 
     max_override = addIntSlider( "max_override", "Max override", 0, 20);
 
-
     nextLine();
 
     addLabel("Move");
@@ -119,5 +116,20 @@ class MainGUI extends GUIPanel
   void update_ui()
   {
     seedLabel.setText("seed : " + main.seed);
+  }
+
+  boolean key_move(PVector key_move, int delta_ms)
+  {
+    float move_x =  0.001*data.move.x * delta_ms * data.main.moveSpeed_X;
+    float move_y =  0.001*data.move.y * delta_ms * data.main.moveSpeed_Y;
+
+    for (int i = 0 ; i < data.layers.count(); i++)
+    {
+      DataLayer layer = data.layers.layer(i);
+      layer.pos_x += move_x * layer.pow_X();  
+      layer.pos_y += move_y * layer.pow_Y();
+    }
+
+    return true;
   }
 }
