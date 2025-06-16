@@ -142,7 +142,7 @@ class DrawingGenerator
 
     int[] counters = new int[data.main.XSteps];
     if (data.main.intersection)
-    {
+    {  
        for (int i = 0; i < data.main.XSteps; i++)
         counters[i] = 0;
     }
@@ -189,7 +189,7 @@ class DrawingGenerator
     
     for (int lineIndex = 0; lineIndex < lines.size(); lineIndex++)
     {
-      lines.get(lineIndex).draw();
+      lines.get(lineIndex).draw();  
     }
     
     

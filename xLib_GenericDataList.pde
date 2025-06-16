@@ -144,7 +144,7 @@ class GUIListPanel extends GUIPanel
     fix_index();
 
     data_list.items.remove(data_list.current_index);
-    print(data_list.current_index);
+    // print(data_list.current_index);
     data_list.current_index--;
     last_index = -1;
     fix_index();  

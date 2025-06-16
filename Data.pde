@@ -19,11 +19,16 @@ class PerlinMountainsData extends DataGlobal
   void reset()
   {
     main.CopyFrom(new DataMain());
-    style.CopyFrom(new Style());
-
+    
     // needed to be reset it's proper way
     layers.reset();
   }
+  
+  
+  
+  
+  
+  
 }
 
 class DataGUI  extends MainPanel
@@ -94,8 +99,6 @@ class DataGUI  extends MainPanel
       return true;
     }
     
-
     return false;
   }
-
 }

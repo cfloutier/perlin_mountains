@@ -166,7 +166,6 @@ class DataGlobal
     chapters.add(data_chapter);
   }
 
-
   String getFileNameWithoutExtension(String path) {
     File file = new File(path);
     String fileName = file.getName();

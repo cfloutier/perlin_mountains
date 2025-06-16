@@ -4,14 +4,14 @@ class ColorButton
   color col;
 
   Button bt = null;
-  ColorRef refColor = null;
-
+  ColorGroup group;
+  
   ColorButton(color col)
   {
     this.col = col;
   }
 
-  void init(GUIPanel panel, ColorRef refColor)
+  void init(GUIPanel panel, ColorGroup group)
   {
     bt = cp5.addButton("colorbt"+ indexControler)
       .setPosition(panel.xPos, panel.yPos)
@@ -23,14 +23,15 @@ class ColorButton
     indexControler++;
     panel.xPos += 22;
 
-
-    bt.plugTo(this, "onCLic");
-    this.refColor = refColor;
+    bt.plugTo(this, "onClic");
+    this.group = group;
   }
 
-  void onCLic()
+  void onClic()
   {
-    refColor.col = this.col;
+    group.colorRef.col = this.col;
+    //println("onClic color new color" + refColor.col);
+    //println("modified refColor " + refColor); //<>//
   }
 }
 
@@ -94,15 +95,13 @@ class ColorGroup
         }
         
         int[] colorValues = colors[i];
-        new ColorButton(color(colorValues[0], colorValues[1],colorValues[2])).init(panel, colorRef);
-        
+        new ColorButton(color(colorValues[0], colorValues[1],colorValues[2])).init(panel, this);
     }
     
      panel.yPos += 25;
      panel.xPos = StartX;
   }
 }
-
 
 class ColorRef
 {

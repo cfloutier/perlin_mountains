@@ -107,7 +107,6 @@ public class ScaleSlider extends Slider{
 
 } 
 
-
 void LoadJson()
 {
   println("LoadJson ");
@@ -220,10 +219,9 @@ void start_draw()
 
     background(data.style.backgroundColor.col);
     strokeWeight(data.style.lineWidth);
-    
-    println("line color " + data.style.lineColor.col);
-
     stroke(data.style.lineColor.col);
+    
+    println("data.style.lineColor + " + data.style.lineColor);
     
     current_graphics = g;
 
