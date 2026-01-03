@@ -19,7 +19,7 @@
   "Layers": {
     "nb_items": 2,
     "layer_1": {
-      "mode": 1,
+      "line_mode": 0,
       "add": false,
       "pos_y": 4.5352325439453125,
       "Height_Noise": 7.233333587646484,
@@ -33,7 +33,7 @@
       "on": true
     },
     "layer_0": {
-      "mode": 1,
+      "line_mode": 0,
       "add": false,
       "pos_y": 1.7906665802001953,
       "Height_Noise": 2.3333332538604736,

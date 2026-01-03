@@ -23,6 +23,7 @@
 
     "layer_1": {
       "add": true,
+      "line_mode": 0,
       "Height_Noise": 2.433333396911621,
       "Added_Height": -0.039999961853027344,
       "xNoise": 9.666666984558105,
@@ -35,6 +36,7 @@
 
     "layer_2": {
       "add": false,
+      "line_mode": 0,
       "Height_Noise": 1.0666667222976685,
       "Added_Height": -0.06000000238418579,
       "xNoise": 0.9666666984558105,

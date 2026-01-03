@@ -117,6 +117,4 @@ class MainGUI extends GUIPanel
   {
     seedLabel.setText("seed : " + main.seed);
   }
-
-  
 }

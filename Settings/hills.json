@@ -18,11 +18,9 @@
 
 
   "Layers": {
-    "nb_items": 3,
-
-
+    "nb_items": 2,
     "layer_1": {
-      "mode": 1,
+      "line_mode": 0,
       "pos_y": 10.235452651977539,
       "add": true,
       "Height_Noise": 3.3333334922790527,
@@ -35,23 +33,8 @@
       "yNoise_Mul": 0,
       "on": true
     },
-
-    "layer_3": {
-      "mode": 0,
-      "pos_y": 0,
-      "add": false,
-      "Height_Noise": 0,
-      "pos_x": 0,
-      "Added_Height": -0.039999961853027344,
-      "xNoise": 0,
-      "xNoise_Mul": 0,
-      "Height_Mul": 0,
-      "yNoise": 0,
-      "yNoise_Mul": 0,
-      "on": false
-    },
     "layer_2": {
-      "mode": 1,
+      "line_mode": 0,
       "pos_y": 3.2712321281433105,
       "add": true,
       "Height_Noise": 2.633333444595337,

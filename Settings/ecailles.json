@@ -1,0 +1,71 @@
+{
+  "Style": {
+    "backgroundColor": -16777216,
+    "lineColor": -1,
+    "lineWidth": 0.550000011920929
+  },
+  "Main": {
+    "moveSpeed_X": 1,
+    "max_override": 5,
+    "seed": 50578140,
+    "NoiseFalloff": 0.6200000047683716,
+    "intersection": true,
+    "NoiseLod": 6,
+    "NbLines": 14,
+    "Height": 0.40666666626930237,
+    "moveSpeed_Y": 1,
+    "XSteps": 549
+  },
+  "Layers": {
+    "nb_items": 3,
+    "layer_2": {
+      "add": true,
+      "previous_pos": "[ 0.0, 0.0, 0.0 ]",
+      "line_mode": 0,
+      "Height_Noise": 0.7333333492279053,
+      "Added_Height": 0.3866666555404663,
+      "xNoise": 1.0666667222976685,
+      "Height_Mul": 0,
+      "pos_y": 0,
+      "pos_x": 0,
+      "start_mouse_drag": "[ 57.0, 6.0, 0.0 ]",
+      "xNoise_Mul": 0,
+      "yNoise": 7.200000286102295,
+      "yNoise_Mul": 0,
+      "on": false
+    },
+    "layer_1": {
+      "add": false,
+      "previous_pos": "[ 0.0, 0.0, 0.0 ]",
+      "line_mode": 1,
+      "Height_Noise": 0.36666667461395264,
+      "Added_Height": -0.013333320617675781,
+      "xNoise": 6.633333683013916,
+      "Height_Mul": -1,
+      "pos_y": 0,
+      "pos_x": 0,
+      "start_mouse_drag": "[ 57.0, 6.0, 0.0 ]",
+      "xNoise_Mul": 1,
+      "yNoise": 30,
+      "yNoise_Mul": 1,
+      "on": true
+    },
+    "layer_0": {
+      "add": true,
+      "previous_pos": "[ 0.0, 0.0, 0.0 ]",
+      "line_mode": 1,
+      "Height_Noise": 0,
+      "Added_Height": -0.20666664838790894,
+      "xNoise": 2.1666667461395264,
+      "Height_Mul": 1,
+      "pos_y": 0,
+      "pos_x": 0,
+      "start_mouse_drag": "[ 57.0, 6.0, 0.0 ]",
+      "xNoise_Mul": 1,
+      "yNoise": 0.4000000059604645,
+      "yNoise_Mul": 1,
+      "on": true
+    },
+    "current_index": 1
+  }
+}

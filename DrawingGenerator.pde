@@ -16,7 +16,6 @@ class Line
     points = new ArrayList<PVector>();
     setAllValid();
 
-    
     for (int i = 0; i < data.main.XSteps; i++)
     {
       points.add(new PVector(xPos, 0));

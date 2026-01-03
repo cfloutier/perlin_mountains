@@ -1,66 +1,39 @@
 {
-  "Layers": {
-    "nb_items": 3,
-    "layer_1": {
-      "mode": 1,
-      "pos_y": -4.11073637008667,
-      "add": true,
-      "Height_Noise": 2.3333332538604736,
-      "pos_x": 6.0967817306518555,
-      "Added_Height": 0,
-      "xNoise": 0.2666666805744171,
-      "xNoise_Mul": 1,
-      "Height_Mul": -1,
-      "yNoise": 13.600000381469727,
-      "yNoise_Mul": 0,
-      "on": true
-    },
-    "layer_2": {
-      "mode": 1,
-      "pos_y": 5.970943927764893,
-      "add": true,
-      "Height_Noise": 7.233333587646484,
-      "pos_x": 1.2676407098770142,
-      "Added_Height": 0.006666660308837891,
-      "xNoise": 0.5666666626930237,
-      "xNoise_Mul": 0,
-      "Height_Mul": -1,
-      "yNoise": 9.59999942779541,
-      "yNoise_Mul": 0,
-      "on": true
-    },
-    "layer_3": {
-      "mode": 0,
-      "pos_y": 0,
-      "add": false,
-      "Height_Noise": 0,
-      "pos_x": 0,
-      "Added_Height": -0.046666622161865234,
-      "xNoise": 0,
-      "xNoise_Mul": 0,
-      "Height_Mul": 0,
-      "yNoise": 0,
-      "yNoise_Mul": 0,
-      "on": true
-    }
-  },
-
-
   "Style": {
     "backgroundColor": -16777216,
     "lineColor": -1,
     "lineWidth": 0.550000011920929
   },
   "Main": {
-    "moveSpeed_X": 0.746666669845581,
+    "moveSpeed_X": 0.8333333730697632,
+    "max_override": 5,
     "seed": 38156164,
     "NoiseFalloff": 0.6233333349227905,
     "intersection": true,
     "NoiseLod": 5,
     "NbLines": 114,
     "Height": 0.40666666626930237,
-    "moveSpeed_Y": 0.7933333516120911,
+    "moveSpeed_Y": 0.5266667008399963,
     "XSteps": 376
+  },
+  "Layers": {
+    "nb_items": 1,
+    "layer_0": {
+      "add": false,
+      "previous_pos": "[ 3.145003, 3.5392005, 0.0 ]",
+      "line_mode": 0,
+      "Height_Noise": 7.233333587646484,
+      "Added_Height": 0.006666660308837891,
+      "xNoise": 0.5666666626930237,
+      "Height_Mul": -1,
+      "pos_y": 3.5392005443573,
+      "pos_x": 3.145003080368042,
+      "start_mouse_drag": "[ 51.0, 7.0, 0.0 ]",
+      "xNoise_Mul": 0,
+      "yNoise": 9.59999942779541,
+      "yNoise_Mul": 0,
+      "on": true
+    },
+    "current_index": 0
   }
- 
 }

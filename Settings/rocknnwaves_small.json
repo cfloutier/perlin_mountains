@@ -23,7 +23,7 @@
 
 
     "layer_1": {
-      "mode": 1,
+      "line_mode": 0,
       "add": true,
       "Height_Noise": 3.3333334922790527,
       "Added_Height": 0,
@@ -36,7 +36,7 @@
     },
 
     "layer_2": {
-      "mode": 1,
+      "line_mode": 0,
       "add": false,
       "Height_Noise": 4.333333492279053,
       "Added_Height": 0.006666660308837891,

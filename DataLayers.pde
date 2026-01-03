@@ -10,7 +10,8 @@ class DataLayer extends GenericData
   }
   
   boolean on = false;
-  int mode = 0;
+
+  int line_mode = 0;
 
   float xNoise = 0.4;
   float yNoise = 0.4;
@@ -49,14 +50,16 @@ class DataLayer extends GenericData
 
   float computeNoise(float noise_X, float noise_Y)
   {
-    switch(mode)
+
+    //return sin(noise_X+noise_Y) *0.5f
+    // line_mode = 1;
+    
+    switch(line_mode)
     {
     default:
     case 0:
       return noise(noise_X, noise_Y) - 0.5;
     case 1:
-      return my_noise(noise_X, noise_Y) - 0.5;
-    case 2:
       return sin(noise_X+noise_Y) *0.5f;
     }
   }
@@ -160,6 +163,8 @@ class LayersGui extends GUIListPanel
 
   Textlabel current_Layer;
 
+  RadioButton line_mode;
+
   Slider xNoise;
   Slider Height_Noise;  
   Slider Added_Height;  
@@ -170,7 +175,6 @@ class LayersGui extends GUIListPanel
   Slider yNoise_Mul;
   Slider Height_Mul;
 
-  Slider mode;
   Toggle add;
   Toggle on;
 
@@ -180,9 +184,23 @@ class LayersGui extends GUIListPanel
 
     addListBar();
 
+    float start_yPos = yPos;
+
     current_Layer = addLabel("current Layer : ??");
 
     on = addToggle("on", "on/off", pdata.edit_layer);
+
+    ArrayList<String> labels = new ArrayList<String>();
+    labels.add("Perlin Noise");
+    labels.add("Sinus");  
+
+    yPos = start_yPos;
+    
+    addLabel("Line Mode");
+    
+    line_mode = addRadio("line_mode", labels, pdata.edit_layer);  
+
+    space();
 
     nextLine();
 
@@ -205,7 +223,7 @@ class LayersGui extends GUIListPanel
     nextLine();
 
     add = addToggle("add", "add values", pdata.edit_layer);
-    mode = addIntSlider("mode", "mode", pdata.edit_layer, 0, 2);
+
   }
 
   void updateCurrentItem()
@@ -213,6 +231,7 @@ class LayersGui extends GUIListPanel
     if (pdata.count() == 0)
     {
       on.hide();
+      line_mode.hide();
       xNoise.hide();
       yNoise.hide();
       Height_Noise.hide();
@@ -222,7 +241,6 @@ class LayersGui extends GUIListPanel
       Added_Height.hide();
       Reset_Added_Height.hide();
       add.hide();
-      mode.hide();
 
       current_Layer.setText("No Planet");
 
@@ -230,6 +248,7 @@ class LayersGui extends GUIListPanel
     }
 
     on.show();
+    line_mode.show();
     xNoise.show();
     yNoise.show();
     Height_Noise.show();
@@ -239,7 +258,6 @@ class LayersGui extends GUIListPanel
     Added_Height.show();
     Reset_Added_Height.show();
     add.show();
-    mode.show();
 
     if (pdata.current_index != last_index)
     {
@@ -249,6 +267,7 @@ class LayersGui extends GUIListPanel
       pdata.edit_layer.CopyFrom(layer);
       
       on.setValue(layer.on);
+      line_mode.activate(layer.line_mode);
 
       xNoise.setValue(layer.xNoise);
       yNoise.setValue(layer.yNoise);
@@ -261,8 +280,7 @@ class LayersGui extends GUIListPanel
       Added_Height.setValue(layer.Added_Height);
 
       add.setValue(layer.add);
-      mode.setValue(layer.mode);
-
+      
       current_Layer.setText("Layer " + (pdata.current_index + 1) + " / " + pdata.count());
     }
     else
@@ -383,8 +401,4 @@ class LayersGui extends GUIListPanel
   {
     dragging = false;
   }
-    
-    
-  
-  
 }
