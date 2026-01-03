@@ -158,7 +158,7 @@ class LayersGui extends GUIListPanel
   LayersGui(DataLayers data)
   {
     super("Layers", data);
-     this.pdata = data;
+    this.pdata = data;
   }
 
   Textlabel current_Layer;

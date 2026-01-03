@@ -1,4 +1,4 @@
-import controlP5.*;  //<>// //<>// //<>// //<>// //<>//
+import controlP5.*;  
 
 class PerlinMountainsData extends DataGlobal
 {
@@ -25,7 +25,7 @@ class PerlinMountainsData extends DataGlobal
   }
 }
 
-class DataGUI  extends MainPanel
+class DataGUI extends MainPanel
 {
   PerlinMountainsData data;
 
