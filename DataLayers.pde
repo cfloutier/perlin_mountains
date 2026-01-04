@@ -20,7 +20,7 @@ class DataLayer extends GenericData
   float yPeriod = 0.4;
   float Height_Noise = 5;
 
-  float Added_Height = 0;
+  float Base_Height = 0;
 
   int xPeriod_Mul = 1;
   int yPeriod_Mul = 1;
@@ -108,7 +108,7 @@ class DataLayer extends GenericData
     {  
       float noise = computeNoise(noise_X, ypos_Noise);
 
-      float h = (pow_H * noise - Added_Height) * data.width;     
+      float h = (pow_H * noise - Base_Height) * data.width;     
       PVector prevPoint = points.get(i);
       PVector newPoint = null;
       if (add)
@@ -188,8 +188,8 @@ class LayersGui extends GUIListPanel
   Slider Height_Noise;  
   Slider Height_Mul;
 
-  Slider Added_Height;  
-  Button Reset_Added_Height;
+  Slider Base_Height;  
+  Button Reset_Base_Height;
 
   Toggle add;
   Toggle on;
@@ -235,12 +235,13 @@ class LayersGui extends GUIListPanel
     nextLine();
 
     Height_Label = addLabel("Height : ");
-    Height_Noise = addSlider("Height_Noise", "Height_Noise", pdata.edit_layer,  0, 10);
+    Height_Noise = addSlider("Height_Noise", "Height Noise", pdata.edit_layer,  0, 10);
     Height_Mul = addIntSlider("Height_Mul", "Height Mult", pdata.edit_layer, -3, 1);
 
-    Added_Height = addSlider("Added_Height", "Added_Height", pdata.edit_layer, -1, 1);
-    Reset_Added_Height = addButton("recenter");
-    Reset_Added_Height.plugTo(this, "rescenterH");
+    nextLine();
+    Base_Height = addSlider("Base_Height", "Base Height", pdata.edit_layer, -1, 1);
+    Reset_Base_Height = addButton("recenter");
+    Reset_Base_Height.plugTo(this, "rescenterH");
     
     nextLine();
     
@@ -261,8 +262,8 @@ class LayersGui extends GUIListPanel
       xPeriod_Mul.hide();
       yPeriod_Mul.hide();
       Height_Mul.hide();
-      Added_Height.hide();
-      Reset_Added_Height.hide();
+      Base_Height.hide();
+      Reset_Base_Height.hide();
       add.hide();
       Noise_Label.hide();
       NoiseLod.hide();
@@ -283,12 +284,11 @@ class LayersGui extends GUIListPanel
     xPeriod_Mul.show();
     yPeriod_Mul.show();
     Height_Mul.show();
-    Added_Height.show();
-    Reset_Added_Height.show();
+    Base_Height.show();
+    Reset_Base_Height.show();
     add.show();
     NoiseLod.show();
     NoiseFalloff.show();  
-    println("layer.line_mode " + layer.line_mode);
     if (layer.line_mode == 1)
     {
       NoiseLod.show();
@@ -316,7 +316,7 @@ class LayersGui extends GUIListPanel
       yPeriod_Mul.setValue(layer.yPeriod_Mul);
       Height_Mul.setValue(layer.Height_Mul);
 
-      Added_Height.setValue(layer.Added_Height);
+      Base_Height.setValue(layer.Base_Height);
 
       add.setValue(layer.add);      
       NoiseLod.setValue(layer.NoiseLod);
@@ -345,8 +345,11 @@ class LayersGui extends GUIListPanel
   
   void rescenterH()
   {
-    pdata.edit_layer.Added_Height = 0;
-    setGUIValues();
+    print("recenter");
+    DataLayer layer = pdata.layer(pdata.current_index);
+    layer.Base_Height = 0;
+    Base_Height.setValue(layer.Base_Height);
+
   }
 
   void draw()
