@@ -100,7 +100,6 @@ class Line
       }
     }
   }
-  
 }
 
 class DrawingGenerator
@@ -114,11 +113,10 @@ class DrawingGenerator
     noiseSeed(data.main.seed);
     noiseDetail(data.main.NoiseLod, data.main.NoiseFalloff);
     
-    my_noiseSeed(data.main.seed);
-    my_noiseDetail(data.main.NoiseLod, data.main.NoiseFalloff);
+    for (int layer_index = 0; layer_index < data.layers.count(); layer_index++)
+      data.layers.layer(layer_index).InitNoise(data.main.seed);
 
     lines = new ArrayList<Line>();
-    
 
     float y_Noise = data.main.Height /2;
     float y_Line = data.height/2 + y_Noise * data.width;
@@ -188,7 +186,5 @@ class DrawingGenerator
     {
       lines.get(lineIndex).draw();  
     }
-    
-    
   }
 }

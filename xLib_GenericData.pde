@@ -44,7 +44,7 @@ class GenericData
     Field[] fields = this.getClass().getDeclaredFields();
 
     for (Field field : fields) {
-      try { //<>// //<>// //<>// //<>// //<>//
+      try {     
         field.setAccessible(true); // Allow access to private fields if necessary
         String name = field.getName();
         if (name == "changed" || name =="this$0")
@@ -62,6 +62,7 @@ class GenericData
         } else if (field.getType() == String.class) {
           field.set(this, json.getString(name, (String) field.get(this)));
         }
+        
       }
       catch (IllegalAccessException e) {
         e.printStackTrace(); // Handle exceptions gracefully

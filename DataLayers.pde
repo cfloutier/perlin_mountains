@@ -11,6 +11,9 @@ class DataLayer extends GenericData
   
   boolean on = false;
 
+  // 0 : global noise
+  // 1 : local noise
+  // 3 : sinus 
   int line_mode = 0;
 
   float xNoise = 0.4;
@@ -27,9 +30,20 @@ class DataLayer extends GenericData
 
   float pos_x = 0;
   float pos_y = 0;
+
+  int NoiseLod = 4;
+  float NoiseFalloff = 0.5;
+
+  PerlinNoise local_noise = new PerlinNoise();
   
   PVector start_mouse_drag = new PVector(0,0);
   PVector previous_pos = new PVector(0,0);
+
+  public void InitNoise(int seed)
+  {
+    local_noise.noiseSeed(seed);
+    local_noise.noiseDetail(NoiseLod, NoiseFalloff);
+  }
   
   void on_start_drag()
   {
@@ -37,7 +51,7 @@ class DataLayer extends GenericData
     previous_pos = new PVector(pos_x, pos_y);
   }
 
-   void on_drag()
+  void on_drag()
   {
     PVector delta_mouse = new PVector(mouseX - start_mouse_drag.x,mouseY -start_mouse_drag.y);
 
@@ -60,6 +74,8 @@ class DataLayer extends GenericData
     case 0:
       return noise(noise_X, noise_Y) - 0.5;
     case 1:
+      return local_noise.noise(noise_X, noise_Y) - 0.5;  
+    case 2:
       return sin(noise_X+noise_Y) *0.5f;
     }
   }
@@ -90,10 +106,6 @@ class DataLayer extends GenericData
 
     for (int i = 0; i < data.main.XSteps; i++)
     {  
-      // float noise = noise_d(noise_X, ypos_Noise) - 0.5;
-      //float noise = noise(noise_X, ypos_Noise) - 0.5;
-
-      // noise = sin(noise_X + ypos_Noise)/2;
       float noise = computeNoise(noise_X, ypos_Noise);
 
       float h = (pow_H * noise - Added_Height) * data.width;     
@@ -177,6 +189,10 @@ class LayersGui extends GUIListPanel
 
   Toggle add;
   Toggle on;
+  
+  Textlabel Noise_Layer;
+  Slider NoiseLod;
+  Slider NoiseFalloff;
 
   void setupControls()
   {
@@ -191,17 +207,18 @@ class LayersGui extends GUIListPanel
     on = addToggle("on", "on/off", pdata.edit_layer);
 
     ArrayList<String> labels = new ArrayList<String>();
-    labels.add("Perlin Noise");
-    labels.add("Sinus");  
+    labels.add("Global Noise");
+    labels.add("Local Noise");  
+    labels.add("Sinus");    
 
     yPos = start_yPos;
     
     addLabel("Line Mode");
-    
+
     line_mode = addRadio("line_mode", labels, pdata.edit_layer);  
-
     space();
-
+    add = addToggle("add", "add values", pdata.edit_layer);
+    space();
     nextLine();
 
     xNoise = addSlider("xNoise", "X Noise", pdata.edit_layer, 0, 10);
@@ -221,9 +238,10 @@ class LayersGui extends GUIListPanel
     Reset_Added_Height.plugTo(this, "rescenterH");
     
     nextLine();
-
-    add = addToggle("add", "add values", pdata.edit_layer);
-
+    
+    Noise_Layer = addLabel("Noise : ");
+    NoiseLod = addIntSlider("NoiseLod", "Noise Harmonics", pdata.edit_layer, 1, 8);
+    NoiseFalloff = addSlider("NoiseFalloff", "NoiseFalloff", pdata.edit_layer, 0, 1);
   }
 
   void updateCurrentItem()
@@ -241,11 +259,16 @@ class LayersGui extends GUIListPanel
       Added_Height.hide();
       Reset_Added_Height.hide();
       add.hide();
+      Noise_Layer.hide();
+      NoiseLod.hide();
+      NoiseFalloff.hide();
 
       current_Layer.setText("No Planet");
 
       return;
     }
+    
+    DataLayer layer = pdata.layer(pdata.current_index);
 
     on.show();
     line_mode.show();
@@ -258,12 +281,23 @@ class LayersGui extends GUIListPanel
     Added_Height.show();
     Reset_Added_Height.show();
     add.show();
+    NoiseLod.show();
+    NoiseFalloff.show();  
+    println("layer.line_mode " + layer.line_mode);
+    if (layer.line_mode == 1)
+    {
+      NoiseLod.show();
+      NoiseFalloff.show();  
+    }
+    else
+    {
+       NoiseLod.hide();
+       NoiseFalloff.hide();   
+    }
 
     if (pdata.current_index != last_index)
     {
       last_index = pdata.current_index;
-      
-      DataLayer layer = pdata.layer(pdata.current_index);
       pdata.edit_layer.CopyFrom(layer);
       
       on.setValue(layer.on);
@@ -279,13 +313,14 @@ class LayersGui extends GUIListPanel
 
       Added_Height.setValue(layer.Added_Height);
 
-      add.setValue(layer.add);
+      add.setValue(layer.add);      
+      NoiseLod.setValue(layer.NoiseLod);
+      NoiseFalloff.setValue(layer.NoiseFalloff);
       
       current_Layer.setText("Layer " + (pdata.current_index + 1) + " / " + pdata.count());
     }
     else
     {
-      DataLayer layer = pdata.layer(pdata.current_index);
       layer.CopyFrom(pdata.edit_layer);
       data.changed = true;
     }

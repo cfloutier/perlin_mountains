@@ -36,7 +36,7 @@
     },
 
     "layer_3": {
-      "line_mode": 1,
+      "line_mode": 2,
       "add": false,
       "Height_Noise": 0.5,
       "Added_Height": -0.08666664361953735,
