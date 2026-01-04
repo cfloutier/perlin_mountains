@@ -5,7 +5,7 @@ class Line
   
   float y_line = 0;
 
-  void build(float yNoise, float yLine)
+  void build(float yPeriod, float yLine)
   {
     points = null;
 
@@ -26,7 +26,7 @@ class Line
     for (int i = 0; i < layers.count(); i++)
     {
       DataLayer layer = layers.layer(i);
-      layer.compute_Line(points, yNoise);
+      layer.compute_Line(points, yPeriod);
     }
   }
 

@@ -28,11 +28,11 @@
       "Height_Noise": 1.4333332777023315,
       "pos_x": 6.252286911010742,
       "Added_Height": -0.41999995708465576,
-      "xNoise": 2.366666793823242,
-      "xNoise_Mul": 0,
+      "xPeriod": 2.366666793823242,
+      "xPeriod_Mul": 0,
       "Height_Mul": -1,
-      "yNoise": 1.399999976158142,
-      "yNoise_Mul": 3,
+      "yPeriod": 1.399999976158142,
+      "yPeriod_Mul": 3,
       "on": true
     },
     "layer_3": {
@@ -42,11 +42,11 @@
       "Height_Noise": 2.700000047683716,
       "pos_x": 0,
       "Added_Height": -0.08666664361953735,
-      "xNoise": 3.4666666984558105,
-      "xNoise_Mul": 0,
+      "xPeriod": 3.4666666984558105,
+      "xPeriod_Mul": 0,
       "Height_Mul": -2,
-      "yNoise": 17.299999237060547,
-      "yNoise_Mul": 0,
+      "yPeriod": 17.299999237060547,
+      "yPeriod_Mul": 0,
       "on": true
     },
     "layer_2": {
@@ -56,11 +56,11 @@
       "Height_Noise": 2.8333332538604736,
       "pos_x": -4.129763603210449,
       "Added_Height": 0.36666667461395264,
-      "xNoise": 0.23333333432674408,
-      "xNoise_Mul": 1,
+      "xPeriod": 0.23333333432674408,
+      "xPeriod_Mul": 1,
       "Height_Mul": -1,
-      "yNoise": 21.400001525878906,
-      "yNoise_Mul": 0,
+      "yPeriod": 21.400001525878906,
+      "yPeriod_Mul": 0,
       "on": true
     }
   }

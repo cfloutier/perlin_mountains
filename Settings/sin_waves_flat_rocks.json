@@ -27,11 +27,11 @@
       "add": true,
       "Height_Noise": 4.733333587646484,
       "Added_Height": -0.14666664600372314,
-      "xNoise": 3.4000000953674316,
-      "xNoise_Mul": 0,
+      "xPeriod": 3.4000000953674316,
+      "xPeriod_Mul": 0,
       "Height_Mul": -1,
-      "yNoise": 14.899999618530273,
-      "yNoise_Mul": 3,
+      "yPeriod": 14.899999618530273,
+      "yPeriod_Mul": 3,
       "on": true
     },
 
@@ -40,11 +40,11 @@
       "add": false,
       "Height_Noise": 0.5,
       "Added_Height": -0.08666664361953735,
-      "xNoise": 1.4666666984558105,
-      "xNoise_Mul": 2,
+      "xPeriod": 1.4666666984558105,
+      "xPeriod_Mul": 2,
       "Height_Mul": -2,
-      "yNoise": 4.699999809265137,
-      "yNoise_Mul": 1,
+      "yPeriod": 4.699999809265137,
+      "yPeriod_Mul": 1,
       "on": true
     },
     "layer_2": {
@@ -52,11 +52,11 @@
       "add": true,
       "Height_Noise": 0.7333333492279053,
       "Added_Height": 0.3866666555404663,
-      "xNoise": 1.0666667222976685,
-      "xNoise_Mul": 0,
+      "xPeriod": 1.0666667222976685,
+      "xPeriod_Mul": 0,
       "Height_Mul": 0,
-      "yNoise": 7.200000286102295,
-      "yNoise_Mul": 0,
+      "yPeriod": 7.200000286102295,
+      "yPeriod_Mul": 0,
       "on": false
     }
   }

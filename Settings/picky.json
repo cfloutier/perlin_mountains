@@ -26,11 +26,11 @@
       "line_mode": 0,
       "Height_Noise": 2.433333396911621,
       "Added_Height": -0.039999961853027344,
-      "xNoise": 9.666666984558105,
-      "xNoise_Mul": 0,
+      "xPeriod": 9.666666984558105,
+      "xPeriod_Mul": 0,
       "Height_Mul": -1,
-      "yNoise": 23.30000114440918,
-      "yNoise_Mul": 0,
+      "yPeriod": 23.30000114440918,
+      "yPeriod_Mul": 0,
       "on": true
     },
 
@@ -39,11 +39,11 @@
       "line_mode": 0,
       "Height_Noise": 1.0666667222976685,
       "Added_Height": -0.06000000238418579,
-      "xNoise": 0.9666666984558105,
-      "xNoise_Mul": 2,
+      "xPeriod": 0.9666666984558105,
+      "xPeriod_Mul": 2,
       "Height_Mul": -2,
-      "yNoise": 21.200000762939453,
-      "yNoise_Mul": 2,
+      "yPeriod": 21.200000762939453,
+      "yPeriod_Mul": 2,
       "on": true
     }
   }

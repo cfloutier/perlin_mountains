@@ -27,11 +27,11 @@
       "add": true,
       "Height_Noise": 3.3333334922790527,
       "Added_Height": 0,
-      "xNoise": 0.5,
-      "xNoise_Mul": 1,
+      "xPeriod": 0.5,
+      "xPeriod_Mul": 1,
       "Height_Mul": -1,
-      "yNoise": 13.600000381469727,
-      "yNoise_Mul": 0,
+      "yPeriod": 13.600000381469727,
+      "yPeriod_Mul": 0,
       "on": true
     },
 
@@ -40,11 +40,11 @@
       "add": false,
       "Height_Noise": 4.333333492279053,
       "Added_Height": 0.006666660308837891,
-      "xNoise": 2.4000000953674316,
-      "xNoise_Mul": 0,
+      "xPeriod": 2.4000000953674316,
+      "xPeriod_Mul": 0,
       "Height_Mul": -2,
-      "yNoise": 13,
-      "yNoise_Mul": 0,
+      "yPeriod": 13,
+      "yPeriod_Mul": 0,
       "on": true
     }
   }

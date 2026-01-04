@@ -24,14 +24,14 @@
       "line_mode": 0,
       "Height_Noise": 7.233333587646484,
       "Added_Height": 0.006666660308837891,
-      "xNoise": 0.5666666626930237,
+      "xPeriod": 0.5666666626930237,
       "Height_Mul": -1,
       "pos_y": 3.5392005443573,
       "pos_x": 3.145003080368042,
       "start_mouse_drag": "[ 51.0, 7.0, 0.0 ]",
-      "xNoise_Mul": 0,
-      "yNoise": 9.59999942779541,
-      "yNoise_Mul": 0,
+      "xPeriod_Mul": 0,
+      "yPeriod": 9.59999942779541,
+      "yPeriod_Mul": 0,
       "on": true
     },
     "current_index": 0

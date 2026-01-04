@@ -16,14 +16,14 @@ class DataLayer extends GenericData
   // 3 : sinus 
   int line_mode = 0;
 
-  float xNoise = 0.4;
-  float yNoise = 0.4;
+  float xPeriod = 0.4;
+  float yPeriod = 0.4;
   float Height_Noise = 5;
 
   float Added_Height = 0;
 
-  int xNoise_Mul = 1;
-  int yNoise_Mul = 1;
+  int xPeriod_Mul = 1;
+  int yPeriod_Mul = 1;
   int Height_Mul = 1;
 
   boolean add = true;
@@ -82,12 +82,12 @@ class DataLayer extends GenericData
   
   float pow_X()
   {
-    return computePow(xNoise_Mul)*xNoise;
+    return computePow(xPeriod_Mul)*xPeriod;
   }
   
   float pow_Y()
   {
-    return computePow(yNoise_Mul)*yNoise;
+    return computePow(yPeriod_Mul)*yPeriod;
   }
 
   ArrayList<PVector> compute_Line(ArrayList<PVector> points, float y)
@@ -177,20 +177,24 @@ class LayersGui extends GUIListPanel
 
   RadioButton line_mode;
 
-  Slider xNoise;
+  Slider xPeriod;
+
+  Slider yPeriod;
+
+  Slider xPeriod_Mul;
+  Slider yPeriod_Mul;
+
+  Textlabel Height_Label;
   Slider Height_Noise;  
+  Slider Height_Mul;
+
   Slider Added_Height;  
   Button Reset_Added_Height;
-  Slider yNoise;
-
-  Slider xNoise_Mul;
-  Slider yNoise_Mul;
-  Slider Height_Mul;
 
   Toggle add;
   Toggle on;
   
-  Textlabel Noise_Layer;
+  Textlabel Noise_Label;
   Slider NoiseLod;
   Slider NoiseFalloff;
 
@@ -214,24 +218,25 @@ class LayersGui extends GUIListPanel
     yPos = start_yPos;
     
     addLabel("Line Mode");
-
     line_mode = addRadio("line_mode", labels, pdata.edit_layer);  
     space();
+
     add = addToggle("add", "add values", pdata.edit_layer);
     space();
     nextLine();
 
-    xNoise = addSlider("xNoise", "X Noise", pdata.edit_layer, 0, 10);
-    yNoise = addSlider("yNoise", "Y Noise", pdata.edit_layer, 0, 30);
+    xPeriod = addSlider("xPeriod", "X Period", pdata.edit_layer, 0, 10);
+    yPeriod_Mul = addIntSlider("yPeriod_Mul", "Y Period Mult.", pdata.edit_layer, -1, 3);
+    
+    nextLine();
+    yPeriod = addSlider("yPeriod", "Y Period", pdata.edit_layer, 0, 30);
+    xPeriod_Mul = addIntSlider("xPeriod_Mul", "X Period Mult.", pdata.edit_layer, -1, 2);
+
+    nextLine();
+
+    Height_Label = addLabel("Height : ");
     Height_Noise = addSlider("Height_Noise", "Height_Noise", pdata.edit_layer,  0, 10);
-
-    nextLine();
-
-    xNoise_Mul = addIntSlider("xNoise_Mul", "X Noise Mult.", pdata.edit_layer, -1, 2);
-    yNoise_Mul = addIntSlider("yNoise_Mul", "Y Noise Mult.", pdata.edit_layer, -1, 3);
     Height_Mul = addIntSlider("Height_Mul", "Height Mult", pdata.edit_layer, -3, 1);
-
-    nextLine();
 
     Added_Height = addSlider("Added_Height", "Added_Height", pdata.edit_layer, -1, 1);
     Reset_Added_Height = addButton("recenter");
@@ -239,7 +244,7 @@ class LayersGui extends GUIListPanel
     
     nextLine();
     
-    Noise_Layer = addLabel("Noise : ");
+    Noise_Label = addLabel("Noise : ");
     NoiseLod = addIntSlider("NoiseLod", "Noise Harmonics", pdata.edit_layer, 1, 8);
     NoiseFalloff = addSlider("NoiseFalloff", "NoiseFalloff", pdata.edit_layer, 0, 1);
   }
@@ -250,16 +255,16 @@ class LayersGui extends GUIListPanel
     {
       on.hide();
       line_mode.hide();
-      xNoise.hide();
-      yNoise.hide();
+      xPeriod.hide();
+      yPeriod.hide();
       Height_Noise.hide();
-      xNoise_Mul.hide();
-      yNoise_Mul.hide();
+      xPeriod_Mul.hide();
+      yPeriod_Mul.hide();
       Height_Mul.hide();
       Added_Height.hide();
       Reset_Added_Height.hide();
       add.hide();
-      Noise_Layer.hide();
+      Noise_Label.hide();
       NoiseLod.hide();
       NoiseFalloff.hide();
 
@@ -272,11 +277,11 @@ class LayersGui extends GUIListPanel
 
     on.show();
     line_mode.show();
-    xNoise.show();
-    yNoise.show();
+    xPeriod.show();
+    yPeriod.show();
     Height_Noise.show();
-    xNoise_Mul.show();
-    yNoise_Mul.show();
+    xPeriod_Mul.show();
+    yPeriod_Mul.show();
     Height_Mul.show();
     Added_Height.show();
     Reset_Added_Height.show();
@@ -303,12 +308,12 @@ class LayersGui extends GUIListPanel
       on.setValue(layer.on);
       line_mode.activate(layer.line_mode);
 
-      xNoise.setValue(layer.xNoise);
-      yNoise.setValue(layer.yNoise);
+      xPeriod.setValue(layer.xPeriod);
+      yPeriod.setValue(layer.yPeriod);
       Height_Noise.setValue(layer.Height_Noise);
 
-      xNoise_Mul.setValue(layer.xNoise_Mul);
-      yNoise_Mul.setValue(layer.yNoise_Mul);
+      xPeriod_Mul.setValue(layer.xPeriod_Mul);
+      yPeriod_Mul.setValue(layer.yPeriod_Mul);
       Height_Mul.setValue(layer.Height_Mul);
 
       Added_Height.setValue(layer.Added_Height);
