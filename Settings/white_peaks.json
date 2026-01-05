@@ -1,0 +1,61 @@
+{
+  "Style": {
+    "backgroundColor": -16777216,
+    "lineColor": -1,
+    "lineWidth": 0.550000011920929
+  },
+  "Main": {
+    "moveSpeed_X": 0.8333333730697632,
+    "max_override": 3,
+    "seed": 85954168,
+    "NoiseFalloff": 0.6233333349227905,
+    "intersection": true,
+    "NoiseLod": 5,
+    "NbLines": 337,
+    "Height": 0.6766666769981384,
+    "moveSpeed_Y": 0.5266667008399963,
+    "XSteps": 469
+  },
+  "Layers": {
+    "nb_items": 2,
+    "layer_1": {
+      "yPeriod": 9.59999942779541,
+      "previous_pos": "[ 10.113309, -1.4409605, 0.0 ]",
+      "line_mode": 0,
+      "Height_Noise": 6.600000381469727,
+      "NoiseFalloff": 0.5,
+      "Height_Mul": -3,
+      "yPeriod_Mul": 0,
+      "xPeriod_Mul": 0,
+      "xPeriod": 6.266666412353516,
+      "pos_y": -1.6432005167007446,
+      "layer_mode": 2,
+      "pos_x": 10.123753547668457,
+      "start_mouse_drag": "[ 1075.0, 522.0, 0.0 ]",
+      "NoiseLod": 4,
+      "local_noise": "perlin_mountains$PerlinNoise@6b70c80a",
+      "Base_Height": 0,
+      "on": true
+    },
+    "layer_0": {
+      "yPeriod": 10.90000057220459,
+      "previous_pos": "[ -2.2618814, -3.368793, 0.0 ]",
+      "line_mode": 1,
+      "Height_Noise": 1.0666667222976685,
+      "NoiseFalloff": 0.54666668176651,
+      "Height_Mul": -1,
+      "yPeriod_Mul": 0,
+      "xPeriod_Mul": 0,
+      "xPeriod": 3.799999952316284,
+      "pos_y": -3.598419666290283,
+      "layer_mode": 1,
+      "pos_x": -2.2555480003356934,
+      "start_mouse_drag": "[ 1075.0, 522.0, 0.0 ]",
+      "NoiseLod": 5,
+      "local_noise": "perlin_mountains$PerlinNoise@69dfdb8b",
+      "Base_Height": -0.019999980926513672,
+      "on": true
+    },
+    "current_index": 0
+  }
+}
