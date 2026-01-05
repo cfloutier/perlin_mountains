@@ -22,7 +22,7 @@
     "layer_1": {
       "line_mode": 0,
       "pos_y": 10.235452651977539,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 3.3333334922790527,
       "pos_x": 17.545835494995117,
       "Base_Height": 0,
@@ -36,7 +36,7 @@
     "layer_2": {
       "line_mode": 0,
       "pos_y": 3.2712321281433105,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 2.633333444595337,
       "pos_x": 2.032444715499878,
       "Base_Height": 0.006666660308837891,

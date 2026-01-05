@@ -20,7 +20,7 @@
     "nb_items": 2,
     "layer_1": {
       "line_mode": 0,
-      "add": false,
+      "layer_mode": 0,
       "pos_y": 4.5352325439453125,
       "Height_Noise": 7.233333587646484,
       "pos_x": 3.109114170074463,
@@ -34,7 +34,7 @@
     },
     "layer_0": {
       "line_mode": 0,
-      "add": false,
+      "layer_mode": 0,
       "pos_y": 1.7906665802001953,
       "Height_Noise": 2.3333332538604736,
       "pos_x": 7.3288960456848145,

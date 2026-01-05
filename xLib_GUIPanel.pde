@@ -25,8 +25,13 @@ class myRadioButton extends RadioButton
   public myRadioButton(final ControlP5 theControlP5 , final ControllerGroup< ? > theParent , final String theName , final int theX , final int theY ) 
   {
     super(theControlP5, theParent, theName, theX, theY  );
-
   }
+
+  public void setValue(int value)
+  {
+    activate(value);
+  }
+
 }
 
 class GUIPanel implements ControlListener
@@ -54,8 +59,8 @@ class GUIPanel implements ControlListener
   void Init()
   {
     tab = cp5.addTab(pageName);
-    //print (" tab " + tab);
-    println("add tab " + pageName);
+    // print (" tab " + tab);
+    // println("add tab " + pageName);
 
     cp5.addListener(this);
 

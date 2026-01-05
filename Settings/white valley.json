@@ -24,7 +24,7 @@
     "layer_1": {
       "line_mode": 0,
       "pos_y": 846.585205078125,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 1.4333332777023315,
       "pos_x": 6.252286911010742,
       "Base_Height": -0.41999995708465576,
@@ -38,7 +38,7 @@
     "layer_3": {
       "line_mode": 0,
       "pos_y": 0,
-      "add": false,
+      "layer_mode": 0,
       "Height_Noise": 2.700000047683716,
       "pos_x": 0,
       "Base_Height": -0.08666664361953735,
@@ -52,7 +52,7 @@
     "layer_2": {
       "line_mode": 0,
       "pos_y": -2.1008894443511963,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 2.8333332538604736,
       "pos_x": -4.129763603210449,
       "Base_Height": 0.36666667461395264,

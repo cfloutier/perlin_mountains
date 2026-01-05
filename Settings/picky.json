@@ -22,7 +22,7 @@
     "nb_items": 3,
 
     "layer_1": {
-      "add": true,
+      "layer_mode": 1,
       "line_mode": 0,
       "Height_Noise": 2.433333396911621,
       "Base_Height": -0.039999961853027344,
@@ -35,7 +35,7 @@
     },
 
     "layer_2": {
-      "add": false,
+      "layer_mode": 0,
       "line_mode": 0,
       "Height_Noise": 1.0666667222976685,
       "Base_Height": -0.06000000238418579,

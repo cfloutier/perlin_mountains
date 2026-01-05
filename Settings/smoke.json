@@ -24,7 +24,7 @@
 
     "layer_1": {
       "line_mode": 0,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 1.9666666984558105,
       "Base_Height": 0,
       "xPeriod": 0.2666666805744171,
@@ -38,7 +38,7 @@
 
     "layer_2": {
       "line_mode": 0,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 3.933333396911621,
       "Base_Height": 0,
       "xPeriod": 2.6666667461395264,

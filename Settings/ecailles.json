@@ -19,7 +19,7 @@
   "Layers": {
     "nb_items": 1,
     "layer_0": {
-      "add": true,
+      "layer_mode": 1,
       "previous_pos": "[ 0.0, 0.0, 0.0 ]",
       "line_mode": 2,
       "Height_Noise": 0,

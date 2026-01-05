@@ -16,6 +16,11 @@ class DataLayer extends GenericData
   // 3 : sinus 
   int line_mode = 0;
 
+  // 0 : max of previous value
+  // 1 : add to previous value
+  // 2 : multiply previous value
+  int layer_mode = 1;
+
   float xPeriod = 0.4;
   float yPeriod = 0.4;
   float Height_Noise = 5;
@@ -25,8 +30,6 @@ class DataLayer extends GenericData
   int xPeriod_Mul = 1;
   int yPeriod_Mul = 1;
   int Height_Mul = 1;
-
-  boolean add = true;
 
   float pos_x = 0;
   float pos_y = 0;
@@ -111,12 +114,21 @@ class DataLayer extends GenericData
       float h = (pow_H * noise - Base_Height) * data.width;     
       PVector prevPoint = points.get(i);
       PVector newPoint = null;
-      if (add)
-        newPoint = new PVector(prevPoint.x, h + prevPoint.y);   
-      else
+
+      switch(layer_mode)
       {
-        float min = min(prevPoint.y, h);
-        newPoint = new PVector(prevPoint.x, min);
+        case 0: // min
+          float min = min(prevPoint.y, h);
+          newPoint = new PVector(prevPoint.x, min);
+          break;
+        default:
+        case 1: // add
+          newPoint = new PVector(prevPoint.x, h + prevPoint.y);   
+          break;
+        case 2: // mul
+          float mul = prevPoint.y * h;
+          newPoint = new PVector(prevPoint.x, mul);   
+          break;
       }
 
       points.set(i, newPoint); 
@@ -175,8 +187,11 @@ class LayersGui extends GUIListPanel
 
   Textlabel current_Layer;
 
-  RadioButton line_mode;
+  Toggle on;
 
+  myRadioButton line_mode;
+  myRadioButton layer_mode;
+  
   Slider xPeriod;
 
   Slider yPeriod;
@@ -191,8 +206,7 @@ class LayersGui extends GUIListPanel
   Slider Base_Height;  
   Button Reset_Base_Height;
 
-  Toggle add;
-  Toggle on;
+
   
   Textlabel Noise_Label;
   Slider NoiseLod;
@@ -210,20 +224,29 @@ class LayersGui extends GUIListPanel
 
     on = addToggle("on", "on/off", pdata.edit_layer);
 
-    ArrayList<String> labels = new ArrayList<String>();
-    labels.add("Global Noise");
-    labels.add("Local Noise");  
-    labels.add("Sinus");    
+    ArrayList<String> labels_line_mode = new ArrayList<String>();
+    labels_line_mode.add("Global Noise");
+    labels_line_mode.add("Local Noise");  
+    labels_line_mode.add("Sinus");    
 
     yPos = start_yPos;
     
     addLabel("Line Mode");
-    line_mode = addRadio("line_mode", labels, pdata.edit_layer);  
+    line_mode = addRadio("line_mode", labels_line_mode, pdata.edit_layer);  
     space();
 
-    add = addToggle("add", "add values", pdata.edit_layer);
+    ArrayList<String> labels_layer_mode = new ArrayList<String>();
+    labels_layer_mode.add("Max");
+    labels_layer_mode.add("Add");  
+    labels_layer_mode.add("Multiply");
+
+    layer_mode = addRadio("layer_mode", labels_layer_mode, pdata.edit_layer);  
     space();
+
     nextLine();
+
+    space();
+    
 
     xPeriod = addSlider("xPeriod", "X Period", pdata.edit_layer, 0, 10);
     yPeriod_Mul = addIntSlider("yPeriod_Mul", "Y Period Mult.", pdata.edit_layer, -1, 3);
@@ -264,7 +287,7 @@ class LayersGui extends GUIListPanel
       Height_Mul.hide();
       Base_Height.hide();
       Reset_Base_Height.hide();
-      add.hide();
+      line_mode.hide();
       Noise_Label.hide();
       NoiseLod.hide();
       NoiseFalloff.hide();
@@ -286,7 +309,7 @@ class LayersGui extends GUIListPanel
     Height_Mul.show();
     Base_Height.show();
     Reset_Base_Height.show();
-    add.show();
+    line_mode.show();
     NoiseLod.show();
     NoiseFalloff.show();  
     if (layer.line_mode == 1)
@@ -306,7 +329,8 @@ class LayersGui extends GUIListPanel
       pdata.edit_layer.CopyFrom(layer);
       
       on.setValue(layer.on);
-      line_mode.activate(layer.line_mode);
+      line_mode.setValue(layer.line_mode);
+      layer_mode.setValue(layer.layer_mode);      
 
       xPeriod.setValue(layer.xPeriod);
       yPeriod.setValue(layer.yPeriod);
@@ -318,7 +342,7 @@ class LayersGui extends GUIListPanel
 
       Base_Height.setValue(layer.Base_Height);
 
-      add.setValue(layer.add);      
+
       NoiseLod.setValue(layer.NoiseLod);
       NoiseFalloff.setValue(layer.NoiseFalloff);
       

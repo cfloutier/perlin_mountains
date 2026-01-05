@@ -23,7 +23,7 @@
 
     "layer_1": {
       "line_mode": 0,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 1.4333332777023315,
       "Base_Height": -0.41999995708465576,
       "xPeriod": 1.6666667461395264,
@@ -36,7 +36,7 @@
 
     "layer_3": {
       "line_mode": 0,
-      "add": false,
+      "layer_mode": 0,
       "Height_Noise": 2.7333333492279053,
       "Base_Height": -0.08666664361953735,
       "xPeriod": 3.5333335399627686,
@@ -48,7 +48,7 @@
     },
     "layer_2": {
       "line_mode": 0,
-      "add": true,
+      "layer_mode": 1,
       "Height_Noise": 0.7333333492279053,
       "Base_Height": 0.3866666555404663,
       "xPeriod": 1.0666667222976685,
