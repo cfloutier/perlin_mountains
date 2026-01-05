@@ -189,11 +189,13 @@ class LayersGui extends GUIListPanel
 
   Toggle on;
 
+  Button resetPos_X;
+  Button resetPos_Y;
+
   myRadioButton line_mode;
   myRadioButton layer_mode;
   
   Slider xPeriod;
-
   Slider yPeriod;
 
   Slider xPeriod_Mul;
@@ -205,8 +207,6 @@ class LayersGui extends GUIListPanel
 
   Slider Base_Height;  
   Button Reset_Base_Height;
-
-
   
   Textlabel Noise_Label;
   Slider NoiseLod;
@@ -230,6 +230,7 @@ class LayersGui extends GUIListPanel
     labels_line_mode.add("Sinus");    
 
     yPos = start_yPos;
+
     
     addLabel("Line Mode");
     line_mode = addRadio("line_mode", labels_line_mode, pdata.edit_layer);  
@@ -240,20 +241,26 @@ class LayersGui extends GUIListPanel
     labels_layer_mode.add("Add");  
     labels_layer_mode.add("Multiply");
 
+    addLabel("Layer Mode");
     layer_mode = addRadio("layer_mode", labels_layer_mode, pdata.edit_layer);  
     space();
 
+    resetPos_X = addButton("reset pos X");
+    resetPos_X.plugTo(this, "resetPosX");
+
+    resetPos_Y = addButton("reset pos Y");
+    resetPos_Y.plugTo(this, "resetPosY");
+
     nextLine();
 
     space();
     
-
     xPeriod = addSlider("xPeriod", "X Period", pdata.edit_layer, 0, 10);
-    yPeriod_Mul = addIntSlider("yPeriod_Mul", "Y Period Mult.", pdata.edit_layer, -1, 3);
+    xPeriod_Mul = addIntSlider("xPeriod_Mul", "X Period Mult.", pdata.edit_layer, -1, 2);
     
     nextLine();
     yPeriod = addSlider("yPeriod", "Y Period", pdata.edit_layer, 0, 30);
-    xPeriod_Mul = addIntSlider("xPeriod_Mul", "X Period Mult.", pdata.edit_layer, -1, 2);
+    yPeriod_Mul = addIntSlider("yPeriod_Mul", "Y Period Mult.", pdata.edit_layer, -1, 3);
 
     nextLine();
 
@@ -342,7 +349,6 @@ class LayersGui extends GUIListPanel
 
       Base_Height.setValue(layer.Base_Height);
 
-
       NoiseLod.setValue(layer.NoiseLod);
       NoiseFalloff.setValue(layer.NoiseFalloff);
       
@@ -369,11 +375,27 @@ class LayersGui extends GUIListPanel
   
   void rescenterH()
   {
-    print("recenter");
+    //print("recenter");
     DataLayer layer = pdata.layer(pdata.current_index);
     layer.Base_Height = 0;
     Base_Height.setValue(layer.Base_Height);
+  }
 
+  void resetPosX()
+  {
+    //print("resetPosX");
+    DataLayer layer = pdata.layer(pdata.current_index);
+    layer.pos_x = 0;
+    pdata.edit_layer.pos_x = layer.pos_x;
+    
+  }
+
+  void resetPosY()
+  {
+    //print("resetPosY");
+    DataLayer layer = pdata.layer(pdata.current_index);
+    layer.pos_y = 0;
+    pdata.edit_layer.pos_y = layer.pos_y;
   }
 
   void draw()

@@ -1,4 +1,3 @@
-
 class DataMain extends GenericData
 {
   DataMain()
@@ -85,12 +84,11 @@ class MainGUI extends GUIPanel
     NbLines = addSlider("NbLines", "Nb of Lines", 1, 1000);
     XSteps = addSlider("XSteps", "X Steps", 4, 2000);
 
-    Height = addSlider("Height", "Drawing Height", 0, 1);
+    Height = addSlider("Height", "Drawing Height", 0, 2);
 
     nextLine();
 
     intersection = addToggle( "intersection", "intersection");
-
     max_override = addIntSlider( "max_override", "Max override", 0, 20);
 
     nextLine();
