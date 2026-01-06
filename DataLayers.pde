@@ -14,6 +14,7 @@ class DataLayer extends GenericData
   // 0 : global noise
   // 1 : local noise
   // 3 : sinus 
+  // 4 : gaussian
   int line_mode = 0;
 
   // 0 : max of previous value
@@ -79,7 +80,10 @@ class DataLayer extends GenericData
     case 1:
       return local_noise.noise(noise_X, noise_Y) - 0.5;  
     case 2:
-      return sin(noise_X+noise_Y) *0.5f;
+      return sin(noise_X+noise_Y) * 0.5f;
+    case 3:
+      return exp(- (noise_X+noise_Y) * (noise_X+noise_Y) ) ;
+    
     }
   }
   
@@ -228,6 +232,7 @@ class LayersGui extends GUIListPanel
     labels_line_mode.add("Global Noise");
     labels_line_mode.add("Local Noise");  
     labels_line_mode.add("Sinus");    
+    labels_line_mode.add("Gaussian");    
 
     yPos = start_yPos;
     
