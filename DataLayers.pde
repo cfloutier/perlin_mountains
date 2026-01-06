@@ -82,7 +82,7 @@ class DataLayer extends GenericData
     case 2:
       return sin(noise_X+noise_Y) * 0.5f;
     case 3:
-      return exp(- (noise_X+noise_Y) * (noise_X+noise_Y) ) ;
+      return -exp(- (noise_X*noise_X) ) ;
     
     }
   }

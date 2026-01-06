@@ -17,20 +17,32 @@
     "XSteps": 376
   },
   "Layers": {
-    "nb_items": 1,
-    "layer_0": {
-      "layer_mode": 0,
-      "previous_pos": "[ 3.145003, 3.5392005, 0.0 ]",
+    "nb_items": 2,
+    "layer_1": {
       "line_mode": 0,
+      "layer_mode": 0,
+      "pos_y": 4.5352325439453125,
       "Height_Noise": 7.233333587646484,
+      "pos_x": 3.109114170074463,
       "Base_Height": 0.006666660308837891,
       "xPeriod": 0.5666666626930237,
-      "Height_Mul": -1,
-      "pos_y": 3.5392005443573,
-      "pos_x": 3.145003080368042,
-      "start_mouse_drag": "[ 51.0, 7.0, 0.0 ]",
       "xPeriod_Mul": 0,
+      "Height_Mul": -1,
       "yPeriod": 9.59999942779541,
+      "yPeriod_Mul": 0,
+      "on": true
+    },
+    "layer_0": {
+      "line_mode": 0,
+      "layer_mode": 0,
+      "pos_y": 1.7906665802001953,
+      "Height_Noise": 2.3333332538604736,
+      "pos_x": 7.3288960456848145,
+      "Base_Height": 0,
+      "xPeriod": 0.13333334028720856,
+      "xPeriod_Mul": 1,
+      "Height_Mul": -1,
+      "yPeriod": 13.600000381469727,
       "yPeriod_Mul": 0,
       "on": true
     },

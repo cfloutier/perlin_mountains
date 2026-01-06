@@ -21,7 +21,7 @@ void setup()
 
   setupControls();
 
-  data.LoadSettings("./Settings/few islands.json");
+  data.LoadSettings("./Settings/default.json");
   dataGui.setGUIValues();
   surface.setResizable(true);
 
