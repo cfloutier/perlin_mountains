@@ -189,9 +189,11 @@ class LayersGui extends GUIListPanel
     this.pdata = data;
   }
 
-  Textlabel current_Layer;
-
   Toggle on;
+
+  Textlabel current_Layer;
+  Textlabel label_layer_mode;
+  Textlabel label_line_mode;
 
   Button resetPos_X;
   Button resetPos_Y;
@@ -236,8 +238,7 @@ class LayersGui extends GUIListPanel
 
     yPos = start_yPos;
 
-    
-    addLabel("Line Mode");
+    label_line_mode = addLabel("Line Mode");
     line_mode = addRadio("line_mode", labels_line_mode, pdata.edit_layer);  
     space();
 
@@ -246,7 +247,7 @@ class LayersGui extends GUIListPanel
     labels_layer_mode.add("Add");  
     labels_layer_mode.add("Multiply");
 
-    addLabel("Layer Mode");
+    label_layer_mode = addLabel("Layer Mode");
     layer_mode = addRadio("layer_mode", labels_layer_mode, pdata.edit_layer);  
     space();
 
@@ -290,21 +291,26 @@ class LayersGui extends GUIListPanel
     if (pdata.count() == 0)
     {
       on.hide();
+      layer_mode.hide();
+      label_layer_mode.hide();
+      label_line_mode.hide();
       line_mode.hide();
+      resetPos_X.hide();
+      resetPos_Y.hide();
       xPeriod.hide();
       yPeriod.hide();
+      Height_Label.hide();
       Height_Noise.hide();
+      Height_Mul.hide();
       xPeriod_Mul.hide();
       yPeriod_Mul.hide();
-      Height_Mul.hide();
       Base_Height.hide();
       Reset_Base_Height.hide();
-      line_mode.hide();
       Noise_Label.hide();
       NoiseLod.hide();
       NoiseFalloff.hide();
 
-      current_Layer.setText("No Planet");
+      current_Layer.setText("No Layer");
 
       return;
     }
@@ -312,25 +318,31 @@ class LayersGui extends GUIListPanel
     DataLayer layer = pdata.layer(pdata.current_index);
 
     on.show();
+    layer_mode.show();
+    label_layer_mode.show();
+    label_line_mode.show();
     line_mode.show();
+    resetPos_X.show();
+    resetPos_Y.show();
     xPeriod.show();
     yPeriod.show();
+    Height_Label.show();
     Height_Noise.show();
+    Height_Mul.show();
     xPeriod_Mul.show();
     yPeriod_Mul.show();
-    Height_Mul.show();
     Base_Height.show();
     Reset_Base_Height.show();
-    line_mode.show();
-    NoiseLod.show();
-    NoiseFalloff.show();  
+   
     if (layer.line_mode == 1)
     {
+      Noise_Label.show();
       NoiseLod.show();
       NoiseFalloff.show();  
     }
     else
     {
+       Noise_Label.hide();
        NoiseLod.hide();
        NoiseFalloff.hide();   
     }
