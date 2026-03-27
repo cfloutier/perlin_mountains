@@ -5,46 +5,38 @@
     "lineWidth": 0.550000011920929
   },
   "Main": {
-    "pos_y": -343.0117492675781,
-    "moveSpeed": 0.4333333373069763,
-    "pos_x": 145.3485870361328,
+    "moveSpeed_X": 1,
+    "max_override": 5,
     "seed": 558967,
     "NoiseFalloff": 0.4333333373069763,
     "intersection": true,
     "NoiseLod": 6,
     "NbLines": 127,
     "Height": 0.3466666638851166,
+    "moveSpeed_Y": 1,
     "XSteps": 1507
   },
-
-
   "Layers": {
-    "nb_items": 3,
-
-    "layer_1": {
-      "layer_mode": 1,
-      "line_mode": 0,
-      "Height_Noise": 2.433333396911621,
-      "Base_Height": -0.039999961853027344,
-      "xPeriod": 9.666666984558105,
-      "xPeriod_Mul": 0,
-      "Height_Mul": -1,
+    "nb_items": 1,
+    "layer_0": {
       "yPeriod": 23.30000114440918,
+      "previous_pos": "[ 34.03634, -1.0717996, 0.0 ]",
+      "line_mode": 0,
+      "Height_Noise": 3.633333444595337,
+      "NoiseFalloff": 0.5,
+      "Height_Mul": -1,
       "yPeriod_Mul": 0,
+      "xPeriod_Mul": 0,
+      "xPeriod": 9.666666984558105,
+      "pos_y": -1.071799635887146,
+      "layer_mode": 0,
+      "pos_x": 34.036338806152344,
+      "start_mouse_drag": "[ 50.0, 3.0, 0.0 ]",
+      "NoiseLod": 4,
+      "local_noise": "perlin_mountains$PerlinNoise@ead5ae9",
+      "Base_Height": -0.039999961853027344,
       "on": true
     },
-
-    "layer_2": {
-      "layer_mode": 0,
-      "line_mode": 0,
-      "Height_Noise": 1.0666667222976685,
-      "Base_Height": -0.06000000238418579,
-      "xPeriod": 0.9666666984558105,
-      "xPeriod_Mul": 2,
-      "Height_Mul": -2,
-      "yPeriod": 21.200000762939453,
-      "yPeriod_Mul": 2,
-      "on": true
-    }
+    "current_index": 0
   }
 }
