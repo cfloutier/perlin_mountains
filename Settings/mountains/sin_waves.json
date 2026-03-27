@@ -1,0 +1,61 @@
+{
+  "Style": {
+    "backgroundColor": -16777216,
+    "lineColor": -1,
+    "lineWidth": 0.550000011920929
+  },
+  "Page": {
+    "clipping": false,
+    "clip_width": 0,
+    "clip_height": 0,
+    "global_scale": 1
+  },
+  "Main": {
+    "moveSpeed_X": 0.3466666638851166,
+    "max_override": 5,
+    "seed": 50578140,
+    "NoiseFalloff": 0.6200000047683716,
+    "intersection": true,
+    "NoiseLod": 6,
+    "NbLines": 97,
+    "Height": 0.40666666626930237,
+    "moveSpeed_Y": 0.5666666626930237,
+    "XSteps": 549
+  },
+  "Layers": {
+    "nb_items": 2,
+    "layer_1": {
+      "yPeriod": 0,
+      "line_mode": 2,
+      "Height_Noise": 2.3333332538604736,
+      "NoiseFalloff": 0.5,
+      "Height_Mul": -3,
+      "yPeriod_Mul": 2,
+      "xPeriod_Mul": 2,
+      "xPeriod": 4.800000190734863,
+      "pos_y": 3.204000234603882,
+      "layer_mode": 0,
+      "pos_x": 797.4890747070312,
+      "NoiseLod": 4,
+      "Base_Height": 0,
+      "on": true
+    },
+    "layer_0": {
+      "yPeriod": 1.5,
+      "line_mode": 1,
+      "Height_Noise": 4.333333492279053,
+      "NoiseFalloff": 0.273333340883255,
+      "Height_Mul": -1,
+      "yPeriod_Mul": 2,
+      "xPeriod_Mul": 1,
+      "xPeriod": 0.5,
+      "pos_y": 290.26544189453125,
+      "layer_mode": 1,
+      "pos_x": 11.887417793273926,
+      "NoiseLod": 7,
+      "Base_Height": -0.12666666507720947,
+      "on": true
+    },
+    "current_index": 0
+  }
+}

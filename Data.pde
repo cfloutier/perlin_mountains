@@ -30,6 +30,7 @@ class DataGUI extends MainPanel
   PerlinMountainsData data;
 
   MainGUI main_ui;
+  FileGUI file_ui;
   StyleGUI style_ui;
   LayersGui layers_ui;
 
@@ -40,13 +41,16 @@ class DataGUI extends MainPanel
     main_ui = new MainGUI(data.main); 
     layers_ui = new LayersGui(data.layers); 
     style_ui = new StyleGUI(data.style); 
+    file_ui = new FileGUI(data); 
   }
 
   void Init()
   {
+    addTab(file_ui);
     addTab(style_ui);
     addTab(main_ui);
     addTab(layers_ui);
+    
     super.Init();
 
     cp5.getTab("Layers").bringToFront();
