@@ -89,7 +89,7 @@ class MainGUI extends GUIPanel
     nextLine();
 
     intersection = addToggle( "intersection", "intersection");
-    max_override = addIntSlider( "max_override", "Max override", 0, 20);
+    max_override = addIntSlider( "max_override", "Max override", 0, 50);
 
     nextLine();
 

@@ -8,54 +8,54 @@
     "clipping": false,
     "clip_width": 0,
     "clip_height": 0,
-    "global_scale": 1
+    "global_scale": 0.6756758689880371
   },
   "Main": {
     "moveSpeed_X": 0.3466666638851166,
-    "max_override": 5,
-    "seed": 50578140,
+    "max_override": 50,
+    "seed": 24264694,
     "NoiseFalloff": 0.6200000047683716,
     "intersection": true,
     "NoiseLod": 6,
-    "NbLines": 97,
-    "Height": 0.40666666626930237,
+    "NbLines": 130,
+    "Height": 0.5600000023841858,
     "moveSpeed_Y": 0.5666666626930237,
-    "XSteps": 549
+    "XSteps": 1128
   },
   "Layers": {
     "nb_items": 2,
     "layer_1": {
-      "yPeriod": 0,
+      "yPeriod": 15.199999809265137,
       "line_mode": 2,
-      "Height_Noise": 2.3333332538604736,
+      "Height_Noise": 5.333333492279053,
       "NoiseFalloff": 0.5,
       "Height_Mul": -3,
       "yPeriod_Mul": 2,
       "xPeriod_Mul": 2,
-      "xPeriod": 4.800000190734863,
-      "pos_y": 3.204000234603882,
+      "xPeriod": 1.6666667461395264,
+      "pos_y": -1304.43603515625,
       "layer_mode": 0,
-      "pos_x": 797.4890747070312,
+      "pos_x": 1713.6990966796875,
       "NoiseLod": 4,
       "Base_Height": 0,
       "on": true
     },
     "layer_0": {
-      "yPeriod": 1.5,
+      "yPeriod": 0.4000000059604645,
       "line_mode": 1,
-      "Height_Noise": 4.333333492279053,
-      "NoiseFalloff": 0.273333340883255,
+      "Height_Noise": 7.100000381469727,
+      "NoiseFalloff": 0.2866666615009308,
       "Height_Mul": -1,
       "yPeriod_Mul": 2,
       "xPeriod_Mul": 1,
-      "xPeriod": 0.5,
-      "pos_y": 290.26544189453125,
+      "xPeriod": 0.7333333492279053,
+      "pos_y": -12.940889358520508,
       "layer_mode": 1,
-      "pos_x": 11.887417793273926,
-      "NoiseLod": 7,
-      "Base_Height": -0.12666666507720947,
+      "pos_x": 53.77341079711914,
+      "NoiseLod": 6,
+      "Base_Height": -0.16666662693023682,
       "on": true
     },
-    "current_index": 0
+    "current_index": 1
   }
 }
