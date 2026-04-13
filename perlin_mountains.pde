@@ -8,14 +8,14 @@ PerlinMountainsData data;
 DataGUI dataGui;
 
 PGraphics current_graphics;
-DrawingGenerator drawer;
+PerlinMountainGenerator drawer;
 ControlP5 cp5;
 
 void setup() 
 {
   size(1200, 800);
 
-  drawer =  new DrawingGenerator();
+  drawer =  new PerlinMountainGenerator();
   data = new PerlinMountainsData();
   dataGui = new DataGUI(data);
 
