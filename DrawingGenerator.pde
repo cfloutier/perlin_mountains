@@ -1,24 +1,17 @@
-class Line
+class Line extends ValidatedPolylineWithOffset
 {
-  ArrayList<PVector> points = new ArrayList<PVector>();
-  boolean[] validity = null;
-  
-  float y_line = 0;
-
   void build(float yPeriod, float yLine)
   {
-    points = null;
-
-    this.y_line = yLine;
+    clear();
+    setYOffset(yLine);
 
     float xPos = 0;
     float deltaX = data.width / (data.main.XSteps - 1);
-    points = new ArrayList<PVector>();
     setAllValid();
 
     for (int i = 0; i < data.main.XSteps; i++)
     {
-      points.add(new PVector(xPos, 0));
+      addPoint(new PVector(xPos, 0));
       xPos += deltaX;
     }
     
@@ -30,63 +23,27 @@ class Line
     }
   }
 
-  void draw()
-  {
-    current_graphics.noFill();
-
-    current_graphics.beginShape();
-    boolean drawing = false;
-
-    for (int i = 0; i < points.size(); i++)
-    {
-      boolean valid = validity[i];
-      if (valid)
-      {
-        PVector pA = points.get(i);
-        if (!drawing)
-        {
-          drawing = true;
-          current_graphics.beginShape();     
-        }
-        
-        current_graphics.vertex(pA.x, pA.y + y_line);
-      }
-      else{
-        if (drawing)
-        {
-          drawing = false;
-          current_graphics.endShape();     
-        }
-      }
-    }
-
-    if (drawing)
-    {
-      drawing = false;
-      current_graphics.endShape();     
-    }
-  }
-
   void setAllValid()
   {
-    validity = new boolean[data.main.XSteps];
+    boolean[] valid = new boolean[data.main.XSteps];
     for (int i = 0; i < data.main.XSteps; i++)
-      validity[i] = true;
+      valid[i] = true;
+    setValidity(valid);
   }
 
   void mergeWith(Line prevLine, int[] counters)
   {
     for (int i = 0; i < data.main.XSteps; i++)
     {
-      float y = points.get(i).y + y_line;
-      float prev_y =  prevLine.points.get(i).y + prevLine.y_line;
+      float y = points.get(i).y + y_offset;
+      float prev_y = prevLine.points.get(i).y + prevLine.y_offset;
 
       if (y > prev_y)
       {
         int counter = counters[i] + 1; 
         counters[i] = counter;
         
-        points.get(i).y = prev_y - y_line;
+        points.get(i).y = prev_y - y_offset;
 
         if (counter > data.main.max_override)
           validity[i] = false;
