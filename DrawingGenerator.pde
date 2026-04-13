@@ -1,4 +1,4 @@
-class Line extends ValidatedPolylineWithOffset
+class PerlinLine extends ValidatedPolylineWithOffset
 {
   void build(float yPeriod, float yLine)
   {
@@ -31,7 +31,7 @@ class Line extends ValidatedPolylineWithOffset
     setValidity(valid);
   }
 
-  void mergeWith(Line prevLine, int[] counters)
+  void mergeWith(PerlinLine prevLine, int[] counters)
   {
     for (int i = 0; i < data.main.XSteps; i++)
     {
@@ -61,7 +61,7 @@ class Line extends ValidatedPolylineWithOffset
 
 class DrawingGenerator
 {
-  ArrayList<Line> lines;
+  ArrayList<PerlinLine> lines;
 
   int lastUpdate  = 0;
 
@@ -73,7 +73,7 @@ class DrawingGenerator
     for (int layer_index = 0; layer_index < data.layers.count(); layer_index++)
       data.layers.layer(layer_index).InitNoise(data.main.seed);
 
-    lines = new ArrayList<Line>();
+    lines = new ArrayList<PerlinLine>();
 
     float y_Noise = data.main.Height /2;
     float y_Line = data.height/2 + y_Noise * data.width;
@@ -92,7 +92,7 @@ class DrawingGenerator
       y_Noise = 0;
     }
 
-    Line prevLine = null;
+    PerlinLine prevLine = null;
 
     int[] counters = new int[data.main.XSteps];
     if (data.main.intersection)
@@ -103,7 +103,7 @@ class DrawingGenerator
 
     for (int lineIndex = 0; lineIndex < data.main.NbLines; lineIndex++)
     {
-      Line line = new Line();
+      PerlinLine line = new PerlinLine();
       line.build(y_Noise, y_Line);
 
       if (data.main.intersection)
