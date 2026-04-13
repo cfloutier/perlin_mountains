@@ -8,14 +8,14 @@ PerlinMountainsData data;
 DataGUI dataGui;
 
 PGraphics current_graphics;
-PerlinMountainGenerator drawer;
+PerlinMountainGenerator generator;
 ControlP5 cp5;
 
 void setup() 
 {
   size(1200, 800);
 
-  drawer =  new PerlinMountainGenerator();
+  generator =  new PerlinMountainGenerator();
   data = new PerlinMountainsData();
   dataGui = new DataGUI(data);
 
@@ -49,7 +49,7 @@ void draw()
     dataGui.update_ui();
   }
 
-  drawer.draw();
+  generator.draw();
 
   popMatrix();
   end_draw();
