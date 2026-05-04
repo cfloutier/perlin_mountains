@@ -29,8 +29,8 @@ class DataGUI extends MainPanel
 {
   PerlinMountainsData data;
 
-  MainGUI main_ui;
   FileGUI file_ui;
+  MainGUI main_ui;
   StyleGUI style_ui;
   LayersGui layers_ui;
 
@@ -38,10 +38,10 @@ class DataGUI extends MainPanel
   {
     this.data = data;
 
+    file_ui = new FileGUI(data); 
     main_ui = new MainGUI(data.main); 
     layers_ui = new LayersGui(data.layers); 
     style_ui = new StyleGUI(data.style); 
-    file_ui = new FileGUI(data); 
   }
 
   void Init()
