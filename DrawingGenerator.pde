@@ -135,7 +135,7 @@ class DrawingGenerator
       
     if (needUpdate)
     {
-      drawer.update();
+      update();
       data.reset_all_changes();
     }
     

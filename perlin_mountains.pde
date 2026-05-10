@@ -14,7 +14,8 @@ ControlP5 cp5;
 void setup() 
 {
   size(1200, 800);
-
+  pixelDensity(1);
+  
   generator =  new PerlinMountainGenerator();
   data = new PerlinMountainsData();
   dataGui = new DataGUI(data);
@@ -40,7 +41,6 @@ void draw()
   start_draw();
 
   pushMatrix();
-  translate(width/2, height/2);
   scale(data.page.global_scale, data.page.global_scale);
   translate(-width/2, -height/2);
 
