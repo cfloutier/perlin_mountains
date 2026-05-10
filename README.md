@@ -6,7 +6,69 @@ Processing sketch that generates **layered Perlin noise landscapes** — plotter
 
 ## Examples
 
-*(add images here)*
+### Mountains — default preset
+
+<img src="docs/default.png" width="600">
+
+**Main:** `NbLines=174` · `XSteps=376` · `Height=0.53` · `intersection=true` · `max_override=5` · `NoiseLod=5` · `NoiseFalloff=0.62`  
+**Layer 0:** global Perlin · max blend · `xPeriod=1.33` · `yPeriod=13.6` · `amplitude=0.23`  
+**Layer 1:** global Perlin · max blend · `xPeriod=0.57` · `yPeriod=9.6` · `amplitude=0.72`  
+Black background, white lines.
+
+---
+
+### Joy Division 2
+
+<img src="docs/joy%20division%202.png" width="600">
+
+**Main:** `NbLines=214` · `XSteps=915` · `Height=1.66` · `intersection=true` · `max_override=3` · `NoiseLod=5` · `NoiseFalloff=0.62`  
+**Layer 0:** local Perlin · add blend · `xPeriod=5.17` · `yPeriod=200` · `amplitude=0.074` · `NoiseFalloff=0.78`  
+**Layer 1:** gaussian · multiply blend · `xPeriod=5.47` · `amplitude=0.001`  
+Black background, white lines.
+
+---
+
+### Blue Wave
+
+<img src="docs/blue%20wave.png" width="600">
+
+**Main:** `NbLines=393` · `XSteps=310` · `Height=0.087` · `intersection=false` · `NoiseLod=2` · `NoiseFalloff=0.67`  
+**Layer 0:** local Perlin · add blend · `xPeriod=1.1` · `yPeriod=18` · `amplitude=0.9` · `NoiseFalloff=0.53`  
+**Layer 1:** global Perlin · add blend · `xPeriod=5.07` · `yPeriod=15.3` · `amplitude=0.207`  
+White background, blue lines (RGB 33, 97, 140). No hidden-line removal — dense wave texture.
+
+---
+
+### Dense White Smoke
+
+<img src="docs/dense_white_smoke.png" width="600">
+
+**Main:** `NbLines=766` · `XSteps=1281` · `Height=0.28` · `intersection=false` · `NoiseLod=2` · `NoiseFalloff=0.67`  
+**Layer 0:** global Perlin · add blend · `xPeriod=4.0` · `yPeriod=30` · `amplitude=0.193`  
+**Layer 1:** global Perlin · add blend · `xPeriod=2.67` · `yPeriod=7.5` · `amplitude=0.393`  
+Black background, white lines. Very high line count — dense, flowing smoke texture.
+
+---
+
+### Sin Waves
+
+<img src="docs/sin_waves.png" width="600">
+
+**Main:** `NbLines=130` · `XSteps=1128` · `Height=0.56` · `intersection=true` · `max_override=50` · `NoiseLod=6` · `NoiseFalloff=0.62`  
+**Layer 0:** local Perlin · add blend · `xPeriod=7.33` · `yPeriod=40` · `amplitude=0.71` · `NoiseFalloff=0.29`  
+**Layer 1:** sinus · max blend · `xPeriod=166.7` · `yPeriod=1520` · `amplitude=0.005`  
+Black background, white lines. Very high `max_override` — lines freely overlap, sinus modulation on top of Perlin base.
+
+---
+
+### Rocks & Waves — Large
+
+<img src="docs/rocknnwaves_large.png" width="600">
+
+**Main:** `NbLines=147` · `XSteps=1980` · `Height=0.58` · `intersection=true` · `max_override=5` · `NoiseLod=5` · `NoiseFalloff=0.62`  
+**Layer 1:** global Perlin · add blend · `xPeriod=3.33` · `yPeriod=13.6` · `amplitude=0.66`  
+**Layer 2:** global Perlin · max blend · `xPeriod=7.5` · `yPeriod=18.5` · `amplitude=0.026`  
+Black background, off-white lines (RGB 235, 222, 240). High X resolution — smooth ridges with fine wave detail.
 
 ---
 
@@ -31,6 +93,15 @@ The result is a fully parametric generative drawing exportable as PDF, or SVG.
 | `NoiseLod` | Number of Perlin octaves (harmonics) for the global noise |
 | `NoiseFalloff` | Amplitude falloff between octaves (0–1) |
 | `moveSpeed_X/Y` | Mouse drag sensitivity for panning noise layers |
+
+### Mouse drag navigation
+
+Dragging the mouse pans through the noise space — the behaviour depends on which tab is active:
+
+- **Main tab**: drags all layers simultaneously, moving the entire composition through the noise field.
+- **Layer tab**: drags only that layer's `pos_x` / `pos_y`, letting you fine-tune the local noise offset independently from the others.
+
+`moveSpeed_X/Y` controls how fast the pan responds to mouse movement (lower = more precise).
 
 ---
 
