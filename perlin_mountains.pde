@@ -2,7 +2,7 @@ import controlP5.*;
 import processing.pdf.*;
 import processing.dxf.*;
 import processing.svg.*;
-
+import java.util.Locale;
 
 PerlinMountainsData data;
 DataGUI dataGui;
@@ -38,19 +38,10 @@ void setupControls()
 
 void draw()
 {
+  if (generator.lines != null && generator.lines.size() > 0)
+    file_ui.updateExportScale(generator.getBoundingBox());
   start_draw();
-
-  pushMatrix();
-  scale(data.page.global_scale, data.page.global_scale);
-  translate(-width/2,-height/2);
-
-  if (data.changed)
-  {
-    dataGui.update_ui();
-  }
-
+  translate(-width/2, -height/2);
   generator.draw();
-
-  popMatrix();
   end_draw();
 }

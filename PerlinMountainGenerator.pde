@@ -144,4 +144,21 @@ class PerlinMountainGenerator
       lines.get(lineIndex).draw();  
     }
   }
+
+  BoundingBox getBoundingBox()
+  {
+    BoundingBox bbox = new BoundingBox();
+    for (PerlinLine line : lines)
+    {
+      for (int i = 0; i < line.size(); i++)
+      {
+        if (line.validity == null || line.validity[i])
+        {
+          PVector p = line.get(i);
+          bbox.addPoint(new PVector(p.x, p.y + line.y_offset));
+        }
+      }
+    }
+    return bbox;
+  }
 }
