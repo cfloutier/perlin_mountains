@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 class DataPage extends GenericData
 {
   float global_scale = 1;
