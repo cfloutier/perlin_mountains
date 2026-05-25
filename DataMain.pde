@@ -8,10 +8,9 @@ class DataMain extends GenericData
   int NbLines = 100;
 
   int XSteps = 300;
-  float Height = 0.5;
+  float HeightRatio = 0.5;
 
-  int DrawWidth = 1200;
-  int DrawHeight = 800;
+  int Width = 1200;
 
   int seed; 
   boolean intersection = true;
@@ -43,9 +42,8 @@ class MainGUI extends GUIPanel
   
   Slider NbLines;
   Slider XSteps;
-  Slider Height;
-  Slider DrawWidth;
-  Slider DrawHeight;
+  Slider HeightRatio;
+  Slider Width;
   Toggle intersection;
 
   Slider moveSpeed_X;
@@ -63,9 +61,8 @@ class MainGUI extends GUIPanel
   {
     NbLines.setValue(main.NbLines);
     XSteps.setValue(main.XSteps);
-    Height.setValue(main.Height);
-    DrawWidth.setValue(main.DrawWidth);
-    DrawHeight.setValue(main.DrawHeight);
+    HeightRatio.setValue(main.HeightRatio);
+    Width.setValue(main.Width);
 
     intersection.setValue(main.intersection);
 
@@ -86,15 +83,16 @@ class MainGUI extends GUIPanel
 
     main = data.main;
 
+    addLabel("Sizes");
+
+    Width = addIntSlider("Width", "Canvas Width", 100, 3000);
+    HeightRatio = addSlider("HeightRatio", "Height Ratio", 0, 2);
+
+    nextLine();
     addLabel("Page");
 
     NbLines = addSlider("NbLines", "Nb of Lines", 1, 1000);
     XSteps = addSlider("XSteps", "X Steps", 4, 2000);
-
-    Height = addSlider("Height", "Drawing Height", 0, 2);
-
-    DrawWidth = addIntSlider("DrawWidth", "Draw Width", 100, 3000);
-    DrawHeight = addIntSlider("DrawHeight", "Draw Height", 100, 3000);
 
     nextLine();
 

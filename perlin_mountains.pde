@@ -15,7 +15,7 @@ void setup()
 {
   size(1200, 800);
   pixelDensity(1);
-  surface.setResizable(true);
+  surface.setResizable(false);
 
   generator =  new PerlinMountainGenerator();
   data = new PerlinMountainsData();
@@ -25,8 +25,6 @@ void setup()
 
   data.LoadSettings("./Settings/default.json");
   dataGui.setGUIValues();
-
-  //noLoop();  // Run once and stop
 }
 
 void setupControls()
@@ -40,8 +38,9 @@ void draw()
 {
   if (generator.lines != null && generator.lines.size() > 0)
     file_ui.updateExportScale(generator.getBoundingBox());
+
   start_draw();
-  translate(-data.main.DrawWidth/2, -data.main.DrawHeight/2);
+  translate(-data.main.Width/2, 0);
   generator.draw();
   end_draw();
 }

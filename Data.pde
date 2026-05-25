@@ -53,7 +53,7 @@ class DataGUI extends MainPanel
     
     super.Init();
 
-    cp5.getTab("Layers").bringToFront();
+    cp5.getTab("Main").bringToFront();
   }  
 
   int last_update = -1;

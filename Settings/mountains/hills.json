@@ -18,7 +18,7 @@
     "intersection": true,
     "NoiseLod": 5,
     "NbLines": 373,
-    "Height": 0.33000001311302185,
+    "HeightRatio": 0.33000001311302185,
     "moveSpeed_Y": 0.5266667008399963,
     "XSteps": 1980
   },
