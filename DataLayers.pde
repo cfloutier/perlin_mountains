@@ -115,7 +115,7 @@ class DataLayer extends GenericData
     {  
       float noise = computeNoise(noise_X, ypos_Noise);
 
-      float h = (pow_H * noise - Base_Height) * data.width;     
+      float h = (pow_H * noise - Base_Height) * data.main.DrawWidth;     
       PVector prevPoint = points.get(i);
       PVector newPoint = null;
 

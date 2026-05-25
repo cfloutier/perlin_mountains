@@ -6,7 +6,7 @@ class PerlinLine extends ValidatedPolylineWithOffset
     setYOffset(yLine);
 
     float xPos = 0;
-    float deltaX = data.width / (data.main.XSteps - 1);
+    float deltaX = data.main.DrawWidth / (data.main.XSteps - 1);
     setAllValid();
 
     for (int i = 0; i < data.main.XSteps; i++)
@@ -76,14 +76,14 @@ class PerlinMountainGenerator
     lines = new ArrayList<PerlinLine>();
 
     float y_Noise = data.main.Height /2;
-    float y_Line = data.height/2 + y_Noise * data.width;
+    float y_Line = data.main.DrawHeight/2 + y_Noise * data.main.DrawWidth;
 
     float delta_y_Noise = 1;
     float delta_y = 1;
     if (data.main.NbLines != 0)
     {
       delta_y_Noise = -data.main.Height / (data.main.NbLines - 1);
-      delta_y = delta_y_Noise * data.width;
+      delta_y = delta_y_Noise * data.main.DrawWidth;
     }
 
     if (data.main.NbLines == 1)
