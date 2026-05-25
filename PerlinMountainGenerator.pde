@@ -62,6 +62,7 @@ class PerlinLine extends ValidatedPolylineWithOffset
 class PerlinMountainGenerator
 {
   ArrayList<PerlinLine> lines;
+  PolylineGroup group = new PolylineGroup();
 
   int lastUpdate  = 0;
 
@@ -117,6 +118,24 @@ class PerlinMountainGenerator
       lines.add(line);
       y_Noise += delta_y_Noise;
       y_Line += delta_y;
+    }
+
+    // Build flat PolylineGroup for SVG direct export (bakes y_offset, splits at invalid points)
+    group.clear();
+    for (PerlinLine pl : lines) {
+      Polyline current = null;
+      for (int i = 0; i < pl.size(); i++) {
+        boolean valid = (pl.validity == null) || pl.validity[i];
+        if (valid) {
+          PVector p = pl.get(i);
+          if (current == null) current = new Polyline();
+          current.addPoint(new PVector(p.x, p.y + pl.y_offset));
+        } else {
+          if (current != null && current.size() >= 2) group.add(current);
+          current = null;
+        }
+      }
+      if (current != null && current.size() >= 2) group.add(current);
     }
   }
   
