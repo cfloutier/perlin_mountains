@@ -4,6 +4,16 @@ Processing sketch that generates **layered Perlin noise landscapes** — plotter
 
 ---
 
+## Getting a Release
+
+No Processing, Java, or ControlP5 installation is required to run a release build — everything needed is bundled in the zip.
+
+1. Download the release zip (see `releases/` or wherever it was shared with you).
+2. Unzip it anywhere.
+3. Run the `.exe` inside — that's it.
+
+---
+
 ## Examples
 
 ### Mountains — default preset
@@ -72,21 +82,14 @@ Black background, off-white lines (RGB 235, 222, 240). High X resolution — smo
 
 ---
 
-## Principle
-
-A set of horizontal lines is distributed across the canvas. Each line's vertical displacement is computed by stacking one or more **noise layers**, each contributing its own frequency, amplitude, and blending mode. Lines are drawn front-to-back with an optional **hidden-line removal** system: if a line would pass behind a previous one, it is clipped or suppressed, creating a convincing depth effect.
-
-The result is a fully parametric generative drawing exportable as PDF, or SVG.
-
----
-
 ## Main Parameters
 
 | Parameter | Role |
 |-----------|------|
+| `Width` | Canvas width in pixels |
 | `NbLines` | Number of horizontal lines |
 | `XSteps` | Number of points sampled per line (horizontal resolution) |
-| `Height` | Vertical spread of the lines relative to canvas width |
+| `HeightRatio` | Vertical spread of the lines relative to canvas width (shown as `Height` in the examples above) |
 | `intersection` | Enable hidden-line removal (front lines occlude back lines) |
 | `max_override` | Max consecutive suppressed points before a segment is cut |
 | `seed` | Random seed (randomise button available) |
@@ -130,25 +133,6 @@ Up to N independent noise layers can be stacked. Each layer has its own paramete
 
 ---
 
-## Hidden-Line Removal
-
-When `intersection` is enabled, lines are processed front-to-back. At each X column, if the current line's Y position would be **behind** (below) the previous line, the point is either clamped to the previous line or suppressed. The `max_override` parameter controls how many consecutive suppressed points are tolerated before the segment is broken — higher values allow more "peaking through" behind ridges.
-
----
-
-## Architecture
-
-| File | Role |
-|------|------|
-| `perlin_mountains.pde` | Setup, draw loop, export |
-| `Data.pde` | `PerlinMountainsData` + `DataGUI` — aggregates main, style, layers |
-| `DataMain.pde` | `DataMain` + `MainGUI` — global generation parameters |
-| `DataLayers.pde` | `DataLayer` + `DataLayers` + GUI — per-layer noise parameters and blend |
-| `PerlinMountainGenerator.pde` | `PerlinLine` + `PerlinMountainGenerator` — line computation and hidden-line removal |
-| `DrawingGenerator.pde` | Base generator class |
-
----
-
 ## Usage Tips
 
 - Start with **2 layers**: one for large-scale shape (low frequency, high amplitude) and one for fine texture (high frequency, low amplitude).
@@ -160,7 +144,17 @@ When `intersection` is enabled, lines are processed front-to-back. At each X col
 
 ---
 
+For the algorithm details, file architecture, and how to build a release yourself, see [DEVELOPMENT.md](DEVELOPMENT.md).
+
+---
+
 ## Changelog
+
+### 2026-08-19 — xLib 3.13.4
+- **Load / Save**: no longer opens a separate OS file-picker window (which could occasionally open hidden behind the main window) — replaced by an in-app file browser in the **Files** tab. Particularly relevant here since presets are organised into `Settings/mountains/`, `Settings/hairs/`, and `Settings/smoke_waves/` subfolders: Load and "Save as..." show buttons for every file and folder, with a `..` button to go up a level and Prev/Next if there are many entries. Saving over an existing file asks for confirmation first; saving under a new name uses a text field pre-filled with the current file's name.
+- **`export_app.ps1`**: new build script — exports the sketch as a standalone application (embeds a JRE and all libraries, including ControlP5), copies `Settings/` into the export (not included by `processing-java --export`, and required at startup), and zips the result into `releases/` as a ready-to-share release. Same script copied verbatim across projects, same convention as the shared `xLib_*.pde` files.
+- **README**: added a "Getting a Release" section (download, unzip, run) at the top; split implementation/algorithm details and the build procedure out into a new [DEVELOPMENT.md](DEVELOPMENT.md); fixed a stale `Main Parameters` table (missing `Width`, `Height` renamed from the actual `HeightRatio` field) and removed a reference to a `DrawingGenerator.pde` file that no longer exists.
+- **`.gitignore`**: ignore `build_*/` and `releases/` (generated build output).
 
 ### 2026-05-10
 - **README**: initial documentation.
@@ -211,4 +205,3 @@ When `intersection` is enabled, lines are processed front-to-back. At each X col
 
 ### 2021-02-14
 - First commit (ported from older project).
-
