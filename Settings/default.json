@@ -1,13 +1,15 @@
 {
   "Style": {
     "backgroundColor": -16777216,
-    "lineColor": -1,
+    "lineColor": -5327169,
     "lineWidth": 0.550000011920929
   },
   "Page": {
+    "clip_landscape": false,
     "clipping": false,
     "clip_width": 0,
     "margin": 0,
+    "clip_aspect_ratio": 0,
     "clip_height": 0,
     "paper_format": 2,
     "global_scale": 1
@@ -16,13 +18,14 @@
     "moveSpeed_X": 0.8333333730697632,
     "max_override": 5,
     "seed": 38156164,
+    "HeightRatio": 0.5266667008399963,
     "NoiseFalloff": 0.6233333349227905,
     "intersection": true,
     "NoiseLod": 5,
     "NbLines": 174,
-    "HeightRatio": 0.5266667008399963,
     "moveSpeed_Y": 0.5266667008399963,
-    "XSteps": 376
+    "XSteps": 376,
+    "Width": 1200
   },
   "Layers": {
     "nb_items": 2,
